@@ -1,4 +1,4 @@
-import { BASE_URL } from "../../config";
+import { BASE_URL } from "@/settings";
 
 export const DEFAULT_SEO = {
   title: "GamingDex",

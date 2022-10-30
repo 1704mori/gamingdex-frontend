@@ -1,5 +1,5 @@
+import { BASE_URL } from "@/settings";
 import { NextSeo } from "next-seo";
-import { BASE_URL } from "../../settings";
 
 export function SEO({
   title,
