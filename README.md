@@ -1,0 +1,1 @@
+limitar numero de developers, publishers, reviews, e etc ao carregar a pagina do jogo direto na requisicao
