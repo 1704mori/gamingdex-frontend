@@ -10,33 +10,18 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: {
-          100: "#69c0ff",
-          200: "#40a9ff",
-          300: "#1890ff",
-        },
-        green: {
-          100: "#00e69d",
-          200: "#00d08c",
-          300: "#00ba7c",
-        },
-        red: {
-          100: "#e53935",
-          200: "#d32f2f",
-          300: "#ef5350",
-        },
-        gray: {
-          50: "#f9fafb",
-          100: "#f7fafc",
-          150: "#edf2f7",
-          200: "#e2e8f0",
-          300: "#cbd5e0",
-          400: "#4f4f4f",
-          450: "#4d4d4d",
-          500: "#2c2c2c",
-          600: "#191a1c",
-        },
-        ...colors,
+        background: "var(--background)",
+        accent: "var(--accent)",
+        "accent-light": "var(--accent-light)",
+        "accent-light2": "var(--accent-light2)",
+        "accent-dark": "var(--accent-dark)",
+        "accent-dark2": "var(--accent-dark2)",
+        primary: "var(--primary)",
+        "primary-light": "var(--primary-light)",
+        "primary-light2": "var(--primary-light2)",
+        "primary-dark": "var(--primary-dark)",
+        "primary-dark2": "var(--primary-dark2)",
+        text: "var(--text)",
       },
       boxShadow: {
         ichi: `2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
@@ -57,6 +42,9 @@ module.exports = {
         0 22.3px 17.9px rgba(0, 0, 0, 0.072),
         0 41.8px 33.4px rgba(0, 0, 0, 0.086),
         0 10px 5px rgba(0, 0, 0, 0.12)`,
+      },
+      screens: {
+        xsm: "320px",
       },
     },
   },

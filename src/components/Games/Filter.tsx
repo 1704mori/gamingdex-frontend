@@ -57,7 +57,7 @@ export default function Filter() {
                 <Tippy
                   placement="bottom"
                   content="Grid"
-                  className="!bg-primary-300 [&>.tippy-arrow]:!text-primary-300"
+                  className="!bg-primary [&>.tippy-arrow]:!text-primary"
                 >
                   <Button
                     icon={<ViewGrid />}
@@ -77,7 +77,7 @@ export default function Filter() {
                 <Tippy
                   placement="bottom"
                   content="List"
-                  className="!bg-primary-300 [&>.tippy-arrow]:!text-primary-300"
+                  className="!bg-primary [&>.tippy-arrow]:!text-primary"
                 >
                   <Button
                     icon={<List />}

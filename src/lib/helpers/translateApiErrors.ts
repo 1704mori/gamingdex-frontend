@@ -5,7 +5,6 @@ const MESSAGES: {
 };
 
 export const getErrorMessage = (err: { message: string; error: string }) => {
-  console.log('err', err)
   return (
     MESSAGES[err?.error] ?? err?.error ?? err?.message ?? "Unknown error"
   );

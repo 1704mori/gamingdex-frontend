@@ -34,7 +34,6 @@ export default function Login() {
       password: data.password,
     }).then((res) => {
       if (res?.error) {
-        console.log(res)
         notification.add(getErrorMessage(res as any), "error");
       }
     });

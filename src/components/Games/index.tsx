@@ -46,7 +46,7 @@ export default function Games() {
   );
 
   return (
-    <div className="flex flex-col gap-3 lg:max-w-5xl lg:m-auto w-full px-5 lg:px-0">
+    <div className="flex flex-col gap-3 lg:max-w-5xl w-full px-5 lg:px-0 mb-auto">
       <h3 className="text-2xl font-medium">Advanced Search</h3>
       <div className="flex flex-col gap-3">
         <div className="flex justify-between items-center gap-3 w-full">
@@ -67,7 +67,7 @@ export default function Games() {
             </span>
           )}
         </>
-        {!games?.data.length && (
+        {!isLoading && !games?.data.length && (
           <div className="flex flex-col items-center justify-center gap-2">
             <Search />
             <span className="font-medium text-base mx-auto">
@@ -88,7 +88,7 @@ export default function Games() {
                     />
                   </Link>
                   <div className="flex items-center justify-between absolute opacity-100 top-0 lg:opacity-0 lg:-top-8 group-hover:opacity-100 group-hover:top-0 transition-all ease-in-out w-full px-2 py-1 bg-gradient-to-b from-black/75 to-transparent rounded-t-lg">
-                    <div className="inline-flex justify-center items-center text-xs w-6 h-6 bg-primary-300/90 rounded-full cursor-pointer">
+                    <div className="inline-flex justify-center items-center text-xs w-6 h-6 bg-primary/90 rounded-full cursor-pointer">
                       {game?.score ?? "?"}
                     </div>
 
@@ -116,7 +116,7 @@ export default function Games() {
               </div>
             ))}
         </div>
-        {!error && (games && games.data.length > 0) && (
+        {!error && games && games.data.length > 0 && (
           <Pagination
             total={games?.pagination.total as number}
             onPageClick={setOffset}
@@ -127,13 +127,3 @@ export default function Games() {
     </div>
   );
 }
-
-// Games.getLayout = function getLayout(children: any) {
-//   return (
-//     <div className="flex flex-col mt-16 lg:mt-40">
-//       <Navbar />
-//       {children}
-//       <Footer />
-//     </div>
-//   );
-// };

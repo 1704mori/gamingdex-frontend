@@ -7,6 +7,7 @@ export interface IPagination {
 
 export interface IApiResponse<T = any> {
   data: T;
+  result: "ok" | "error";
   pagination: IPagination;
 }
 

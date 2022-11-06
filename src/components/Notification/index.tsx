@@ -154,7 +154,7 @@ const NotificationProvider = (props: NotificationProps) => {
                 className={classes(
                   "flex items-center justify-between notification",
                   notification.type === "success" && "!bg-green-300",
-                  notification.type === "info" && "!bg-primary-300",
+                  notification.type === "info" && "!bg-primary",
                   notification.type === "error" && "!bg-red-300"
                 )}
                 key={notification.id}

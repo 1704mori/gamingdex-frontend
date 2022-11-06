@@ -1,6 +1,7 @@
 import { CDN_URL } from "../../settings";
 import { AxiosResponse } from "axios";
 import { IGame } from "../types/game";
+import { ElementType, Attributes, ReactElement, createElement } from "react";
 
 /**
  * Returns only truthy classes given.
@@ -106,4 +107,25 @@ export function pluralize(value: string, count: number) {
 
 export function buildGameUrl(game: IGame, asUUID = false) {
   return `/game/${asUUID ? game.id : game.urlId}/${game.slug}`;
+}
+
+/**
+ *
+ * @param type Type of the element or component.
+ * @param className
+ * @returns A React element.
+ */
+
+export function styled<P extends Record<string, unknown>>(
+  type: ElementType | keyof JSX.IntrinsicElements,
+  ...className: string[]
+): (
+  props?: (Attributes & P & { className?: string }) | null
+) => ReactElement<P> {
+  return function Classed(props) {
+    return createElement(type, {
+      ...props,
+      className: classes(props?.className, ...className),
+    });
+  };
 }

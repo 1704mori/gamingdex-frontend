@@ -1,19 +1,18 @@
 "use client";
 
-import { classes } from "@/lib/helpers/common";
-import { Menu, ArrowDown, Droplet } from "iconoir-react";
+import { Menu, ArrowDown, Search } from "iconoir-react";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { ROUTES } from "../../lib/helpers/consts";
 import Dropdown from "../Dropdown";
-import Avatar from "../Avatar";
-import Switch from "../Switch";
 import { TbDeviceGamepad } from "react-icons/tb";
 import { AiOutlineHome } from "react-icons/ai";
-import { useSession } from "next-auth/react";
 import UserDropdown from "./UserDropdown";
+import Input from "../Input";
+import { classes } from "@/lib/helpers/common";
+import useClickOutside from "@/lib/hooks/useClickOutside";
 
 const variants = {
   open: {
@@ -31,77 +30,85 @@ const variants = {
   },
 };
 
-function MobileNavbar({ open }: { open: boolean }) {
-  return (
-    <motion.div
-      className="flex flex-col gap-5 w-11/12 absolute top-[4rem] left-2/4 mobile-menu shadow-san"
-      animate={open ? "open" : "closed"}
-      variants={variants}
-    >
-      <Link href={ROUTES.home} className="flex items-center gap-2">
-        <AiOutlineHome size="1.7em" />
-        Games
-      </Link>
-      <Link href={ROUTES.explore.games} className="flex items-center gap-2">
-        <TbDeviceGamepad size="1.7em" />
-        Games
-      </Link>
-    </motion.div>
-  );
-}
-
 export default function Navbar() {
-  const [mounted, setMounted] = useState(false);
   const [open, setOpen] = useState(false);
-  const avatarRef = useRef<HTMLDivElement>(null);
 
-  const { data: session, status } = useSession();
-  const isDesktopOrLaptop = useMediaQuery({
-    query: "(min-device-width: 1224px)",
-  });
-  const isMd = useMediaQuery({ query: "(min-width: 768px)" });
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
 
-  // useClickOutside(avatarRef, () => setOpen(false));
+  useClickOutside(mobileMenuRef, () => setOpen(false));
 
   return (
-    <div className="w-full h-16 fixed left-0 top-0 select-none flex justify-center z-50 bg-gray-200 dark:bg-gray-500">
-      <div className="flex items-center justify-between sm:justify-center gap-5 max-w-5xl navbar">
-        <div className="flex items-center">
-          <Link href={ROUTES.home} className="flex items-center">
-            <img className="w-8 h-16 mt-0.5" src="/logo_mini.svg" alt="Mini" />
-            <img
-              className={classes("w-20 h-16", !isDesktopOrLaptop && "hidden")}
-              src="/logo_name.svg"
-              alt="Name"
-            />
-          </Link>
-          <motion.button
-            animate={{ rotate: open ? 180 : 0 }}
-            className="md:hidden"
-            onClick={() => setOpen(!open)}
+    <div className="w-full h-16 fixed left-0 top-0 select-none flex items-center justify-center z-50 bg-accent">
+      <div className="flex items-center gap-3 max-w-2xl" ref={mobileMenuRef}>
+        <Link href={ROUTES.home} className="flex items-center">
+          <img className="w-8 h-16 mt-0.5" src="/logo_mini.svg" alt="Mini" />
+          <img
+            className={classes("w-20 h-16", "hidden lg:block")}
+            src="/logo_name.svg"
+            alt="Name"
+          />
+        </Link>
+
+        <motion.button
+          animate={{ rotate: open ? 180 : 0 }}
+          className="md:hidden"
+          onClick={() => setOpen(!open)}
+        >
+          {open ? <ArrowDown /> : <Menu />}
+        </motion.button>
+
+        <div className="hidden items md:flex items-center gap-3 ml-5 font-medium">
+          <Link href={ROUTES.home}>Home</Link>
+          <Dropdown
+            label="Explore"
+            className="remove-dropdown-bg"
+            width="250px"
           >
-            {open ? <ArrowDown /> : <Menu />}
-          </motion.button>
-          {isMd ? (
-            <div className="items flex items-center gap-3 ml-5">
-              <Link href={ROUTES.home}>Home</Link>
-              <Dropdown
-                label="Explore"
-                className="remove-dropdown-bg"
-                width="250px"
+            <Dropdown.Item>
+              <Link
+                href={ROUTES.explore.games}
+                className="flex items-center justify-center gap-2"
               >
-                <Dropdown.Item>
-                  <Link href={ROUTES.explore.games} className="flex items-center justify-center gap-2">
-                    <TbDeviceGamepad size="1.5em" />
-                    Games
-                  </Link>
-                </Dropdown.Item>
-              </Dropdown>
-            </div>
-          ) : (
-            <MobileNavbar open={open} />
-          )}
+                <TbDeviceGamepad size="1.5em" />
+                Games
+              </Link>
+            </Dropdown.Item>
+          </Dropdown>
         </div>
+
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              className="lg:hidden flex flex-col gap-5 w-11/12 absolute top-[4.5rem] rounded-lg left-2/4 bg-accent py-4 px-6 shadow-san font-medium"
+              animate={open ? "open" : "closed"}
+              variants={variants}
+            >
+              <Link href={ROUTES.home} className="flex items-center gap-2">
+                <AiOutlineHome size="1.7em" />
+                Home
+              </Link>
+              <Link
+                href={ROUTES.explore.games}
+                className="flex items-center gap-2"
+              >
+                <TbDeviceGamepad size="1.7em" />
+                Games
+              </Link>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <Input
+          className="!hidden lg:!flex !w-64"
+          fit={false}
+          icon={<Search />}
+          placeholder="Search"
+          disabled
+        />
+
+        <button className="lg:hidden">
+          <Search />
+        </button>
 
         <UserDropdown />
       </div>

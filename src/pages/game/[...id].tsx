@@ -77,12 +77,12 @@ export default function GamePage({ game }: { game: IGame }) {
   return <Game game={game} />;
 }
 
-GamePage.getLayout = function getLayout(children: any) {
-  return (
-    <div className="flex flex-col mt-16 lg:mt-40">
-      <Navbar />
-      {children}
-      <Footer />
-    </div>
-  );
-};
+// GamePage.getLayout = function getLayout(children: any) {
+//   return (
+//     <div className="flex flex-col mt-16 lg:mt-40">
+//       <Navbar />
+//       {children}
+//       <Footer />
+//     </div>
+//   );
+// };

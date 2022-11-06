@@ -33,7 +33,7 @@ export default function Pagination(props: Props) {
         <div
           className={classes(
             "flex items-center justify-center w-min min-w-[2rem] h-8 p-2 m-1 font-medium cursor-pointer rounded-full transition-colors",
-            number === currentPage && "bg-primary-300",
+            number === currentPage && "bg-primary",
             number !== currentPage && "hover:bg-gray-150 dark:hover:bg-gray-450"
           )}
           key={index}

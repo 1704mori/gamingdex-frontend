@@ -4,9 +4,15 @@ import { forwardRef } from "react";
 type InputProps = {
   icon?: any;
   iconAlign?: "left" | "right";
-  color?: "primary" | "secondary";
+  color?:
+    | "accent"
+    | "accent-light"
+    | "accent-light2"
+    | "accent-dark"
+    | "accent-dark2";
   label?: string;
   errors?: any;
+  fit?: boolean;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
 const Input = forwardRef(({ ...props }: InputProps, forwardRef) => {
@@ -18,22 +24,20 @@ const Input = forwardRef(({ ...props }: InputProps, forwardRef) => {
     pattern,
     color = "primary",
     className,
+    fit = true,
     ...rest
   } = props;
-
-  function getInputColors(color: InputProps["color"] = "primary") {
-    const colors = {
-      primary: "primary",
-      secondary: "secondary",
-    };
-
-    return colors[color];
-  }
 
   const error = errors && errors[props.name as string];
 
   return (
-    <div className="flex flex-col gap-1 input-container relative w-full">
+    <div
+      className={classes(
+        "flex flex-col gap-1 input-container relative",
+        fit && "w-full",
+        className
+      )}
+    >
       {label && (
         <div
           className={`font-medium text-xs ${classes(
@@ -51,7 +55,7 @@ const Input = forwardRef(({ ...props }: InputProps, forwardRef) => {
         {icon && (
           <div
             className={classes(
-              "icon absolute inset-0 w-7 h-7",
+              "icon absolute inset-0 w-7 h-7 top-[calc(50%-0.8em)]",
               iconAlign === "left" && "left-2",
               iconAlign === "right" && "right-2"
             )}
@@ -60,10 +64,11 @@ const Input = forwardRef(({ ...props }: InputProps, forwardRef) => {
           </div>
         )}
         <input
-          className={`${getInputColors(color)} ${classes(
+          className={`$bg-${color} ${classes(
             icon && iconAlign === "left" && "indent-8",
-            className
-          )} input`}
+            className,
+            "w-full h-10 px-3 border border-accent-light2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none focus:outline active:outline outline-primary transition-colors text-text placeholder-text"
+          )}`}
           ref={forwardRef as any}
           {...rest}
         />

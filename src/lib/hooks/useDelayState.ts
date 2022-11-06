@@ -15,15 +15,12 @@ export default function useDelayState({ defaultState, duration }: Props) {
     setState(true);
     setTimeout(() => {
       setState(false);
-			console.log('hi')
     }, startDelay);
   }
 
   useEffect(() => {
     setState(defaultState);
   }, [defaultState]);
-
-	console.log(state)
 
   return [state, setStateWithDelay] as const;
 }

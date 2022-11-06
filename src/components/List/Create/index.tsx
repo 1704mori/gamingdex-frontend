@@ -22,7 +22,7 @@ import Typography from "../../Typography";
 const GameItem = styled(Reorder.Item)`
   transition: background-color var(--transition);
   padding: 0.5rem 1rem;
-  border-radius: var(--border-radius);
+  border-radius: 0.5rem;
   cursor: grab;
 
   &:hover {

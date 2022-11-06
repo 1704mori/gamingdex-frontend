@@ -1,3 +1,4 @@
+import { classes } from "@/lib/helpers/common";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUp } from "iconoir-react";
 import { atom, useAtom } from "jotai";
@@ -12,6 +13,7 @@ interface Props {
   value?: string;
   children?: React.ReactNode;
   clean?: boolean;
+  className?: string;
 }
 
 interface SelectItemProps extends Omit<Props, "value"> {
@@ -36,16 +38,21 @@ const placeholderAtom = atom("Select");
 
 const Select = forwardRef<HTMLDivElement, Props>(
   ({ children, ...props }, ref) => {
-    const { onSelect, placeholder = "Select", value, ...rest } = props;
-    const [placeholderText, setPlaceholderText] = useAtom(placeholderAtom);
+    const { onSelect, placeholder, value, ...rest } = props;
+    const [placeholderText, setPlaceholderText] = useState(placeholder || "Select");
     const [isOpen, setIsOpen] = useState(false);
     const _ref = useRef<HTMLDivElement>(ref as any);
 
     useEffect(() => {
       if (rest.clean) {
-        setPlaceholderText("Select");
+        setPlaceholderText(placeholder || "Select");
+        return;
       }
-    }, [rest.clean, setPlaceholderText]);
+
+      if (placeholder) {
+        setPlaceholderText(placeholder);
+      }
+    }, [rest.clean, setPlaceholderText, placeholder]);
 
     useEffect(() => {
       if (value) {
@@ -82,7 +89,7 @@ const Select = forwardRef<HTMLDivElement, Props>(
     });
 
     return (
-      <div className="flex flex-col gap-1 select-none">
+      <div className={classes("flex flex-col gap-1 select-none", props.className)}>
         {props.label && (
           <Typography className="!text-xs uppercase" thickness={3}>
             {props.label}

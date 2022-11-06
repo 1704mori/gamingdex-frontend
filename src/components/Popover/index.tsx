@@ -1,3 +1,4 @@
+import { classes } from "@/lib/helpers/common";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 
@@ -6,10 +7,11 @@ interface Props {
   text: string;
   children?: React.ReactNode;
   placement?: "top" | "bottom" | "left" | "right";
+  className?: string
 }
 
 export default function Popover(props: Props) {
-  const { visible = false, text, children, placement = "top" } = props;
+  const { visible = false, text, children, placement = "top", className } = props;
 
 	console.log("Popover props", props)
 
@@ -36,7 +38,7 @@ export default function Popover(props: Props) {
     <div
       // onMouseEnter={handleMouseEnter}
       // onMouseLeave={handleMouseLeave}
-      className="relative"
+      className={classes("relative", className)}
     >
       {children}
       <AnimatePresence>
@@ -54,7 +56,7 @@ export default function Popover(props: Props) {
                 : placement === "left"
                 ? "right-full"
                 : "left-full top-1/2 -translate-y-1/2"
-            } absolute z-10 p-2 bg-gray-800 text-white rounded-lg shadow-md whitespace-nowrap`}
+            } absolute z-10 p-2 bg-primary text-white rounded-lg shadow-md whitespace-nowrap`}
           >
             {text}
           </motion.div>
