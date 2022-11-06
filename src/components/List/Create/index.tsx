@@ -212,7 +212,7 @@ export default function Create() {
           </button>
         </div>
         <div className="grid grid-cols-2 gap-3">
-          <Button outlined color="danger" onClick={() => setStep(2)}>
+          <Button color="accent" onClick={() => setStep(2)}>
             Cancel
           </Button>
           <Button onClick={() => handleStep(2)}>Create</Button>
@@ -237,9 +237,7 @@ export default function Create() {
             onChange={setDescription}
           />
           <div className="flex items-center justify-end gap-2">
-            <Button outlined color="danger">
-              Cancel
-            </Button>
+            <Button color="accent">Cancel</Button>
             <Button onClick={handleSubmitDescription}>Save</Button>
           </div>
         </div>
@@ -394,7 +392,7 @@ export default function Create() {
           )}
         </div>
         <div className="grid grid-cols-2 gap-3">
-          <Button outlined color="danger">
+          <Button color="accent">
             <Typography>Cancel</Typography>
           </Button>
           <Button type="submit">
