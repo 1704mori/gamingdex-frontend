@@ -8,6 +8,7 @@ import { ROUTES } from "@/lib/helpers/consts";
 import { Discord } from "iconoir-react";
 import { useNotification } from "@/components/Notification";
 import { getErrorMessage } from "@/lib/helpers/translateApiErrors";
+import Link from "next/link";
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -81,13 +82,8 @@ export default function Login() {
       </Button>
       <span>
         Don{"'"}t have an account?{" "}
-        <Button
-          className="text-primary-200"
-          as="anchor"
-          href={ROUTES.register}
-          styles="text"
-        >
-          Sign up
+        <Button className="text-primary" asChild>
+          <Link href={ROUTES.register}>Register</Link>
         </Button>
       </span>
     </form>

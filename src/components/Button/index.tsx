@@ -1,10 +1,12 @@
 import { classes } from "@/lib/helpers/common";
+import { Slot } from "@radix-ui/react-slot";
 import React, { forwardRef } from "react";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   color?: "primary" | "pink" | "accent" | "accent-light" | "accent-light2";
   size?: "small" | "medium" | "large";
   rounded?: boolean;
+  asChild?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = forwardRef<
@@ -16,14 +18,16 @@ const Button: React.FC<ButtonProps> = forwardRef<
       color = "primary",
       size = "medium",
       rounded = false,
+      asChild,
       className,
-      children,
       ...props
     },
     ref
   ) => {
+    const Component = asChild ? Slot : "button";
+
     return (
-      <button
+      <Component
         ref={ref}
         className={classes(
           `inline-flex items-center justify-center bg-${
@@ -43,9 +47,7 @@ const Button: React.FC<ButtonProps> = forwardRef<
           className
         )}
         {...props}
-      >
-        {children}
-      </button>
+      />
     );
   }
 );
