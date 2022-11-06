@@ -51,10 +51,12 @@ export default function ReviewModal({
           <div className="flex flex-col gap-1 sm:flex-row items-center justify-between w-full">
             <Typography thickness={3}>Overall Score: 8</Typography>
             <div className="grid grid-cols-2 gap-3 mx-auto">
-              <Button color="accent" icon={<ThumbsUp />}>
+              <Button color="accent">
+                <ThumbsUp />
                 1.5k
               </Button>
-              <Button color="accent" icon={<ThumbsDown />}>
+              <Button color="accent">
+                <ThumbsDown />
                 1.5k
               </Button>
             </div>

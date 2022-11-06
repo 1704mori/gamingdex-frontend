@@ -51,11 +51,8 @@ export default function Login() {
         </h4>
       </div>
 
-      <Button
-        color="transparent"
-        className="w-full !border !border-gray-400"
-        icon={<Discord />}
-      >
+      <Button className="transparent w-full !border !border-accent-light">
+        <Discord />
         Discord
       </Button>
 
@@ -66,14 +63,14 @@ export default function Login() {
       </div>
 
       <Input
-        color="secondary"
+        color="accent"
         label="email"
         {...register("email")}
         errors={errors}
       />
       <Input
         type="password"
-        color="secondary"
+        color="accent"
         label="password"
         {...register("password")}
         errors={errors}

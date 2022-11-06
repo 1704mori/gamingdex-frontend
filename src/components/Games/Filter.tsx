@@ -18,11 +18,10 @@ export default function Filter() {
   return (
     <div className="relative z-50 select-none" ref={filterRef}>
       <Button
-        color="transparent"
-        icon={<FilterIcon />}
         onClick={() => setShowFilters(!showFilters)}
-        className="relative"
+        className="!bg-transparent !border-none relative"
       >
+        <FilterIcon />
         Filter
         {filters && Object.values(filters).filter((f) => !!f).length > 0 && (
           <span className="badge">
@@ -60,11 +59,8 @@ export default function Filter() {
                   className="!bg-primary [&>.tippy-arrow]:!text-primary"
                 >
                   <Button
-                    icon={<ViewGrid />}
                     rounded
-                    color={
-                      filters?.display === "grid" ? "primary" : "secondary"
-                    }
+                    color={filters?.display === "grid" ? "primary" : "accent"}
                     onClick={() => {
                       if (filters?.display === "grid") {
                         setFilters({ ...filters, display: null });
@@ -72,7 +68,9 @@ export default function Filter() {
                       }
                       setFilters({ ...filters, display: "grid" });
                     }}
-                  />
+                  >
+                    <ViewGrid />
+                  </Button>
                 </Tippy>
                 <Tippy
                   placement="bottom"
@@ -80,11 +78,8 @@ export default function Filter() {
                   className="!bg-primary [&>.tippy-arrow]:!text-primary"
                 >
                   <Button
-                    icon={<List />}
                     rounded
-                    color={
-                      filters?.display === "list" ? "primary" : "secondary"
-                    }
+                    color={filters?.display === "list" ? "primary" : "accent"}
                     onClick={() => {
                       if (filters?.display === "list") {
                         setFilters({ ...filters, display: null });
@@ -92,7 +87,9 @@ export default function Filter() {
                       }
                       setFilters({ ...filters, display: "list" });
                     }}
-                  />
+                  >
+                    <List />
+                  </Button>
                 </Tippy>
               </div>
             </div>
