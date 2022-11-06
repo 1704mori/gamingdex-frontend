@@ -3,13 +3,11 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
-import Image from "next/image";
 import Link from "next/link";
-import { buildGameUrl, displayImage } from "../../../lib/helpers/common";
-import { userService } from "../../../lib/services/user";
 import { Heart } from "iconoir-react";
-import Typography from "../../Typography";
 import Button from "../../Button";
+import { userService } from "@/lib/services/user";
+import { buildGameUrl, displayImage } from "@/lib/helpers/common";
 
 dayjs.extend(relativeTime);
 dayjs.extend(utc);
@@ -46,19 +44,19 @@ export default function Activities() {
         <div className="flex flex-col gap-3">
           {data.pages.map((page, i) => (
             <div
-              className="activities grid grid-cols-1 lg:grid-cols-2 gap-3 "
+              className="activities flex overflow-x-auto lg:grid lg:grid-cols-2 gap-3 py-1"
               key={i}
             >
               {page?.data && page.data.data.length > 0 ? (
                 page?.data.data.map((activity) => (
                   // <Activity className="flex" key={activity.id}></Activity>
                   <div
-                    className="activity flex flex-col lg:flex-row"
+                    className="activity flex flex-col lg:flex-row bg-accent rounded-lg"
                     key={activity.id}
                   >
-                    <Link href={buildGameUrl(activity.game)} className="h-full">
+                    <Link href={buildGameUrl(activity.game)} className="game-cover-link">
                       <img
-                        className="object-cover game-cover"
+                        className="w-full h-24 object-cover game-cover rounded-lg rounded-b-none"
                         src={displayImage(activity.game.cover)}
                         alt={activity.game.title}
                       />
@@ -90,12 +88,9 @@ export default function Activities() {
                         </div>
                         <div className="gap-1 flex md:items-center justify-between">
                           <div className="text-sm flex gap-1 mt-auto max-w-[11rem] lg:max-w-[25rem] truncate">
-                            <Typography
-                              className="!text-sm"
-                              style={{ opacity: 0.9 }}
-                            >
+                            <span className="text-sm" style={{ opacity: 0.9 }}>
                               {activity.action}
-                            </Typography>
+                            </span>
                             <Link href={buildGameUrl(activity.game)}>
                               <span className="font-medium">
                                 {activity.game.title}
@@ -116,9 +111,7 @@ export default function Activities() {
                             /> */}
                               <Heart width="1.2em" height="1.2em" />
                             </button>
-                            <Typography className="!text-sm" thickness={3}>
-                              157
-                            </Typography>
+                            <span className="text-sm font-medium">157</span>
                           </div>
                         </div>
                       </div>
@@ -127,10 +120,10 @@ export default function Activities() {
                   </div>
                 ))
               ) : (
-                <Typography thickness={3}>
+                <span className="font-medium">
                   How sad, we {"didn't"} find any activity yet, be the first to
                   add one! \^o^/
-                </Typography>
+                </span>
               )}
             </div>
           ))}
