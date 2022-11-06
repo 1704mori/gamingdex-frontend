@@ -112,6 +112,16 @@ a {
   color: var(--primary);
 }
 
+.blaze-slider {
+  --slides-to-show: 3;
+}
+
+@media (max-width: 500px) {
+  .blaze-slider {
+    --slides-to-show: 2;
+  }
+}
+
 .react-mde {
   border-radius: 0.5rem !important;
   border: none !important;
