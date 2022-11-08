@@ -37,7 +37,6 @@ import Content from "./Content";
 import Reviews from "./Tabs/Reviews";
 import Characters from "./Tabs/Characters";
 import Staff from "./Tabs/Staff";
-import useAddToPathUrl from "@/lib/hooks/useAddToPathUrl";
 
 export default function Game({ game }: { game: IGame }) {
   const [showDescription, setShowDescription] = useState(false);
@@ -53,8 +52,6 @@ export default function Game({ game }: { game: IGame }) {
     duration: 2000,
     exitState: false,
   });
-
-  const [url, setUrl] = useAddToPathUrl();
 
   const { data: session } = useSession();
 
@@ -344,39 +341,57 @@ export default function Game({ game }: { game: IGame }) {
           <div className="flex items-center gap-3">
             <Button
               type="button"
-              color={url === buildGameUrl(game) ? "primary" : "accent"}
+              color={
+                router.asPath === buildGameUrl(game) ? "primary" : "accent"
+              }
               size="medium"
-              onClick={() => setUrl(buildGameUrl(game))}
+              onClick={() => {
+                router.push(buildGameUrl(game), undefined, {
+                  shallow: true,
+                });
+              }}
             >
               Overview
             </Button>
             <Button
               type="button"
-              color={url.includes("characters") ? "primary" : "accent"}
+              color={router.query.tab === "characters" ? "primary" : "accent"}
               size="medium"
-              onClick={() => setUrl(`${buildGameUrl(game)}/characters`)}
+              onClick={() => {
+                router.push({
+                  query: { ...router.query, tab: "characters" },
+                });
+              }}
             >
               Characters
             </Button>
             <Button
               size="medium"
               type="button"
-              color={url.includes("staff") ? "primary" : "accent"}
-              onClick={() => setUrl(`${buildGameUrl(game)}/staff`)}
+              color={router.query.tab === "staff" ? "primary" : "accent"}
+              onClick={() => {
+                router.push({
+                  query: { ...router.query, tab: "staff" },
+                });
+              }}
             >
               Staff
             </Button>
             <Button
               size="medium"
               type="button"
-              color={url.includes("reviews") ? "primary" : "accent"}
-              onClick={() => setUrl(`${buildGameUrl(game)}/reviews`)}
+              color={router.query.tab === "reviews" ? "primary" : "accent"}
+              onClick={() => {
+                router.push({
+                  query: { ...router.query, tab: "reviews" },
+                });
+              }}
             >
               Reviews
             </Button>
           </div>
 
-          {url == buildGameUrl(game) && (
+          {!router.query?.tab && (
             <div className="flex flex-col mt-3">
               <div className="flex flex-col gap-1">
                 <h4 className="font-bold text-xl">History</h4>
@@ -407,9 +422,9 @@ export default function Game({ game }: { game: IGame }) {
             </div>
           )}
 
-          {url.includes("characters") && <Characters game={game} />}
-          {url.includes("staff") && <Staff game={game} />}
-          {url.includes("reviews") && <Reviews game={game} />}
+          {router.query.tab === "characters" && <Characters game={game} />}
+          {router.query.tab === "staff" && <Staff game={game} />}
+          {router.query.tab === "reviews" && <Reviews game={game} />}
         </div>
       </div>
     </div>
