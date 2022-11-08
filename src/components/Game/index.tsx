@@ -37,7 +37,7 @@ import Content from "./Content";
 import Reviews from "./Tabs/Reviews";
 import Characters from "./Tabs/Characters";
 import Staff from "./Tabs/Staff";
-import Link from "next/link";
+import useAddToPathUrl from "@/lib/hooks/useAddToPathUrl";
 
 export default function Game({ game }: { game: IGame }) {
   const [showDescription, setShowDescription] = useState(false);
@@ -53,6 +53,8 @@ export default function Game({ game }: { game: IGame }) {
     duration: 2000,
     exitState: false,
   });
+
+  const [url, setUrl] = useAddToPathUrl();
 
   const { data: session } = useSession();
 
@@ -316,7 +318,7 @@ export default function Game({ game }: { game: IGame }) {
             <Button
               color="accent"
               className="!bg-accent-light2 hover:!bg-accent-light"
-              onClick={handleAddToMyList}
+              onClick={setShowListModal}
             >
               <PlaylistAdd width="1.58em" height="1.58em" />
               Add to list
@@ -342,65 +344,39 @@ export default function Game({ game }: { game: IGame }) {
           <div className="flex items-center gap-3">
             <Button
               type="button"
-              color={router.asPath == buildGameUrl(game) ? "primary" : "accent"}
+              color={url === buildGameUrl(game) ? "primary" : "accent"}
               size="medium"
-              onClick={() =>
-                router.push(buildGameUrl(game), `${buildGameUrl(game)}`, {
-                  shallow: true,
-                })
-              }
+              onClick={() => setUrl(buildGameUrl(game))}
             >
               Overview
             </Button>
             <Button
               type="button"
-              color={
-                router.asPath.includes("characters") ? "primary" : "accent"
-              }
+              color={url.includes("characters") ? "primary" : "accent"}
               size="medium"
-              onClick={() =>
-                router.push(
-                  buildGameUrl(game),
-                  `${buildGameUrl(game)}/characters`,
-                  {
-                    shallow: true,
-                  }
-                )
-              }
+              onClick={() => setUrl(`${buildGameUrl(game)}/characters`)}
             >
               Characters
             </Button>
             <Button
               size="medium"
               type="button"
-              color={router.asPath.includes("staff") ? "primary" : "accent"}
-              onClick={() =>
-                router.push(buildGameUrl(game), `${buildGameUrl(game)}/staff`, {
-                  shallow: true,
-                })
-              }
+              color={url.includes("staff") ? "primary" : "accent"}
+              onClick={() => setUrl(`${buildGameUrl(game)}/staff`)}
             >
               Staff
             </Button>
             <Button
               size="medium"
               type="button"
-              color={router.asPath.includes("reviews") ? "primary" : "accent"}
-              onClick={() =>
-                router.push(
-                  buildGameUrl(game),
-                  `${buildGameUrl(game)}/reviews`,
-                  {
-                    shallow: true,
-                  }
-                )
-              }
+              color={url.includes("reviews") ? "primary" : "accent"}
+              onClick={() => setUrl(`${buildGameUrl(game)}/reviews`)}
             >
               Reviews
             </Button>
           </div>
 
-          {router.asPath == buildGameUrl(game) && (
+          {url == buildGameUrl(game) && (
             <div className="flex flex-col mt-3">
               <div className="flex flex-col gap-1">
                 <h4 className="font-bold text-xl">History</h4>
@@ -431,9 +407,9 @@ export default function Game({ game }: { game: IGame }) {
             </div>
           )}
 
-          {router.asPath.includes("characters") && <Characters game={game} />}
-          {router.asPath.includes("staff") && <Staff game={game} />}
-          {router.asPath.includes("reviews") && <Reviews game={game} />}
+          {url.includes("characters") && <Characters game={game} />}
+          {url.includes("staff") && <Staff game={game} />}
+          {url.includes("reviews") && <Reviews game={game} />}
         </div>
       </div>
     </div>
