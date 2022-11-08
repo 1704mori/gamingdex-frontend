@@ -18,11 +18,11 @@ export default function ReviewModal({
   return (
     <Modal
       width="w-full lg:w-1/3"
-      className="max-h-[400px] lg:max-h-[700px] overflow-y-auto !rounded-none"
+      className="max-h-[400px] lg:max-h-[700px] overflow-y-auto !rounded-none !bg-accent"
       modalOpen={reviewModalOpen}
       handleClose={closeReviewModal}
       floatingTop={
-        <div className="flex flex-col lg:flex-row items-center self-start dark:bg-gray-500 bg-gray-200 rounded-lg rounded-b-none w-full mb-1 p-2">
+        <div className="flex flex-col lg:flex-row items-center self-start bg-accent rounded-lg rounded-b-none w-full mb-1 p-2">
           <div className="flex items-center justify-between w-full">
             <div className="flex items-center gap-3">
               <img
@@ -47,15 +47,15 @@ export default function ReviewModal({
         </div>
       }
       floatingBottom={
-        <div className="flex flex-col items-center justify-center dark:bg-gray-500 bg-gray-200 rounded-lg rounded-t-none w-full mt-1 p-2">
+        <div className="flex flex-col items-center justify-center bg-accent rounded-lg rounded-t-none w-full mt-1 p-2">
           <div className="flex flex-col gap-1 sm:flex-row items-center justify-between w-full">
             <Typography thickness={3}>Overall Score: 8</Typography>
             <div className="grid grid-cols-2 gap-3 mx-auto">
-              <Button color="accent">
+              <Button color="accent-light2">
                 <ThumbsUp />
                 1.5k
               </Button>
-              <Button color="accent">
+              <Button color="accent-light2">
                 <ThumbsDown />
                 1.5k
               </Button>

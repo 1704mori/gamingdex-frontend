@@ -1,42 +1,31 @@
 "use client";
 
 import {
-  ArrowDown,
-  Cancel,
   EditPencil,
-  EyeEmpty,
-  EyeOff,
   Heart,
   PlaylistAdd,
   ShareAndroid,
   StarOutline,
-  ThumbsDown,
-  ThumbsUp,
   Trash,
   WhiteFlag,
 } from "iconoir-react";
 import {
+  buildGameUrl,
   classes,
   displayImage,
-  humanize,
   pluralize,
 } from "../../lib/helpers/common";
-import { IGame, IReview } from "../../lib/types/game";
+import { IGame } from "../../lib/types/game";
 import Button from "../Button";
-import Typography from "../Typography";
 import autoAnimate from "@formkit/auto-animate";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { useMediaQuery } from "react-responsive";
 import { getPlatformIcon, getRetailLogo } from "./utils";
 import useDelayState from "@/lib/hooks/useDelayState";
 import Popover from "../Popover";
-import dayjs from "dayjs";
-import Modal, { useModal } from "../Modal";
+import { useModal } from "../Modal";
 import StarRating from "./StarRating";
 import Tippy from "@tippyjs/react";
-import ReviewModal from "./ReviewModal";
 import { useQuery } from "@tanstack/react-query";
 import { gameService } from "@/lib/services/game";
 import ListModal from "./ListModal";
@@ -45,6 +34,10 @@ import { Select, SelectItem } from "../Select";
 import { useSession } from "next-auth/react";
 import { ROUTES } from "@/lib/helpers/consts";
 import Content from "./Content";
+import Reviews from "./Tabs/Reviews";
+import Characters from "./Tabs/Characters";
+import Staff from "./Tabs/Staff";
+import Link from "next/link";
 
 export default function Game({ game }: { game: IGame }) {
   const [showDescription, setShowDescription] = useState(false);
@@ -89,7 +82,7 @@ export default function Game({ game }: { game: IGame }) {
   };
 
   return (
-    <div className="flex max-lg:flex-col w-full max-w-7xl items-start mb-auto lg:mt-12">
+    <div className="flex gap-3 max-lg:flex-col w-full max-w-7xl items-start mb-auto lg:mt-12">
       <ListModal
         closeListModal={closeListModal}
         showListModal={showListModal}
@@ -288,14 +281,24 @@ export default function Game({ game }: { game: IGame }) {
               <Button onClick={handleAddToMyList}>Add to library</Button>
             ) : (
               <div className="flex items-center gap-2 w-full">
-                <Select className="w-full" key="status" onSelect={console.log}>
+                <Select
+                  color="accent-light2"
+                  className="w-full"
+                  key="status"
+                  onSelect={console.log}
+                >
                   <SelectItem value="playing">Playing</SelectItem>
                   <SelectItem value="completed">Completed</SelectItem>
                   <SelectItem value="on_hold">On-hold</SelectItem>
                   <SelectItem value="dropped">Dropped</SelectItem>
                   <SelectItem value="plan_to_play">Plan to play</SelectItem>
                 </Select>
-                <Select placeholder="⭐" key="score" onSelect={console.log}>
+                <Select
+                  color="accent-light2"
+                  placeholder="⭐"
+                  key="score"
+                  onSelect={console.log}
+                >
                   {[...Array(10)].map((_, i) => (
                     <SelectItem key={i} value={i}>
                       {i}
@@ -335,33 +338,102 @@ export default function Game({ game }: { game: IGame }) {
           </div>
         </div>
 
-        <div className="flex flex-col mt-3">
-          <div className="flex flex-col gap-1">
-            <h4 className="font-bold text-xl">History</h4>
-
-            <div
-              className="flex flex-col p-3 bg-accent rounded-lg cursor-pointer"
-              ref={descriptionRef}
-              onClick={toggleDescription}
+        <div className="mt-4">
+          <div className="flex items-center gap-3">
+            <Button
+              type="button"
+              color={router.asPath == buildGameUrl(game) ? "primary" : "accent"}
+              size="medium"
+              onClick={() =>
+                router.push(buildGameUrl(game), `${buildGameUrl(game)}`, {
+                  shallow: true,
+                })
+              }
             >
-              {!showDescription && (
-                <>
-                  <span className="!max-w-xs lg:!max-w-2xl xl:!max-w-3xl truncate">
-                    {game.description}
-                  </span>
-                  <span className="font-medium">Show more</span>
-                </>
-              )}
-              {showDescription && (
-                <>
-                  <span>{game.description}</span>
-                  <span className="font-medium">Show less</span>
-                </>
-              )}
-            </div>
+              Overview
+            </Button>
+            <Button
+              type="button"
+              color={
+                router.asPath.includes("characters") ? "primary" : "accent"
+              }
+              size="medium"
+              onClick={() =>
+                router.push(
+                  buildGameUrl(game),
+                  `${buildGameUrl(game)}/characters`,
+                  {
+                    shallow: true,
+                  }
+                )
+              }
+            >
+              Characters
+            </Button>
+            <Button
+              size="medium"
+              type="button"
+              color={router.asPath.includes("staff") ? "primary" : "accent"}
+              onClick={() =>
+                router.push(buildGameUrl(game), `${buildGameUrl(game)}/staff`, {
+                  shallow: true,
+                })
+              }
+            >
+              Staff
+            </Button>
+            <Button
+              size="medium"
+              type="button"
+              color={router.asPath.includes("reviews") ? "primary" : "accent"}
+              onClick={() =>
+                router.push(
+                  buildGameUrl(game),
+                  `${buildGameUrl(game)}/reviews`,
+                  {
+                    shallow: true,
+                  }
+                )
+              }
+            >
+              Reviews
+            </Button>
           </div>
 
-          <Content key="content" game={game} />
+          {router.asPath == buildGameUrl(game) && (
+            <div className="flex flex-col mt-3">
+              <div className="flex flex-col gap-1">
+                <h4 className="font-bold text-xl">History</h4>
+
+                <div
+                  className="flex flex-col p-3 bg-accent rounded-lg cursor-pointer"
+                  ref={descriptionRef}
+                  onClick={toggleDescription}
+                >
+                  {!showDescription && (
+                    <>
+                      <span className="!max-w-xs lg:!max-w-2xl xl:!max-w-3xl truncate">
+                        {game.description}
+                      </span>
+                      <span className="font-medium">Show more</span>
+                    </>
+                  )}
+                  {showDescription && (
+                    <>
+                      <span>{game.description}</span>
+                      <span className="font-medium">Show less</span>
+                    </>
+                  )}
+                </div>
+              </div>
+
+              <Content key="content" game={game} />
+            </div>
+          )}
+
+          {router.asPath.includes("characters") && <Characters game={game} />}
+          {router.asPath.includes("staff") && <Staff game={game} />}
+          {router.asPath.includes("reviews") && <Reviews game={game} />}
         </div>
       </div>
     </div>

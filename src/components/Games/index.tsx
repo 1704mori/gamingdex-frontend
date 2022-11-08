@@ -88,13 +88,13 @@ export default function Games() {
                     />
                   </Link>
                   <div className="flex items-center justify-between absolute opacity-100 top-0 lg:opacity-0 lg:-top-8 group-hover:opacity-100 group-hover:top-0 transition-all ease-in-out w-full px-2 py-1 bg-gradient-to-b from-black/75 to-transparent rounded-t-lg">
-                    <div className="inline-flex justify-center items-center text-xs w-6 h-6 bg-primary/90 rounded-full cursor-pointer">
+                    <div className="inline-flex justify-center items-center text-xs w-6 h-6 bg-primary rounded-full cursor-pointer">
                       {game?.score ?? "?"}
                     </div>
 
                     <div
                       onClick={() => alert("alo")}
-                      className="inline-flex justify-center items-center w-6 h-6 bg-gray-300/90 dark:bg-gray-600/90 border border-gray-150 dark:border-gray-450 rounded-full cursor-pointer"
+                      className="inline-flex justify-center items-center w-6 h-6 bg-accent border border-accent-light2 rounded-full cursor-pointer"
                     >
                       <Plus width="1.3em" />
                     </div>

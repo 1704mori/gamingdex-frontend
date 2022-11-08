@@ -19,6 +19,7 @@ export default function Filter() {
     <div className="relative z-50 select-none" ref={filterRef}>
       <Button
         onClick={() => setShowFilters(!showFilters)}
+        color="accent"
         className="!bg-transparent !border-none relative"
       >
         <FilterIcon />
@@ -37,7 +38,7 @@ export default function Filter() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-12 right-0 flex flex-col gap-3 bg-gray-200 dark:bg-gray-500 rounded-lg px-5 py-3 min-w-[250px] shadow-ni"
+            className="absolute top-12 right-0 flex flex-col gap-3 bg-accent rounded-lg px-5 py-3 min-w-[250px] shadow-ni"
           >
             <div className="flex flex-col gap-1">
               <div className="flex justify-between items-center">
@@ -60,7 +61,9 @@ export default function Filter() {
                 >
                   <Button
                     rounded
-                    color={filters?.display === "grid" ? "primary" : "accent"}
+                    color={
+                      filters?.display === "grid" ? "primary" : "accent-light2"
+                    }
                     onClick={() => {
                       if (filters?.display === "grid") {
                         setFilters({ ...filters, display: null });
@@ -79,7 +82,9 @@ export default function Filter() {
                 >
                   <Button
                     rounded
-                    color={filters?.display === "list" ? "primary" : "accent"}
+                    color={
+                      filters?.display === "list" ? "primary" : "accent-light2"
+                    }
                     onClick={() => {
                       if (filters?.display === "list") {
                         setFilters({ ...filters, display: null });
@@ -99,6 +104,7 @@ export default function Filter() {
 
               <div className="flex flex-col gap-2">
                 <Select
+                  color="accent-light2"
                   onSelect={(value) => {
                     setFilters({
                       ...filters,
