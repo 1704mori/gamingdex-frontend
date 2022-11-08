@@ -11,7 +11,7 @@ export default function Layout({ children }: any) {
         {children}
       </main>
       {/* <Footer /> */}
-      <footer className="flex flex-1 py-8 border-t border-gray-300/30 justify-between items-center">
+      <footer className="flex flex-1 py-8 mt-12 border-t border-gray-300/30 justify-between items-center">
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
           target="_blank"

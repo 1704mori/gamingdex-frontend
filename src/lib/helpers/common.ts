@@ -129,3 +129,13 @@ export function styled<P extends Record<string, unknown>>(
     });
   };
 }
+
+export const addPathToUrl = (path: string) => {
+  window.history.replaceState(
+    { ...window.history.state, as: path, url: path },
+    "",
+    path
+  );
+
+  return true;
+};

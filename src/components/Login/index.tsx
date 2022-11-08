@@ -5,10 +5,10 @@ import { useForm } from "react-hook-form";
 import Input from "../Input";
 import Button from "../Button";
 import { ROUTES } from "@/lib/helpers/consts";
-import { Discord } from "iconoir-react";
 import { useNotification } from "@/components/Notification";
 import { getErrorMessage } from "@/lib/helpers/translateApiErrors";
 import Link from "next/link";
+import { FaDiscord } from "react-icons/fa";
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -42,7 +42,7 @@ export default function Login() {
 
   return (
     <form
-      className="flex flex-col items-center justify-center gap-3 dark:bg-gray-500 py-4 px-5 rounded-lg"
+      className="flex flex-col items-center justify-center gap-3 bg-accent py-4 px-5 mb-auto mt-12 rounded-lg"
       onSubmit={handleLogin}
     >
       <div className="flex flex-col items-center">
@@ -52,15 +52,15 @@ export default function Login() {
         </h4>
       </div>
 
-      <Button className="transparent w-full !border !border-accent-light">
-        <Discord />
+      <Button color="accent" className="!bg-transparent w-full !border !border-accent-light hover:!bg-accent-light2 gap-1">
+        <FaDiscord size="1.5em" />
         Discord
       </Button>
 
       <div className="flex items-center w-full">
-        <div className="flex-grow dark:bg-gray-450 h-0.5 w-full"></div>
+        <div className="flex-grow bg-accent-light2 h-0.5 w-full"></div>
         <div className="flex-grow-0 mx-5 text dark:text-white">OR</div>
-        <div className="flex-grow dark:bg-gray-450 h-0.5 w-full"></div>
+        <div className="flex-grow bg-accent-light2 h-0.5 w-full"></div>
       </div>
 
       <Input

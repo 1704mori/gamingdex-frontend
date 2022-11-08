@@ -7,6 +7,7 @@ import useClickOutside from "../../lib/hooks/useClickOutside";
 import Typography from "../Typography";
 
 interface Props {
+  color?: "primary" | "pink" | "accent" | "accent-light" | "accent-light2";
   label?: string;
   placeholder?: string;
   onSelect?: (value: string) => void;
@@ -21,11 +22,11 @@ interface SelectItemProps extends Omit<Props, "value"> {
 }
 
 const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
-  ({ value, children, ...props }, ref) => {
+  ({ value, children, className, ...props }, ref) => {
     const { onSelect, ...rest } = props;
 
     return (
-      <div ref={ref} {...rest} className="select-item">
+      <div ref={ref} {...rest} className={classes("select-item", className)}>
         {children}
       </div>
     );
@@ -38,8 +39,10 @@ const placeholderAtom = atom("Select");
 
 const Select = forwardRef<HTMLDivElement, Props>(
   ({ children, ...props }, ref) => {
-    const { onSelect, placeholder, value, ...rest } = props;
-    const [placeholderText, setPlaceholderText] = useState(placeholder || "Select");
+    const { color = "accent", onSelect, placeholder, value, ...rest } = props;
+    const [placeholderText, setPlaceholderText] = useState(
+      placeholder || "Select"
+    );
     const [isOpen, setIsOpen] = useState(false);
     const _ref = useRef<HTMLDivElement>(ref as any);
 
@@ -83,13 +86,24 @@ const Select = forwardRef<HTMLDivElement, Props>(
               setPlaceholderText(child.props.children);
             }
           },
+          className: classes(
+            color === "accent" &&
+              "hover:bg-accent-dark dark:hover:bg-accent-light",
+            color === "accent-light" && "hover:bg-accent",
+            color === "accent-light2" && "hover:bg-accent-light",
+            color === "pink" && "text-white bg-pink-600 hover:!bg-pink-700",
+            color === "primary" &&
+              "!text-white hover:bg-primary-dark shadow-[inset_0_0_0.2em_0_var(--primary),_0_0_0.2em_0_var(--primary)]"
+          ),
         });
       }
       return child;
     });
 
     return (
-      <div className={classes("flex flex-col gap-1 select-none", props.className)}>
+      <div
+        className={classes("flex flex-col gap-1 select-none", props.className)}
+      >
         {props.label && (
           <Typography className="!text-xs uppercase" thickness={3}>
             {props.label}
@@ -102,7 +116,17 @@ const Select = forwardRef<HTMLDivElement, Props>(
           className="select"
         >
           {placeholderText && (
-            <div className="clickable flex items-center justify-between">
+            <div
+              className={`bg-${color} clickable flex items-center justify-between ${classes(
+                color === "accent" &&
+                  "hover:bg-accent-dark dark:hover:bg-accent-light",
+                color === "accent-light" && "hover:bg-accent",
+                color === "accent-light2" && "hover:bg-accent-light",
+                color === "pink" && "text-white bg-pink-600 hover:!bg-pink-700",
+                color === "primary" &&
+                  "!text-white hover:bg-primary-dark shadow-[inset_0_0_0.2em_0_var(--primary),_0_0_0.2em_0_var(--primary)]"
+              )}`}
+            >
               <Typography thickness={3}>{placeholderText}</Typography>
               <motion.div animate={{ rotate: isOpen ? 0 : 180 }}>
                 <ArrowUp />
@@ -112,7 +136,7 @@ const Select = forwardRef<HTMLDivElement, Props>(
           <AnimatePresence>
             {isOpen && (
               <motion.div
-                className="flex flex-col gap-2 mt-3 absolute select-options"
+                className={`flex flex-col gap-2 mt-3 absolute select-options bg-${color} max-h-56 overflow-y-auto`}
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}

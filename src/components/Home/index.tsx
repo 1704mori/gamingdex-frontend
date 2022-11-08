@@ -1,3 +1,5 @@
+import "swiper/css";
+import "swiper/css/pagination";
 import {
   ArrowRight,
   ChatLines,
@@ -6,61 +8,94 @@ import {
   User,
 } from "iconoir-react";
 import Activities from "./Activities";
-import { useBlazeSlider } from "@/lib/hooks/useBlazeSlider";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { useLocale } from "@/lib/hooks/useLocale";
+import { Mousewheel, Pagination } from "swiper";
 
 export default function Home() {
   const { t } = useLocale();
 
-  const upcomingRef = useBlazeSlider({
-    all: {
-      slidesToShow: 3,
-    },
-  });
-
-  const popularRef = useBlazeSlider({
-    all: {
-      slidesToShow: 3,
-    },
-  });
-
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,_1fr)_270px] px-6 gap-5 mt-12">
+    <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,_1fr)_270px] lg:max-w-7xl w-full px-6 gap-5 mt-12">
       <div className="flex flex-col gap-5 ">
         <div className="upcoming flex flex-col gap-1 relative">
           <h3 className="font-medium text-2xl">{t.UPCOMING_GAMES}</h3>
-          <div className="blaze-slider" ref={upcomingRef}>
-            <div className="blaze-container">
-              <div className="blaze-track-container">
-                <div className="blaze-track">
-                  <div className="bg-primary"> 1 </div>
-                  <div> 2 </div>
-                  <div> 3 </div>
-                  <div> 4 </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Swiper
+            freeMode
+            slidesPerView={1}
+            spaceBetween={20}
+            mousewheel={true}
+            pagination={{
+              clickable: true,
+              el: ".upcoming-pagination",
+            }}
+            modules={[Mousewheel, Pagination]}
+            breakpoints={{
+              640: {
+                slidesPerView: 2,
+              },
+              768: {
+                slidesPerView: 3,
+              },
+              1024: {
+                slidesPerView: 5,
+              },
+            }}
+            className="upcoming-swiper"
+          >
+            <SwiperSlide>Slide 1</SwiperSlide>
+            <SwiperSlide>Slide 2</SwiperSlide>
+            <SwiperSlide>Slide 3</SwiperSlide>
+            <SwiperSlide>Slide 4</SwiperSlide>
+            <SwiperSlide>Slide 5</SwiperSlide>
+            <SwiperSlide>Slide 6</SwiperSlide>
+            <SwiperSlide>Slide 7</SwiperSlide>
+            <SwiperSlide>Slide 8</SwiperSlide>
+            <SwiperSlide>Slide 9</SwiperSlide>
+          </Swiper>
+          <div className="upcoming-pagination flex items-center justify-center gap-1 mt-2" />
         </div>
 
         <div className="popular-lists flex flex-col gap-1 relative">
           <h3 className="font-medium text-2xl">{t.RECENT_REVIEWS}</h3>
-          <div className="blaze-slider" ref={popularRef}>
-            <div className="blaze-container">
-              <div className="blaze-track-container">
-                <div className="blaze-track">
-                  <div> 1 </div>
-                  <div> 2 </div>
-                  <div> 3 </div>
-                  <div> 4 </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Swiper
+            freeMode
+            slidesPerView={3}
+            spaceBetween={20}
+            mousewheel={true}
+            pagination={{
+              clickable: true,
+              el: ".popular-lists-pagination",
+            }}
+            modules={[Mousewheel, Pagination]}
+            breakpoints={{
+              640: {
+                slidesPerView: 2,
+              },
+              768: {
+                slidesPerView: 3,
+              },
+              1024: {
+                slidesPerView: 5,
+              },
+            }}
+            className="upcoming-swiper"
+          >
+            <SwiperSlide>Slide 1</SwiperSlide>
+            <SwiperSlide>Slide 2</SwiperSlide>
+            <SwiperSlide>Slide 3</SwiperSlide>
+            <SwiperSlide>Slide 4</SwiperSlide>
+            <SwiperSlide>Slide 5</SwiperSlide>
+            <SwiperSlide>Slide 6</SwiperSlide>
+            <SwiperSlide>Slide 7</SwiperSlide>
+            <SwiperSlide>Slide 8</SwiperSlide>
+            <SwiperSlide>Slide 9</SwiperSlide>
+          </Swiper>
+          <div className="popular-lists-pagination flex items-center justify-center gap-1 mt-2" />
         </div>
 
         <div className="activities flex flex-col gap-1 relative">
-          <h3 className="font-medium text-2xl">{t.RECENT_ACTIVITIES}</h3>
+          <h3 className="font-medium text-xl">{t.RECENT_ACTIVITIES}</h3>
 
           <Activities />
           <div className="activities-pagination flex items-center justify-center gap-1 mt-2" />
@@ -70,7 +105,7 @@ export default function Home() {
       <div className="flex flex-col gap-5">
         <div className="flex flex-col gap-1">
           <div className="flex items-center justify-between">
-            <h4 className="font-medium text-2xl">{t.MOST_POPULAR_GAMES}</h4>
+            <h4 className="font-medium text-xl">{t.MOST_POPULAR_GAMES}</h4>
             <ArrowRight />
           </div>
           <div className="grid grid-cols-1 gap-3 ">

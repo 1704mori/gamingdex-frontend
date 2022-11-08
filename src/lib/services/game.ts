@@ -27,29 +27,33 @@ export async function getById(id: string, includes?: string[]) {
 
 export async function getReviews(
   id: string,
-  query?: Omit<Filter, "title" | "order">
+  query?: Omit<Filter, "title" | "order" | "title">
 ) {
   const result = await apiGet(`/game/${id}/reviews`, query);
 
-  return result?.data as IApiResponse<IReview[]>;
+  return result?.data.data as IApiResponse<IReview[]>;
 }
 
 export async function getCharacters(
   id: string,
-  query?: Omit<Filter, "title" | "order">
+  query?: Omit<Filter, "title" | "order"> & {
+    search?: string;
+  }
 ) {
   const result = await apiGet(`/game/${id}/characters`, query);
 
-  return result?.data as IApiResponse<IGameCharacter[]>;
+  return result?.data.data as IApiResponse<IGameCharacter[]>;
 }
 
 export async function getStaff(
   id: string,
-  query?: Omit<Filter, "title" | "order">
+  query?: Omit<Filter, "title" | "order"> & {
+    search?: string;
+  }
 ) {
   const result = await apiGet(`/game/${id}/staff`, query);
 
-  return result?.data as IApiResponse<IGameStaff[]>;
+  return result?.data.data as IApiResponse<IGameStaff[]>;
 }
 
 export async function getListStatus(id: string) {

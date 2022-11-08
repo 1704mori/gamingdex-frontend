@@ -47,25 +47,18 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   }
 
   const [characters, charactersErr] = await resolvePromise(
-    gameService.getCharacters(id, {
-      includes: ["character"],
-    })
+    gameService.getCharacters(id)
   );
 
   if (!charactersErr) {
     game.data.characters = characters.data;
   }
 
-  const [staff, staffErr] = await resolvePromise(
-    gameService.getStaff(id, {
-      includes: ["people"],
-    })
-  );
+  const [staff, staffErr] = await resolvePromise(gameService.getStaff(id));
 
   if (!staffErr) {
     game.data.staff = staff.data;
   }
-
 
   return {
     props: { game: game.data },

@@ -22,7 +22,7 @@ const Input = forwardRef(({ ...props }: InputProps, forwardRef) => {
     errors,
     iconAlign = "left",
     pattern,
-    color = "primary",
+    color = "accent",
     className,
     fit = true,
     ...rest
@@ -64,10 +64,10 @@ const Input = forwardRef(({ ...props }: InputProps, forwardRef) => {
           </div>
         )}
         <input
-          className={`$bg-${color} ${classes(
+          className={`bg-${color} ${classes(
             icon && iconAlign === "left" && "indent-8",
             className,
-            "w-full h-10 px-3 border border-accent-light2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none focus:outline active:outline outline-primary transition-colors text-text placeholder-text"
+            "w-full h-10 px-3 border border-accent-light2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none outline-none focus:border-primary active:border-primary transition-colors text-text placeholder-text"
           )}`}
           ref={forwardRef as any}
           {...rest}

@@ -52,7 +52,7 @@ export default function UserDropdown() {
       <AnimatePresence>
         {open && (
           <motion.div
-            className="absolute top-14 right-0 w-64 bg-accent rounded-lg shadow-san p-2"
+            className="absolute top-14 -right-1/2 translate-x-1/2 w-64 bg-accent rounded-lg shadow-san p-2"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
