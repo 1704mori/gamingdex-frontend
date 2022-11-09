@@ -56,8 +56,8 @@ export default function Create() {
           title,
           type: privacy as EListType,
         })
-        .then(({ data: list }) => {
-          setList(list);
+        .then(({ data: { attributes } }) => {
+          setList(attributes);
           setStep(step);
         })
         .catch((err) => {
@@ -89,7 +89,7 @@ export default function Create() {
       });
 
     setGames(
-      games?.data.filter(
+      games?.attributes.filter(
         (game) => !selectedGames.find((g) => g.id === game.id)
       ) as any
     );

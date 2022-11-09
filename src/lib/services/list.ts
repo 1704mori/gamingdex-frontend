@@ -1,6 +1,5 @@
 import { IApiResponse, IBaseFilter } from "../types/api";
 import { IList } from "../types/list";
-import { IUserActivity } from "../types/user";
 import { get, post, put } from "./api";
 
 type Filter = IBaseFilter & {
@@ -13,9 +12,9 @@ type Filter = IBaseFilter & {
 };
 
 export async function list(query?: Filter) {
-  const result = await get<IApiResponse<IUserActivity[]>>("/list", query);
+  const result = await get<IList[]>("/list", query);
 
-  return result?.data;
+  return result?.data.data;
 }
 
 export async function create(

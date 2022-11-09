@@ -90,7 +90,7 @@ const Select = forwardRef<HTMLDivElement, Props>(
             color === "accent" &&
               "hover:bg-accent-dark dark:hover:bg-accent-light",
             color === "accent-light" && "hover:bg-accent",
-            color === "accent-light2" && "hover:bg-accent-light",
+            color === "accent-light2" && "hover:bg-accent-dark dark:hover:bg-accent-light",
             color === "pink" && "text-white bg-pink-600 hover:!bg-pink-700",
             color === "primary" &&
               "!text-white hover:bg-primary-dark shadow-[inset_0_0_0.2em_0_var(--primary),_0_0_0.2em_0_var(--primary)]"
@@ -117,11 +117,11 @@ const Select = forwardRef<HTMLDivElement, Props>(
         >
           {placeholderText && (
             <div
-              className={`bg-${color} clickable flex items-center justify-between ${classes(
+              className={`bg-${color} clickable flex items-center justify-between !transition-colors ${classes(
                 color === "accent" &&
                   "hover:bg-accent-dark dark:hover:bg-accent-light",
                 color === "accent-light" && "hover:bg-accent",
-                color === "accent-light2" && "hover:bg-accent-light",
+                color === "accent-light2" && "hover:bg-accent-dark dark:hover:bg-accent-light",
                 color === "pink" && "text-white bg-pink-600 hover:!bg-pink-700",
                 color === "primary" &&
                   "!text-white hover:bg-primary-dark shadow-[inset_0_0_0.2em_0_var(--primary),_0_0_0.2em_0_var(--primary)]"

@@ -37,7 +37,7 @@ export default function Pagination(props: Props) {
         <button
           className={classes(
             "flex items-center justify-center w-min min-w-[2rem] h-8 p-2 m-1 font-medium cursor-pointer rounded-full transition-colors",
-            number === currentPage && "bg-primary",
+            number === currentPage && "bg-primary text-white",
             number !== currentPage && "hover:bg-accent"
           )}
           key={index}

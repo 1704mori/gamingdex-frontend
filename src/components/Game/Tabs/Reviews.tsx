@@ -47,7 +47,7 @@ export default function Reviews({ game }: { game: IGame }) {
           </span>
         )}
       </>
-      {!isLoading && !reviews?.data.length && (
+      {!isLoading && !reviews?.attributes.length && (
         <div className="flex flex-col items-center justify-center gap-2">
           <Search />
           <span className="font-medium text-base mx-auto">
@@ -58,12 +58,12 @@ export default function Reviews({ game }: { game: IGame }) {
 
       <div className="flex flex-col lg:grid lg:grid-cols-2 gap-3">
         {reviews ? (
-          <ReviewComponent reviews={reviews?.data} />
+          <ReviewComponent reviews={reviews?.attributes} />
         ) : (
           <span>No reviews ಥ_ಥ</span>
         )}
       </div>
-      {!error && reviews && reviews.data.length > 0 && (
+      {!error && reviews && reviews.attributes.length > 0 && (
         <Pagination
           total={reviews?.pagination.total as number}
           onPageClick={setOffset}

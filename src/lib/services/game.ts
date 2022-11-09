@@ -1,6 +1,13 @@
 import { IApiResponse, IBaseFilter } from "../types/api";
-import { IGame, IGameCharacter, IGameStaff, IReview } from "../types/game";
-import { get as apiGet, post } from "./api";
+import {
+  EGamingStatus,
+  IGame,
+  IGameCharacter,
+  IGameStaff,
+  IReview,
+} from "../types/game";
+import { IList } from "../types/list";
+import { del, get as apiGet, post, put } from "./api";
 
 type Filter = IBaseFilter & {
   includes?: string[];
@@ -13,25 +20,34 @@ type Filter = IBaseFilter & {
   };
 };
 
-export async function get(query?: Filter) {
-  const result = await apiGet("/game", query);
+type ListFilter = IBaseFilter & {
+  title?: string;
+  includes?: string[];
+  order?: {
+    createdAt?: "asc" | "desc";
+    updateAt?: "asc" | "desc";
+  };
+};
 
-  return result?.data.data as IApiResponse<IGame[]>;
+export async function get(query?: Filter) {
+  const result = await apiGet<IGame[]>("/game", query);
+
+  return result?.data.data;
 }
 
 export async function getById(id: string, includes?: string[]) {
-  const result = await apiGet(`/game/${id}`, { includes });
+  const result = await apiGet<IGame>(`/game/${id}`, { includes });
 
-  return result?.data as IApiResponse<IGame>;
+  return result?.data.data;
 }
 
 export async function getReviews(
   id: string,
   query?: Omit<Filter, "title" | "order" | "title">
 ) {
-  const result = await apiGet(`/game/${id}/reviews`, query);
+  const result = await apiGet<IReview[]>(`/game/${id}/reviews`, query);
 
-  return result?.data.data as IApiResponse<IReview[]>;
+  return result?.data.data;
 }
 
 export async function getCharacters(
@@ -40,9 +56,12 @@ export async function getCharacters(
     search?: string;
   }
 ) {
-  const result = await apiGet(`/game/${id}/characters`, query);
+  const result = await apiGet<IGameCharacter[]>(
+    `/game/${id}/characters`,
+    query
+  );
 
-  return result?.data.data as IApiResponse<IGameCharacter[]>;
+  return result?.data.data;
 }
 
 export async function getStaff(
@@ -51,27 +70,59 @@ export async function getStaff(
     search?: string;
   }
 ) {
-  const result = await apiGet(`/game/${id}/staff`, query);
+  const result = await apiGet<IGameStaff[]>(`/game/${id}/staff`, query);
 
-  return result?.data.data as IApiResponse<IGameStaff[]>;
+  return result?.data.data;
 }
 
 export async function getListStatus(id: string) {
-  const result = await apiGet(`/game/${id}/status`);
+  const result = await apiGet<{
+    status: string;
+    score: number;
+  }>(`/game/${id}/status`);
 
-  return result?.data as unknown as { status: string };
+  return result?.data.data;
 }
 
-export async function addToMyList(id: string) {
-  const result = await post(`/game/${id}/status`);
+export async function addToMyList(
+  id: string,
+  status: keyof typeof EGamingStatus
+) {
+  const result = await put(`/game/${id}/status`, {
+    status: EGamingStatus[status],
+  });
 
-  return result?.data as IApiResponse;
+  return result?.data;
+}
+
+export async function updateMyList(
+  id: string,
+  data: {
+    status?: keyof typeof EGamingStatus;
+    score?: number;
+  }
+) {
+  const result = await put(`/game/${id}/status`, data);
+
+  return result?.data;
+}
+
+export async function removeFromMyList(id: string) {
+  const result = await del(`/game/${id}/status`);
+
+  return result?.data;
 }
 
 export async function addToList(id: string, listId: string) {
   const result = await post(`/game/${id}/list/${listId}`);
 
-  return result?.data as IApiResponse;
+  return result?.data;
+}
+
+export async function lists() {
+  const result = await apiGet<IList[]>("/game/lists");
+
+  return result?.data.data;
 }
 
 export const gameService = {
@@ -83,4 +134,7 @@ export const gameService = {
   getListStatus,
   addToMyList,
   addToList,
+  updateMyList,
+  removeFromMyList,
+  lists,
 };

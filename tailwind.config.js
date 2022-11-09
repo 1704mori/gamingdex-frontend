@@ -22,6 +22,10 @@ module.exports = {
         "primary-dark": "var(--primary-dark)",
         "primary-dark2": "var(--primary-dark2)",
         text: "var(--text)",
+        "status-red": "var(--status-red)",
+        "status-green": "var(--status-green)",
+        "status-blue": "var(--status-blue)",
+        "status-yellow": "var(--status-yellow)",
       },
       boxShadow: {
         ichi: `2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),

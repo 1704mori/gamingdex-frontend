@@ -62,7 +62,7 @@ export default function Characters({ game }: { game: IGame }) {
           </span>
         )}
       </>
-      {!isLoading && !characters?.data.length && (
+      {!isLoading && !characters?.attributes.length && (
         <div className="flex flex-col items-center justify-center gap-2">
           <Search />
           <span className="font-medium text-base mx-auto">
@@ -73,12 +73,12 @@ export default function Characters({ game }: { game: IGame }) {
 
       <div className="flex flex-col lg:grid lg:grid-cols-3 gap-3">
         {characters ? (
-          <CharacterComponent characters={characters?.data} />
+          <CharacterComponent characters={characters?.attributes} />
         ) : (
           <span>No characters ಥ_ಥ</span>
         )}
       </div>
-      {!error && characters && characters.data.length > 0 && (
+      {!error && characters && characters.attributes.length > 0 && (
         <Pagination
           total={characters?.pagination.total as number}
           onPageClick={setOffset}

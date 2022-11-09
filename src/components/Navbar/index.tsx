@@ -103,7 +103,6 @@ export default function Navbar() {
           fit={false}
           icon={<Search />}
           placeholder="Search"
-          disabled
         />
 
         <button className="lg:hidden">

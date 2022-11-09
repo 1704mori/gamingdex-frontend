@@ -30,10 +30,11 @@ export default function Activities() {
         limit: 6,
       }),
     {
-      getNextPageParam: (lastPage) =>
-        lastPage?.data.pagination.next ?? undefined,
+      getNextPageParam: (lastPage) => lastPage?.pagination.next ?? undefined,
     }
   );
+
+  console.log("data", data);
 
   return (
     <>
@@ -47,14 +48,17 @@ export default function Activities() {
               className="activities flex overflow-x-auto lg:grid lg:grid-cols-2 gap-3 py-1"
               key={i}
             >
-              {page?.data && page.data.data.length > 0 ? (
-                page?.data.data.map((activity) => (
+              {page?.attributes && page.attributes.length > 0 ? (
+                page?.attributes.map((activity) => (
                   // <Activity className="flex" key={activity.id}></Activity>
                   <div
                     className="activity flex flex-col lg:flex-row bg-accent rounded-lg"
                     key={activity.id}
                   >
-                    <Link href={buildGameUrl(activity.game)} className="game-cover-link">
+                    <Link
+                      href={buildGameUrl(activity.game)}
+                      className="game-cover-link"
+                    >
                       <img
                         className="w-full h-24 object-cover game-cover rounded-lg rounded-b-none"
                         src={displayImage(activity.game.cover)}

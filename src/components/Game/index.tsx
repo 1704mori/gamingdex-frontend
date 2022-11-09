@@ -37,6 +37,7 @@ import Content from "./Content";
 import Reviews from "./Tabs/Reviews";
 import Characters from "./Tabs/Characters";
 import Staff from "./Tabs/Staff";
+import useHasUserRole from "@/lib/hooks/useHasUserRole";
 
 export default function Game({ game }: { game: IGame }) {
   const [showDescription, setShowDescription] = useState(false);
@@ -54,6 +55,8 @@ export default function Game({ game }: { game: IGame }) {
   });
 
   const { data: session } = useSession();
+
+  const canEdit = useHasUserRole("admin", "moderator", "developer");
 
   const descriptionRef = useRef<HTMLDivElement>(null);
 
@@ -76,7 +79,7 @@ export default function Game({ game }: { game: IGame }) {
       return;
     }
 
-    await gameService.addToMyList(game.id);
+    await gameService.addToMyList(game.id, "PLAYING");
     router.reload();
   };
 
@@ -101,7 +104,7 @@ export default function Game({ game }: { game: IGame }) {
         <img
           src={displayImage(game.cover)}
           alt={game.title}
-          className="w-full h-60 lg:w-60 lg:h-80 object-cover rounded-lg shadow-ni"
+          className="w-full h-60 lg:w-60 lg:h-80 object-cover rounded-lg shadow-2xl"
         />
         <div className="hidden lg:flex flex-col flex-wrap gap-3 w-full mt-3">
           <div className="bg-accent rounded-lg p-3 w-60">
@@ -261,7 +264,7 @@ export default function Game({ game }: { game: IGame }) {
             <span className="flex items-center gap-2 text-xl font-medium">
               Score:
               <span className="text-xl font-medium">
-                {game?.score ?? "N/A"}
+                {game?.score?.toFixed(1) ?? "N/A"}
               </span>
             </span>
             <div className="stars flex items-center gap-2">
@@ -271,12 +274,12 @@ export default function Game({ game }: { game: IGame }) {
           <div
             className={classes(
               "hidden lg:grid grid-cols-1 gap-2",
-              !status?.status
+              !status?.attributes.status
                 ? "lg:grid-cols-[200px_max-content_200px_100px_100px]"
                 : "lg:grid-cols-[265px_max-content_200px_100px_100px]"
             )}
           >
-            {!status?.status ? (
+            {!status?.attributes.status ? (
               <Button onClick={handleAddToMyList}>Add to library</Button>
             ) : (
               <div className="flex items-center gap-2 w-full">
@@ -284,7 +287,12 @@ export default function Game({ game }: { game: IGame }) {
                   color="accent-light2"
                   className="w-full"
                   key="status"
-                  onSelect={console.log}
+                  onSelect={(value) =>
+                    gameService.updateMyList(game.id, {
+                      status: value as any,
+                    })
+                  }
+                  value={status?.attributes.status}
                 >
                   <SelectItem value="playing">Playing</SelectItem>
                   <SelectItem value="completed">Completed</SelectItem>
@@ -296,7 +304,14 @@ export default function Game({ game }: { game: IGame }) {
                   color="accent-light2"
                   placeholder="⭐"
                   key="score"
-                  onSelect={console.log}
+                  onSelect={(value) =>
+                    gameService.updateMyList(game.id, {
+                      score: parseInt(value) as any,
+                    })
+                  }
+                  {...(status?.attributes.score && {
+                    value: status?.attributes.score as any,
+                  })}
                 >
                   {[...Array(10)].map((_, i) => (
                     <SelectItem key={i} value={i}>
@@ -314,22 +329,31 @@ export default function Game({ game }: { game: IGame }) {
             </Button>
             <Button
               color="accent"
-              className="!bg-accent-light2 hover:!bg-accent-light"
-              onClick={setShowListModal}
+              className="dark:!bg-accent-light2 dark:hover:!bg-accent-light"
+              onClick={() => {
+                if (!session) {
+                  router.push(ROUTES.login);
+                  return;
+                }
+
+                setShowListModal();
+              }}
             >
               <PlaylistAdd width="1.58em" height="1.58em" />
               Add to list
             </Button>
+            {session && canEdit && (
+              <Button
+                color="accent"
+                className="dark:!bg-accent-light2 dark:hover:!bg-accent-light"
+              >
+                <EditPencil />
+                Edit
+              </Button>
+            )}
             <Button
               color="accent"
-              className="!bg-accent-light2 hover:!bg-accent-light"
-            >
-              <EditPencil />
-              Edit
-            </Button>
-            <Button
-              color="accent"
-              className="!bg-accent-light2 hover:!bg-accent-light"
+              className="dark:!bg-accent-light2 dark:hover:!bg-accent-light"
             >
               <WhiteFlag />
               Report

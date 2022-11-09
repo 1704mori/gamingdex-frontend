@@ -7,6 +7,7 @@ import { useAtom } from "jotai";
 import { filterAtom } from "@/lib/stores";
 import { useRef, useState } from "react";
 import useClickOutside from "@/lib/hooks/useClickOutside";
+import { classes } from "@/lib/helpers/common";
 
 export default function Filter() {
   const [showFilters, setShowFilters] = useState(false);
@@ -25,7 +26,7 @@ export default function Filter() {
         <FilterIcon />
         Filter
         {filters && Object.values(filters).filter((f) => !!f).length > 0 && (
-          <span className="badge">
+          <span className="badge text-white">
             {Object.values(filters).filter((f) => !!f).length}
           </span>
         )}
@@ -64,6 +65,7 @@ export default function Filter() {
                     color={
                       filters?.display === "grid" ? "primary" : "accent-light2"
                     }
+                    className="dark:!bg-accent-light2 dark:hover:!bg-accent-light"
                     onClick={() => {
                       if (filters?.display === "grid") {
                         setFilters({ ...filters, display: null });
@@ -72,7 +74,7 @@ export default function Filter() {
                       setFilters({ ...filters, display: "grid" });
                     }}
                   >
-                    <ViewGrid />
+                    <ViewGrid className={classes(filters.display === 'grid' ? 'text-white' : 'text-text')} />
                   </Button>
                 </Tippy>
                 <Tippy
@@ -85,6 +87,7 @@ export default function Filter() {
                     color={
                       filters?.display === "list" ? "primary" : "accent-light2"
                     }
+                    className="dark:!bg-accent-light2 dark:hover:!bg-accent-light"
                     onClick={() => {
                       if (filters?.display === "list") {
                         setFilters({ ...filters, display: null });
@@ -93,7 +96,7 @@ export default function Filter() {
                       setFilters({ ...filters, display: "list" });
                     }}
                   >
-                    <List />
+                    <List className={classes(filters.display === 'list' ? 'text-white' : 'text-text')} />
                   </Button>
                 </Tippy>
               </div>

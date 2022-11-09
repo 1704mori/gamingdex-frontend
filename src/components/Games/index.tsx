@@ -67,7 +67,7 @@ export default function Games() {
             </span>
           )}
         </>
-        {!isLoading && !games?.data.length && (
+        {!isLoading && !games?.attributes.length && (
           <div className="flex flex-col items-center justify-center gap-2">
             <Search />
             <span className="font-medium text-base mx-auto">
@@ -77,7 +77,7 @@ export default function Games() {
         )}
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">
           {games &&
-            games.data.map((game) => (
+            games.attributes.map((game) => (
               <div className="flex flex-col gap-2 group" key={game.id}>
                 <div className="relative overflow-hidden">
                   <Link href={buildGameUrl(game)}>
@@ -116,7 +116,7 @@ export default function Games() {
               </div>
             ))}
         </div>
-        {!error && games && games.data.length > 0 && (
+        {!error && games && games.attributes.length > 0 && (
           <Pagination
             total={games?.pagination.total as number}
             onPageClick={setOffset}

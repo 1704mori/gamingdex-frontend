@@ -54,13 +54,13 @@ export interface IGame extends IBase {
   members: string;
 
   reviews?: IReview[];
-  genres: IGameGenre[];
-  platforms: IGamePlatform[];
-  developers: IGameDeveloper[];
-  publishers: IGamePublisher[];
-  characters: IGameCharacter[];
-  staff: IGameStaff[];
-  userGame: IUserGame[];
+  genres?: IGameGenre[];
+  platforms?: IGamePlatform[];
+  developers?: IGameDeveloper[];
+  publishers?: IGamePublisher[];
+  characters?: IGameCharacter[];
+  staff?: IGameStaff[];
+  userGame?: IUserGame[];
 }
 
 export interface IReview extends IBase {

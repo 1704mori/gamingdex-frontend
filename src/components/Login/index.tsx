@@ -52,7 +52,10 @@ export default function Login() {
         </h4>
       </div>
 
-      <Button color="accent" className="!bg-transparent w-full !border !border-accent-light hover:!bg-accent-light2 gap-1">
+      <Button
+        color="accent"
+        className="!bg-transparent w-full !border !border-accent-dark2 dark:!border-accent-light2 hover:!bg-accent-light2 gap-1"
+      >
         <FaDiscord size="1.5em" />
         Discord
       </Button>
@@ -76,7 +79,9 @@ export default function Login() {
         {...register("password")}
         errors={errors}
       />
-      <button className="text-primary-200 mx-auto">Forgot my password</button>
+      <Button className="text-primary mx-auto" asChild>
+        <Link href={ROUTES.register}>Forgot my password</Link>
+      </Button>
       <Button className="w-full" type="submit">
         Login
       </Button>

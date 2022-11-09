@@ -4,7 +4,6 @@ import { authService } from "./auth";
 
 import { API_URL } from "@/settings";
 import { IApiResponse } from "../types/api";
-import { parseCookies } from "nookies";
 
 export async function get<T = unknown>(
   url: AxiosRequestConfig["url"],

@@ -62,7 +62,7 @@ export default function Staff({ game }: { game: IGame }) {
           </span>
         )}
       </>
-      {!isLoading && !staff?.data.length && (
+      {!isLoading && !staff?.attributes.length && (
         <div className="flex flex-col items-center justify-center gap-2">
           <Search />
           <span className="font-medium text-base mx-auto">
@@ -73,12 +73,12 @@ export default function Staff({ game }: { game: IGame }) {
 
       <div className="flex flex-col lg:grid lg:grid-cols-3 gap-3">
         {staff ? (
-          <StaffComponent staff={staff?.data} />
+          <StaffComponent staff={staff?.attributes} />
         ) : (
           <span>No staff ಥ_ಥ</span>
         )}
       </div>
-      {!error && staff && staff.data.length > 0 && (
+      {!error && staff && staff.attributes.length > 0 && (
         <Pagination
           total={staff?.pagination.total as number}
           onPageClick={setOffset}

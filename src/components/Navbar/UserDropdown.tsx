@@ -76,20 +76,20 @@ export default function UserDropdown() {
                     <>
                       <Link
                         href={`${ROUTES.profile}/${session?.user?.name}`}
-                        className="flex items-center gap-2 hover:bg-accent-light2 transition-colors rounded-lg p-2"
+                        className="flex items-center gap-2 hover:bg-accent-dark dark:hover:bg-accent-light2 transition-colors rounded-lg p-2"
                       >
                         <User />
                         My Profile
                       </Link>
                       <Link
                         href={ROUTES.settings}
-                        className="flex items-center gap-2 hover:bg-accent-light2 transition-colors rounded-lg p-2"
+                        className="flex items-center gap-2 hover:bg-accent-dark dark:hover:bg-accent-light2 transition-colors rounded-lg p-2"
                       >
                         <Settings />
                         Settings
                       </Link>
                       <button
-                        className="flex items-center gap-2 hover:bg-accent-light2 transition-colors rounded-lg p-2"
+                        className="flex items-center gap-2 hover:bg-accent-dark dark:hover:bg-accent-light2 transition-colors rounded-lg p-2"
                         onClick={() => setActiveMenu("theme")}
                       >
                         <Droplet />
@@ -97,7 +97,7 @@ export default function UserDropdown() {
                       </button>
                       <Divider />
                       <button
-                        className="flex items-center gap-2 hover:bg-accent-light2 transition-colors rounded-lg p-2"
+                        className="flex items-center gap-2 hover:bg-accent-dark dark:hover:bg-accent-light2 transition-colors rounded-lg p-2"
                         onClick={handleLogout}
                       >
                         <ArrowLeft />
@@ -111,20 +111,20 @@ export default function UserDropdown() {
                       <div className="grid grid-cols-2 gap-3">
                         <Link
                           href={ROUTES.login}
-                          className="text-center bg-primary hover:bg-primary-dark transition-colors rounded-lg p-2"
+                          className="text-white text-center bg-primary hover:bg-primary-dark transition-colors rounded-lg p-2"
                         >
                           Login
                         </Link>
                         <Link
                           href={ROUTES.register}
-                          className="text-center bg-accent-light2 hover:bg-accent-light transition-colors rounded-lg p-2"
+                          className="text-center bg-accent-dark hover:bg-accent-dark2 dark:bg-accent-light2 transition-colors rounded-lg p-2"
                         >
                           Register
                         </Link>
                       </div>
                       <Divider />
                       <button
-                        className="flex items-center gap-2 hover:bg-accent-light2 transition-colors rounded-lg p-2"
+                        className="flex items-center gap-2 hover:bg-accent-dark dark:hover:bg-accent-light2 transition-colors rounded-lg p-2"
                         onClick={() => setActiveMenu("theme")}
                       >
                         <Droplet />
@@ -141,7 +141,7 @@ export default function UserDropdown() {
                   // initial={{ x: 250 }}
                 >
                   <button
-                    className="flex items-center gap-2 hover:bg-accent-light transition-colors rounded-lg p-2"
+                    className="flex items-center gap-2 hover:bg-accent-dark dark:hover:bg-accent-light transition-colors rounded-lg p-2"
                     onClick={() => setActiveMenu("main")}
                   >
                     <ArrowLeft />
@@ -149,8 +149,8 @@ export default function UserDropdown() {
                   </button>
                   <button
                     className={classes(
-                      "flex items-center gap-2 hover:bg-accent-light transition-colors rounded-lg p-2",
-                      theme === "light" && "bg-accent-light2"
+                      "flex items-center gap-2 hover:bg-accent-dark dark:hover:bg-accent-light transition-colors rounded-lg p-2",
+                      theme === "light" && "bg-accent-dark"
                     )}
                     onClick={() => setTheme("light")}
                   >
@@ -159,8 +159,8 @@ export default function UserDropdown() {
                   </button>
                   <button
                     className={classes(
-                      "flex items-center gap-2 hover:bg-accent-light transition-colors rounded-lg p-2",
-                      theme === "dark" && "bg-accent-light2"
+                      "flex items-center gap-2 hover:bg-accent-dark dark:hover:bg-accent-light transition-colors rounded-lg p-2",
+                      theme === "dark" && "bg-accent-dark"
                     )}
                     onClick={() => setTheme("dark")}
                   >
@@ -169,8 +169,8 @@ export default function UserDropdown() {
                   </button>
                   <button
                     className={classes(
-                      "flex items-center gap-2 hover:bg-accent-light transition-colors rounded-lg p-2",
-                      theme === "system" && "bg-accent-light2"
+                      "flex items-center gap-2 hover:bg-accent-dark dark:hover:bg-accent-light transition-colors rounded-lg p-2",
+                      theme === "system" && "bg-accent-dark"
                     )}
                     onClick={() => setTheme("system")}
                   >

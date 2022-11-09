@@ -35,7 +35,7 @@ export default function ReviewModal({
               </Typography>
               <Typography
                 thickness={3}
-                className="bg-primary !px-1 mx-auto !py-0.5 rounded-lg"
+                className="bg-primary text-white !px-1 mx-auto !py-0.5 rounded-lg"
               >
                 {humanize(review?.recommend as string)}
               </Typography>

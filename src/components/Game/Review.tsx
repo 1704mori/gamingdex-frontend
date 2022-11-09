@@ -18,8 +18,6 @@ export default function Review({ reviews }: { reviews: IReview[] }) {
   const toggleReview = (review: IReview) => {
     setReview(review);
     setShowReviewModal(true);
-
-    console.log(showReviewModalAtom);
   };
 
   return (
@@ -41,7 +39,7 @@ export default function Review({ reviews }: { reviews: IReview[] }) {
                 src="/default_avatar.svg"
               />
               <span className="font-medium">{review.user?.username}</span>
-              <span className="bg-primary px-1 mx-auto py-0.5 rounded-lg font-medium">
+              <span className="bg-primary text-white px-1 mx-auto py-0.5 rounded-lg font-medium">
                 {humanize(review.recommend)}
               </span>
             </div>
