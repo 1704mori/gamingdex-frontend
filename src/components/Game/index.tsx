@@ -284,7 +284,7 @@ export default function Game({ game }: { game: IGame }) {
             ) : (
               <div className="flex items-center gap-2 w-full">
                 <Select
-                  color="accent-light2"
+                  color="accent"
                   className="w-full"
                   key="status"
                   onSelect={(value) =>
@@ -301,7 +301,7 @@ export default function Game({ game }: { game: IGame }) {
                   <SelectItem value="plan_to_play">Plan to play</SelectItem>
                 </Select>
                 <Select
-                  color="accent-light2"
+                  color="accent"
                   placeholder="⭐"
                   key="score"
                   onSelect={(value) =>
@@ -344,7 +344,6 @@ export default function Game({ game }: { game: IGame }) {
             {session && canEdit && (
               <Button
                 color="accent"
-                className="dark:!bg-accent-light2 dark:hover:!bg-accent-light"
               >
                 <EditPencil />
                 Edit
@@ -352,7 +351,6 @@ export default function Game({ game }: { game: IGame }) {
             )}
             <Button
               color="accent"
-              className="dark:!bg-accent-light2 dark:hover:!bg-accent-light"
             >
               <WhiteFlag />
               Report

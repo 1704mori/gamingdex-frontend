@@ -94,7 +94,7 @@ export default function Games() {
 
                     <div
                       onClick={() => alert("alo")}
-                      className="inline-flex justify-center items-center w-6 h-6 bg-accent border border-accent-light2 rounded-full cursor-pointer"
+                      className="inline-flex justify-center items-center w-6 h-6 bg-accent border border-accent3 rounded-full cursor-pointer"
                     >
                       <Plus width="1.3em" />
                     </div>

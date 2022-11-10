@@ -7,7 +7,7 @@ import useClickOutside from "../../lib/hooks/useClickOutside";
 import Typography from "../Typography";
 
 interface Props {
-  color?: "primary" | "pink" | "accent" | "accent-light" | "accent-light2";
+  color?: "primary" | "pink" | "accent" | "accent2" | "accent3";
   label?: string;
   placeholder?: string;
   onSelect?: (value: string) => void;
@@ -88,12 +88,12 @@ const Select = forwardRef<HTMLDivElement, Props>(
           },
           className: classes(
             color === "accent" &&
-              "hover:bg-accent-dark dark:hover:bg-accent-light",
-            color === "accent-light" && "hover:bg-accent",
-            color === "accent-light2" && "hover:bg-accent-dark dark:hover:bg-accent-light",
+              "hover:bg-accent2",
+            color === "accent2" && "hover:bg-accent3",
+            color === "accent3" && "hover:bg-accent4",
             color === "pink" && "text-white bg-pink-600 hover:!bg-pink-700",
             color === "primary" &&
-              "!text-white hover:bg-primary-dark shadow-[inset_0_0_0.2em_0_var(--primary),_0_0_0.2em_0_var(--primary)]"
+              "!text-white hover:bg-primary shadow-[inset_0_0_0.2em_0_var(--primary),_0_0_0.2em_0_var(--primary)]"
           ),
         });
       }
@@ -119,12 +119,12 @@ const Select = forwardRef<HTMLDivElement, Props>(
             <div
               className={`bg-${color} clickable flex items-center justify-between !transition-colors ${classes(
                 color === "accent" &&
-                  "hover:bg-accent-dark dark:hover:bg-accent-light",
-                color === "accent-light" && "hover:bg-accent",
-                color === "accent-light2" && "hover:bg-accent-dark dark:hover:bg-accent-light",
+                  "hover:bg-accent2",
+                color === "accent2" && "hover:bg-accent3",
+                color === "accent3" && "hover:bg-accent4",
                 color === "pink" && "text-white bg-pink-600 hover:!bg-pink-700",
                 color === "primary" &&
-                  "!text-white hover:bg-primary-dark shadow-[inset_0_0_0.2em_0_var(--primary),_0_0_0.2em_0_var(--primary)]"
+                  "!text-white hover:bg-primary shadow-[inset_0_0_0.2em_0_var(--primary),_0_0_0.2em_0_var(--primary)]"
               )}`}
             >
               <Typography thickness={3}>{placeholderText}</Typography>

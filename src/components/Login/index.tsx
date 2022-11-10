@@ -61,9 +61,9 @@ export default function Login() {
       </Button>
 
       <div className="flex items-center w-full">
-        <div className="flex-grow bg-accent-light2 h-0.5 w-full"></div>
+        <div className="flex-grow bg-accent2 h-0.5 w-full"></div>
         <div className="flex-grow-0 mx-5 text dark:text-white">OR</div>
-        <div className="flex-grow bg-accent-light2 h-0.5 w-full"></div>
+        <div className="flex-grow bg-accent2 h-0.5 w-full"></div>
       </div>
 
       <Input

@@ -63,9 +63,8 @@ export default function Filter() {
                   <Button
                     rounded
                     color={
-                      filters?.display === "grid" ? "primary" : "accent-light2"
+                      filters?.display === "grid" ? "primary" : "accent2"
                     }
-                    className="dark:!bg-accent-light2 dark:hover:!bg-accent-light"
                     onClick={() => {
                       if (filters?.display === "grid") {
                         setFilters({ ...filters, display: null });
@@ -85,9 +84,8 @@ export default function Filter() {
                   <Button
                     rounded
                     color={
-                      filters?.display === "list" ? "primary" : "accent-light2"
+                      filters?.display === "list" ? "primary" : "accent2"
                     }
-                    className="dark:!bg-accent-light2 dark:hover:!bg-accent-light"
                     onClick={() => {
                       if (filters?.display === "list") {
                         setFilters({ ...filters, display: null });
@@ -107,7 +105,7 @@ export default function Filter() {
 
               <div className="flex flex-col gap-2">
                 <Select
-                  color="accent-light2"
+                  color="accent2"
                   onSelect={(value) => {
                     setFilters({
                       ...filters,

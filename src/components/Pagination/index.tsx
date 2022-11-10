@@ -22,7 +22,7 @@ export default function Pagination(props: Props) {
     <div className="flex items-center flex-wrap justify-center m-auto py-1">
       {buttons && (
         <button
-          className="flex items-center px-2 m-1 h-8 rounded-lg transition-colors bg-accent disabled:cursor-not-allowed disabled:bg-accent/30 disabled:dark:bg-accent-dark"
+          className="flex items-center px-2 m-1 h-8 rounded-lg transition-colors bg-accent hover:bg-accent2 disabled:cursor-not-allowed disabled:bg-accent/30 disabled:dark:bg-accent2"
           disabled={currentPage === 1}
           onClick={() => {
             setCurrentPage((prev) => prev - 1);
@@ -51,7 +51,7 @@ export default function Pagination(props: Props) {
       ))}
       {buttons && (
         <button
-          className="flex items-center px-2 m-1 h-8 rounded-lg transition-colors hover:bg-gray-150 disabled:cursor-not-allowed disabled:hover:bg-gray-150/30 disabled:dark:bg-accent-dark"
+          className="flex items-center px-2 m-1 h-8 rounded-lg transition-colors bg-accent hover:bg-accent2 disabled:cursor-not-allowed disabled:bg-accent/30 disabled:dark:bg-accent2"
           disabled={currentPage === Math.ceil(total / perPage)}
           onClick={() => {
             onPageClick(currentPage + 1);
