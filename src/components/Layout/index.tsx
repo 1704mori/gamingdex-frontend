@@ -7,7 +7,7 @@ export default function Layout({ children }: any) {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen py-1 mt-14 lg:mt-20 flex flex-1 flex-col justify-center items-center">
+      <main className="min-h-screen py-1 mt-14 lg:mt-20 flex flex-1 flex-col justify-center items-center w-full mx-auto lg:max-w-7xl">
         {children}
       </main>
       {/* <Footer /> */}
@@ -20,12 +20,7 @@ export default function Layout({ children }: any) {
         >
           Powered by{" "}
           <span className="ml-2">
-            <img
-              src="/logo_mini.svg"
-              alt="GamingDex"
-              width={24}
-              height={24}
-            />
+            <img src="/logo_mini.svg" alt="GamingDex" width={24} height={24} />
           </span>
         </a>
       </footer>

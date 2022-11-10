@@ -119,7 +119,7 @@ export default function Game({ game }: { game: IGame }) {
                       placement="auto"
                       content={platform.platform.label}
                     >
-                      <div className="flex items-center gap-1 bg-accent-dark2 rounded-lg px-3 py-2 select-none">
+                      <div className="flex items-center gap-1 bg-accent2 rounded-lg px-3 py-2 select-none">
                         {getPlatformIcon(platform.platform.value)}
                       </div>
                     </Tippy>
@@ -151,7 +151,7 @@ export default function Game({ game }: { game: IGame }) {
                   {game.retailLinks.map((link) => (
                     <div
                       key={link.id}
-                      className="flex items-center gap-1 bg-accent-dark2 rounded-lg px-3 py-2"
+                      className="flex items-center gap-1 bg-accent2 rounded-lg px-3 py-2"
                     >
                       {Object.keys(link).map((key) => (
                         <>
@@ -329,7 +329,6 @@ export default function Game({ game }: { game: IGame }) {
             </Button>
             <Button
               color="accent"
-              className="dark:!bg-accent-light2 dark:hover:!bg-accent-light"
               onClick={() => {
                 if (!session) {
                   router.push(ROUTES.login);

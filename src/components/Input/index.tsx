@@ -4,12 +4,7 @@ import { forwardRef } from "react";
 type InputProps = {
   icon?: any;
   iconAlign?: "left" | "right";
-  color?:
-    | "accent"
-    | "accent-light"
-    | "accent-light2"
-    | "accent-dark"
-    | "accent-dark2";
+  color?: "accent" | "accent2" | "accent3";
   label?: string;
   errors?: any;
   fit?: boolean;
@@ -67,7 +62,10 @@ const Input = forwardRef(({ ...props }: InputProps, forwardRef) => {
           className={`bg-${color} ${classes(
             icon && iconAlign === "left" && "indent-8",
             className,
-            "w-full h-10 px-3 border border-accent-dark2 dark:border-accent-light2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none outline-none focus:border-primary active:border-primary transition-colors text-text placeholder-text"
+            "w-full h-10 px-3 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none outline-none focus:border-primary active:border-primary transition-colors text-text placeholder-text",
+            color === "accent" && "border border-accent2",
+            color === "accent2" && "border border-accent3",
+            color === "accent3" && "border border-accent4"
           )}`}
           ref={forwardRef as any}
           {...rest}

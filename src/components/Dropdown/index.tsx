@@ -48,7 +48,7 @@ function DropdownItem(props: {
       className={classes(
         hasHref && "!p-0",
         "flex items-center justify-between",
-        "dropdown-item py-2 px-4 cursor-pointer transition-colors h-10 w-full text-center hover:bg-accent-dark dark:hover:bg-accent-light2"
+        "dropdown-item py-2 px-4 cursor-pointer transition-colors h-10 w-full text-center hover:bg-accent2"
       )}
     >
       {iconLeft && iconLeft}
@@ -76,7 +76,7 @@ function Dropdown(props: Props) {
         )}
       >
         {label && (
-          <div className="clickable cursor-pointer flex items-center justify-between rounded-lg py-2 px-4 h-10 w-full transition-colors hover:bg-accent-dark dark:hover:bg-accent-light2">
+          <div className="clickable cursor-pointer flex items-center justify-between rounded-lg py-2 px-4 h-10 w-full transition-colors hover:bg-accent">
             {React.isValidElement(label) ? (
               label
             ) : (

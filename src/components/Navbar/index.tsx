@@ -66,7 +66,7 @@ export default function Navbar() {
           >
             <Dropdown.Item>
               <Link
-                href={ROUTES.explore.games}
+                href={ROUTES.games.index}
                 className="flex items-center justify-center gap-2"
               >
                 <TbDeviceGamepad size="1.5em" />
@@ -88,7 +88,7 @@ export default function Navbar() {
                 Home
               </Link>
               <Link
-                href={ROUTES.explore.games}
+                href={ROUTES.games.index}
                 className="flex items-center gap-2"
               >
                 <TbDeviceGamepad size="1.7em" />
@@ -103,6 +103,7 @@ export default function Navbar() {
           fit={false}
           icon={<Search />}
           placeholder="Search"
+          color="accent2"
         />
 
         <button className="lg:hidden">

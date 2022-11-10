@@ -25,7 +25,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
     <QueryClientProvider client={queryClient}>
       <NotificationProvider>
         <SessionProvider>
-          <ThemeProvider attribute="class">
+          <ThemeProvider attribute="class" themes={['light', 'dark', 'dim']}>
             {getLayout(<Component {...pageProps} />)}
             {/* <Layout>
               <Component {...pageProps} />

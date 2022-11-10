@@ -3,14 +3,7 @@ import { Slot } from "@radix-ui/react-slot";
 import React, { forwardRef } from "react";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  color?:
-    | "primary"
-    | "pink"
-    | "accent"
-    | "accent-light"
-    | "accent-light2"
-    | "accent-dark"
-    | "accent-dark2";
+  color?: "primary" | "pink" | "accent" | "accent2" | "accent3";
   size?: "small" | "medium" | "large";
   outlined?: boolean;
   rounded?: boolean;
@@ -50,12 +43,9 @@ const Button: React.FC<ButtonProps> = forwardRef<
           size === "medium" && "px-3 py-2 text-sm",
           size === "large" && "px-4 py-2 text-base",
           rounded && "btn-icon",
-          color === "accent" &&
-            "hover:bg-accent-dark dark:hover:bg-accent-light",
-          color === "accent-light" && "hover:bg-accent",
-          color === "accent-light2" && "hover:bg-accent-light",
-          color === "accent-dark" && "hover:bg-accent-dark2",
-          color === "accent-dark2" && "hover:bg-accent-dark",
+          color === "accent" && "hover:bg-accent2",
+          color === "accent2" && "hover:bg-accent3",
+          color === "accent3" && "hover:bg-accent4",
           color === "pink" && "text-white bg-pink-600 hover:!bg-pink-700",
           color === "primary" &&
             "!text-white hover:bg-primary-dark shadow-[inset_0_0_0.2em_0_var(--primary),_0_0_0.2em_0_var(--primary)]",

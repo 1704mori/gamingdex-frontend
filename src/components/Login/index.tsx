@@ -54,7 +54,7 @@ export default function Login() {
 
       <Button
         color="accent"
-        className="!bg-transparent w-full !border !border-accent-dark2 dark:!border-accent-light2 hover:!bg-accent-light2 gap-1"
+        className="!bg-transparent w-full !border !border-accent3 hover:!bg-accent2 gap-1"
       >
         <FaDiscord size="1.5em" />
         Discord
@@ -69,6 +69,7 @@ export default function Login() {
       <Input
         color="accent"
         label="email"
+        className="border-accent3"
         {...register("email")}
         errors={errors}
       />
@@ -76,10 +77,11 @@ export default function Login() {
         type="password"
         color="accent"
         label="password"
+        className="border-accent3"
         {...register("password")}
         errors={errors}
       />
-      <Button className="text-primary mx-auto" asChild>
+      <Button className="!text-primary mx-auto" asChild>
         <Link href={ROUTES.register}>Forgot my password</Link>
       </Button>
       <Button className="w-full" type="submit">
@@ -87,7 +89,7 @@ export default function Login() {
       </Button>
       <span>
         Don{"'"}t have an account?{" "}
-        <Button className="text-primary" asChild>
+        <Button className="!text-primary" asChild>
           <Link href={ROUTES.register}>Register</Link>
         </Button>
       </span>

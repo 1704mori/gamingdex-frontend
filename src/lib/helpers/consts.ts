@@ -1,14 +1,18 @@
 export const ROUTES = {
   home: "/",
-  explore: {
-    games: "/games",
+  games: {
+    index: "/games",
+    random: "/games/random",
   },
   community: {
     lists: "/lists",
   },
   login: "/login",
   register: "/register",
-  profile: "/profile",
+  profile: {
+    index: "/profile",
+    lists: "/profile/:username?tab=lists",
+  },
   settings: "/settings",
 };
 

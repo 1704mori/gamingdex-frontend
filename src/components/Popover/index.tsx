@@ -56,7 +56,7 @@ export default function Popover(props: Props) {
                 : placement === "left"
                 ? "right-full"
                 : "left-full top-1/2 -translate-y-1/2"
-            } absolute z-10 p-2 bg-primary text-white rounded-lg shadow-md whitespace-nowrap`}
+            } absolute z-10 px-2 py-1 text-sm bg-primary text-white rounded-lg shadow-md whitespace-nowrap`}
           >
             {text}
           </motion.div>

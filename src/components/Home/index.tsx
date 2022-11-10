@@ -16,7 +16,7 @@ export default function Home() {
   const { t } = useLocale();
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,_1fr)_270px] lg:max-w-7xl w-full px-6 gap-5 mt-12">
+    <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,_1fr)_270px] w-full gap-5 mt-12">
       <div className="flex flex-col gap-5 ">
         <div className="upcoming flex flex-col gap-1 relative">
           <h3 className="font-medium text-2xl">{t.UPCOMING_GAMES}</h3>
@@ -140,31 +140,16 @@ export default function Home() {
               .map((_, index) => (
                 <div key={index} className="popular-list">
                   <div className="flex justify-end sm:justify-start lg:justify-end xl:justify-start -space-x-5">
-                    <img
-                      className="game-cover"
-                      src="https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/hero_capsule.jpg?t=1628200839"
-                      alt=""
-                    />
-                    <img
-                      className="game-cover"
-                      src="https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/hero_capsule.jpg?t=1628200839"
-                      alt=""
-                    />
-                    <img
-                      className="game-cover"
-                      src="https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/hero_capsule.jpg?t=1628200839"
-                      alt=""
-                    />
-                    <img
-                      className="game-cover"
-                      src="https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/hero_capsule.jpg?t=1628200839"
-                      alt=""
-                    />
-                    <img
-                      className="game-cover"
-                      src="https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/hero_capsule.jpg?t=1628200839"
-                      alt=""
-                    />
+                    {Array(5)
+                      .fill(0)
+                      .map((_, index) => (
+                        <img
+                          key={index}
+                          className="game-cover hover:scale-105 transition-all duration-200"
+                          src="https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/hero_capsule.jpg?t=1628200839"
+                          alt=""
+                        />
+                      ))}
                   </div>
                   <div className="p-2">
                     <h5 className="font-medium">Best JRPGs</h5>

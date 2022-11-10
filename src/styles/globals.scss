@@ -32,6 +32,13 @@ body {
   color: var(--text) !important;
 }
 
+//  #__next, body, html {
+//   height: 100%;
+//   display: flex;
+//   flex-direction: column;
+//   flex-grow: 1;
+// }
+
 a {
   color: inherit;
   text-decoration: none;
@@ -62,59 +69,45 @@ a {
   background-color: var(--scrollbar-thumb-hover);
 }
 
+// light
 :root {
-  --background: #fff;
-  --accent: #f0f1f2;
-  /* things that arent button */
-  --accent-light: #f7f8f9;
-  /* hover */
-  --accent-light2: #fafbfc;
-  /* button(s-ish) things - secondary */
+  --hue: 205;
+  --saturation: 100%;
+  --lightness: 59%;
 
-  --accent-dark: #e6e6e6;
-  --accent-dark2: #c9cbcb;
+  --primary: hsl(var(--hue) var(--saturation) var(--lightness));
+  --primary2: hsl(var(--hue) var(--saturation) calc(var(--lightness) - 10%));
+  --primary3: hsl(var(--hue) var(--saturation) calc(var(--lightness) - 20%));
 
-  --primary-light2: #2ca8ff;
-  --primary-light: #1e9fff;
-  --primary: #1890ff;
-  --primary-dark: #1581e6;
-  --primary-dark2: #097ae3;
+  --background: hsl(var(--hue) 15% 95%);
+  --accent: hsl(var(--hue) 15% 90%);
+  --accent2: hsl(var(--hue) 15% 85%);
+  --accent3: hsl(var(--hue) 15% 80%);
+  --accent4: hsl(var(--hue) 15% 75%);
+  --text: hsl(var(--hue) 15% 20%);
 
-  --status-red: #ff4040;
-  --status-green: #04d000;
-  --status-blue: #00c9f5;
-  --status-yellow: #f79421;
+  // --status-red: #ff4040;
+  // --status-green: #04d000;
+  // --status-blue: #00c9f5;
+  // --status-yellow: #f79421;
+}
 
-  --scrollbar-track: #f0f0f0;
-  --scrollbar-thumb: #e0e0e0;
-  --scrollbar-thumb-hover: #d0d0d0;
-
-  --text: #242424;
+.dim {
+  --background: hsl(var(--hue) 15% 20%) !important;
+  --accent: hsl(var(--hue) 15% 25%) !important;
+  --accent2: hsl(var(--hue) 15% 30%) !important;
+  --accent3: hsl(var(--hue) 15% 35%) !important;
+  --accent4: hsl(var(--hue) 15% 40%) !important;
+  --text: hsl(var(--hue) 15% 90%) !important;
 }
 
 .dark {
-  --background: #191a1c;
-  --accent: #2c2c2c;
-  /* things that arent button */
-  --accent-light: #3d3d3d;
-  /* hover */
-  --accent-light2: #4f4f4f;
-  /* button(s-ish) things - secondary */
-
-  --accent-dark: #202020;
-  --accent-dark2: #1d1d1d;
-
-  --primary-light2: #2ca8ff;
-  --primary-light: #1e9fff;
-  --primary: #1890ff;
-  --primary-dark: #168cfa;
-  --primary-dark2: #097ae3;
-
-  --scrollbar-track: #202020;
-  --scrollbar-thumb: #3d3d3d;
-  --scrollbar-thumb-hover: #4f4f4f;
-
-  --text: #fff;
+  --background: hsl(0 0% 10%) !important;
+  --accent: hsl(0 0% 16%) !important;
+  --accent2: hsl(0 0% 22%) !important;
+  --accent3: hsl(0 0% 28%) !important;
+  --accent4: hsl(0 0% 34%) !important;
+  --text: hsl(0 15% 100%) !important;
 }
 
 .tippy-box {
@@ -447,7 +440,7 @@ a {
   .swiper-slide {
     text-align: center;
     font-size: 18px;
-    background: var(--gray-100);
+    background: var(--accent);
     width: 200px !important;
 
     @media (max-width: 768px) {
@@ -487,7 +480,7 @@ a {
     flex-direction: column;
     text-align: center;
     /* font-size: 18px; */
-    background: var(--gray-100);
+    background: var(--accent);
     width: 80% !important;
 
     // bottom border radius
