@@ -42,6 +42,11 @@ export default function Games() {
     }
   );
 
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+    setOffset(1);
+  };
+
   return (
     <div className="flex flex-col gap-3 lg:max-w-5xl w-full px-5 lg:px-0 mb-auto">
       <h3 className="text-2xl font-medium">Advanced Search</h3>
@@ -51,7 +56,7 @@ export default function Games() {
             placeholder="Search"
             icon={<Search />}
             iconAlign="left"
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={handleSearch}
           />
           <Filter />
         </div>

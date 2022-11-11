@@ -1,6 +1,6 @@
 import { classes } from "@/lib/helpers/common";
 import { ArrowLeft, ArrowRight } from "iconoir-react";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 interface Props {
   total: number;
@@ -13,6 +13,10 @@ export default function Pagination(props: Props) {
   const { total, perPage = 15, buttons = true, onPageClick } = props;
 
   const [currentPage, setCurrentPage] = useState<number>(1);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [total]);
 
   const range = (start: number, end: number) => {
     return [...Array(end - start + 1)].map((_, i) => start + i);
