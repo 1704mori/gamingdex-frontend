@@ -7,12 +7,9 @@ import dayjs from "dayjs";
 import { Plus, Search } from "iconoir-react";
 import { useAtom } from "jotai";
 import Link from "next/link";
-import { useState } from "react";
-import Footer from "../Footer";
+import { useEffect, useState } from "react";
 import Input from "../Input";
-import Navbar from "../Navbar";
 import Pagination from "../Pagination";
-import Slider from "../Slider";
 import Uzumaki from "../Uzumaki";
 import Filter from "./Filter";
 
@@ -28,14 +25,14 @@ export default function Games() {
     isLoading,
     error,
   } = useQuery(
-    ["games", filters, offset, debouncedSearch],
+    ["games", filters.sort, offset, debouncedSearch],
     async () =>
       gameService.get({
         ...(debouncedSearch.length >= 3 && {
           title: debouncedSearch,
         }),
         order: {
-          ...filters,
+          ...filters.sort,
         },
         limit: 24,
         offset,

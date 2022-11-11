@@ -10,6 +10,7 @@ interface Props {
   className?: string;
   disableArrow?: boolean;
   width?: string;
+  hoverColor?: "accent" | "accent2" | "accent3" | "primary";
 }
 
 function DropdownItem(props: {
@@ -59,7 +60,7 @@ function DropdownItem(props: {
 }
 
 function Dropdown(props: Props) {
-  const { label, children } = props;
+  const { label, hoverColor = "accent", children } = props;
   const [isOpen, setIsOpen] = useState(false);
   const _ref = useRef<HTMLDivElement>(null);
 
@@ -76,7 +77,9 @@ function Dropdown(props: Props) {
         )}
       >
         {label && (
-          <div className="clickable cursor-pointer flex items-center justify-between rounded-lg py-2 px-4 h-10 w-full transition-colors hover:bg-accent">
+          <div
+            className={`clickable cursor-pointer flex items-center justify-between rounded-lg py-2 px-4 h-10 w-full transition-colors hover:bg-${hoverColor}`}
+          >
             {React.isValidElement(label) ? (
               label
             ) : (
@@ -89,12 +92,11 @@ function Dropdown(props: Props) {
             )}
           </div>
         )}
+
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              className={classes(
-                "flex flex-col gap-2 mt-3 absolute top-12 py-2 z-[100] bg-accent rounded-lg shadow-san"
-              )}
+              className={`flex flex-col gap-2 mt-3 absolute top-12 py-2 z-[100] bg-accent rounded-lg shadow-san `}
               initial={{ opacity: 0, y: -10, width: props.width || "auto" }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}

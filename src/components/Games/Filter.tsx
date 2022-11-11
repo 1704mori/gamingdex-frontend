@@ -62,18 +62,20 @@ export default function Filter() {
                 >
                   <Button
                     rounded
-                    color={
-                      filters?.display === "grid" ? "primary" : "accent2"
-                    }
+                    color={filters?.display === "grid" ? "primary" : "accent2"}
                     onClick={() => {
                       if (filters?.display === "grid") {
-                        setFilters({ ...filters, display: null });
+                        setFilters({ ...filters, display: undefined });
                         return;
                       }
                       setFilters({ ...filters, display: "grid" });
                     }}
                   >
-                    <ViewGrid className={classes(filters.display === 'grid' ? 'text-white' : 'text-text')} />
+                    <ViewGrid
+                      className={classes(
+                        filters.display === "grid" ? "text-white" : "text-text"
+                      )}
+                    />
                   </Button>
                 </Tippy>
                 <Tippy
@@ -83,18 +85,21 @@ export default function Filter() {
                 >
                   <Button
                     rounded
-                    color={
-                      filters?.display === "list" ? "primary" : "accent2"
-                    }
+                    disabled
+                    color={filters?.display === "list" ? "primary" : "accent2"}
                     onClick={() => {
                       if (filters?.display === "list") {
-                        setFilters({ ...filters, display: null });
+                        setFilters({ ...filters, display: undefined });
                         return;
                       }
                       setFilters({ ...filters, display: "list" });
                     }}
                   >
-                    <List className={classes(filters.display === 'list' ? 'text-white' : 'text-text')} />
+                    <List
+                      className={classes(
+                        filters.display === "list" ? "text-white" : "text-text"
+                      )}
+                    />
                   </Button>
                 </Tippy>
               </div>
@@ -109,17 +114,19 @@ export default function Filter() {
                   onSelect={(value) => {
                     setFilters({
                       ...filters,
-                      [value.split("_")[0]]: value.split("_")[1],
+                      sort: {
+                        [value.split("_")[0]]: value.split("_")[1],
+                      },
                     });
                     setShowFilters(false);
                   }}
-                  clean={!filters}
+                  clean={!filters.sort}
                 >
                   <SelectItem value="title_asc">Title A-Z</SelectItem>
                   <SelectItem value="title_desc">Title Z-A</SelectItem>
                   <SelectItem value="score_asc">Score Ascending</SelectItem>
                   <SelectItem value="score_desc">Score Descending</SelectItem>
-                  <SelectItem value="recently_added">Recently Added</SelectItem>
+                  <SelectItem value="createdAt_at">Recently Added</SelectItem>
                 </Select>
               </div>
             </div>

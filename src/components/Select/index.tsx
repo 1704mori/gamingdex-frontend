@@ -1,7 +1,6 @@
 import { classes } from "@/lib/helpers/common";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUp } from "iconoir-react";
-import { atom, useAtom } from "jotai";
 import React, { forwardRef, useState, useEffect, useRef } from "react";
 import useClickOutside from "../../lib/hooks/useClickOutside";
 import Typography from "../Typography";
@@ -34,8 +33,6 @@ const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
 );
 
 SelectItem.displayName = "SelectItem";
-
-const placeholderAtom = atom("Select");
 
 const Select = forwardRef<HTMLDivElement, Props>(
   ({ children, ...props }, ref) => {
