@@ -88,7 +88,7 @@ export async function addToMyList(
   id: string,
   status: keyof typeof EGamingStatus
 ) {
-  const result = await put(`/game/${id}/status`, {
+  const result = await post(`/game/${id}/status`, {
     status: EGamingStatus[status],
   });
 
