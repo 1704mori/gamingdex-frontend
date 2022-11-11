@@ -24,7 +24,10 @@ export default function UserDropdown() {
 
   const handleOpen = () => setOpen(!open);
 
-  useClickOutside(ref, () => setOpen(false));
+  useClickOutside(ref, () => {
+    setOpen(false);
+    setActiveMenu("main");
+  });
 
   const handleLogout = () => {
     signOut();
