@@ -289,7 +289,7 @@ export default function Game({ game }: { game: IGame }) {
           </div>
           {isLoadingStatus ? (
             <div className="hidden lg:grid grid-cols-1 gap-2">
-              <Spinner width="32px" height="32px"  />
+              <Spinner width="32px" height="32px" />
             </div>
           ) : (
             <div
@@ -341,9 +341,9 @@ export default function Game({ game }: { game: IGame }) {
                       value: status?.attributes.score as any,
                     })}
                   >
-                    {[...Array(10)].map((_, i) => (
+                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((ii, i) => (
                       <SelectItem key={i} value={i}>
-                        {i}
+                        {ii}
                       </SelectItem>
                     ))}
                   </Select>
