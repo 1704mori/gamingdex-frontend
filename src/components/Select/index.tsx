@@ -14,6 +14,7 @@ interface Props {
   children?: React.ReactNode;
   clean?: boolean;
   className?: string;
+  disabled?: boolean;
 }
 
 interface SelectItemProps extends Omit<Props, "value"> {
@@ -78,14 +79,13 @@ const Select = forwardRef<HTMLDivElement, Props>(
       if (React.isValidElement(child)) {
         return React.cloneElement<any>(child, {
           onClick: () => {
-            if (onSelect) {
+            if (onSelect && !rest.disabled) {
               onSelect(child.props.value);
               setPlaceholderText(child.props.children);
             }
           },
           className: classes(
-            color === "accent" &&
-              "hover:bg-accent2",
+            color === "accent" && "hover:bg-accent2",
             color === "accent2" && "hover:bg-accent3",
             color === "accent3" && "hover:bg-accent4",
             color === "pink" && "text-white bg-pink-600 hover:!bg-pink-700",
@@ -115,13 +115,13 @@ const Select = forwardRef<HTMLDivElement, Props>(
           {placeholderText && (
             <div
               className={`bg-${color} clickable flex items-center justify-between !transition-colors ${classes(
-                color === "accent" &&
-                  "hover:bg-accent2",
+                color === "accent" && "hover:bg-accent2",
                 color === "accent2" && "hover:bg-accent3",
                 color === "accent3" && "hover:bg-accent4",
                 color === "pink" && "text-white bg-pink-600 hover:!bg-pink-700",
                 color === "primary" &&
-                  "!text-white hover:bg-primary shadow-[inset_0_0_0.2em_0_var(--primary),_0_0_0.2em_0_var(--primary)]"
+                  "!text-white hover:bg-primary shadow-[inset_0_0_0.2em_0_var(--primary),_0_0_0.2em_0_var(--primary)]",
+                rest.disabled && "bg-opacity-50 cursor-not-allowed"
               )}`}
             >
               <Typography thickness={3}>{placeholderText}</Typography>

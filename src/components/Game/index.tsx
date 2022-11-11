@@ -38,6 +38,7 @@ import Reviews from "./Tabs/Reviews";
 import Characters from "./Tabs/Characters";
 import Staff from "./Tabs/Staff";
 import useHasUserRole from "@/lib/hooks/useHasUserRole";
+import Spinner from "../Spinner";
 
 export default function Game({ game }: { game: IGame }) {
   const [showDescription, setShowDescription] = useState(false);
@@ -66,9 +67,18 @@ export default function Game({ game }: { game: IGame }) {
 
   const toggleDescription = () => setShowDescription(!showDescription);
 
-  const { data: status, isLoading: isLoadingStatus } = useQuery(
+  const {
+    data: status,
+    isRefetching: isRefetchingStatus,
+    isLoading: isLoadingStatus,
+    refetch: refetchStatus,
+  } = useQuery(
     ["list_status"],
-    async () => gameService.getListStatus(game.id)
+    async () => gameService.getListStatus(game.id),
+    {
+      enabled: !!session,
+      refetchOnWindowFocus: false,
+    }
   );
 
   const router = useRouter();
@@ -80,7 +90,13 @@ export default function Game({ game }: { game: IGame }) {
     }
 
     await gameService.addToMyList(game.id, "PLAYING");
-    router.reload();
+    await refetchStatus();
+    // router.reload();
+  };
+
+  const removeFromMyList = async () => {
+    await gameService.removeFromMyList(game.id);
+    await refetchStatus();
   };
 
   return (
@@ -271,91 +287,103 @@ export default function Game({ game }: { game: IGame }) {
               <StarRating filled={Math.floor(game.score / 2)} />
             </div>
           </div>
-          <div
-            className={classes(
-              "hidden lg:grid grid-cols-1 gap-2",
-              !status?.attributes.status
-                ? "lg:grid-cols-[200px_max-content_200px_100px_100px]"
-                : "lg:grid-cols-[265px_max-content_200px_100px_100px]"
-            )}
-          >
-            {!status?.attributes.status ? (
-              <Button onClick={handleAddToMyList}>Add to library</Button>
-            ) : (
-              <div className="flex items-center gap-2 w-full">
-                <Select
-                  color="accent"
-                  className="w-full"
-                  key="status"
-                  onSelect={(value) =>
-                    gameService.updateMyList(game.id, {
-                      status: value as any,
-                    })
-                  }
-                  value={status?.attributes.status}
-                >
-                  <SelectItem value="playing">Playing</SelectItem>
-                  <SelectItem value="completed">Completed</SelectItem>
-                  <SelectItem value="on_hold">On-hold</SelectItem>
-                  <SelectItem value="dropped">Dropped</SelectItem>
-                  <SelectItem value="plan_to_play">Plan to play</SelectItem>
-                </Select>
-                <Select
-                  color="accent"
-                  placeholder="⭐"
-                  key="score"
-                  onSelect={(value) =>
-                    gameService.updateMyList(game.id, {
-                      score: parseInt(value) as any,
-                    })
-                  }
-                  {...(status?.attributes.score && {
-                    value: status?.attributes.score as any,
-                  })}
-                >
-                  {[...Array(10)].map((_, i) => (
-                    <SelectItem key={i} value={i}>
-                      {i}
-                    </SelectItem>
-                  ))}
-                </Select>
-                <Button>
-                  <Trash />
-                </Button>
-              </div>
-            )}
-            <Button color="pink">
-              <StarOutline />
-            </Button>
-            <Button
-              color="accent"
-              onClick={() => {
-                if (!session) {
-                  router.push(ROUTES.login);
-                  return;
-                }
-
-                setShowListModal();
-              }}
+          {isLoadingStatus ? (
+            <div className="hidden lg:grid grid-cols-1 gap-2">
+              <Spinner width="32px" height="32px"  />
+            </div>
+          ) : (
+            <div
+              className={classes(
+                "hidden lg:grid grid-cols-1 gap-2",
+                !isLoadingStatus && !status?.attributes.status
+                  ? "lg:grid-cols-[200px_max-content_200px_100px_100px]"
+                  : "lg:grid-cols-[275px_max-content_200px_100px_100px]"
+              )}
             >
-              <PlaylistAdd width="1.58em" height="1.58em" />
-              Add to list
-            </Button>
-            {session && canEdit && (
+              {!status?.attributes.status ? (
+                <Button
+                  onClick={handleAddToMyList}
+                  disabled={isRefetchingStatus}
+                >
+                  Add to library
+                </Button>
+              ) : (
+                <div className="flex items-center gap-2 w-full">
+                  <Select
+                    disabled={isRefetchingStatus}
+                    color="accent"
+                    className="w-full"
+                    key="status"
+                    onSelect={(value) =>
+                      gameService.updateMyList(game.id, {
+                        status: value as any,
+                      })
+                    }
+                    value={status?.attributes.status}
+                  >
+                    <SelectItem value="playing">Playing</SelectItem>
+                    <SelectItem value="completed">Completed</SelectItem>
+                    <SelectItem value="on_hold">On-hold</SelectItem>
+                    <SelectItem value="dropped">Dropped</SelectItem>
+                    <SelectItem value="plan_to_play">Plan to play</SelectItem>
+                  </Select>
+                  <Select
+                    disabled={isRefetchingStatus}
+                    color="accent"
+                    placeholder="⭐"
+                    key="score"
+                    onSelect={(value) =>
+                      gameService.updateMyList(game.id, {
+                        score: parseInt(value) as any,
+                      })
+                    }
+                    {...(status?.attributes.score && {
+                      value: status?.attributes.score as any,
+                    })}
+                  >
+                    {[...Array(10)].map((_, i) => (
+                      <SelectItem key={i} value={i}>
+                        {i}
+                      </SelectItem>
+                    ))}
+                  </Select>
+                  <Button
+                    onClick={removeFromMyList}
+                    disabled={isRefetchingStatus}
+                  >
+                    <Trash />
+                  </Button>
+                </div>
+              )}
+              <Button color="pink">
+                <StarOutline />
+              </Button>
               <Button
                 color="accent"
+                onClick={() => {
+                  if (!session) {
+                    router.push(ROUTES.login);
+                    return;
+                  }
+
+                  setShowListModal();
+                }}
               >
-                <EditPencil />
-                Edit
+                <PlaylistAdd width="1.58em" height="1.58em" />
+                Add to list
               </Button>
-            )}
-            <Button
-              color="accent"
-            >
-              <WhiteFlag />
-              Report
-            </Button>
-          </div>
+              {session && canEdit && (
+                <Button color="accent">
+                  <EditPencil />
+                  Edit
+                </Button>
+              )}
+              <Button color="accent">
+                <WhiteFlag />
+                Report
+              </Button>
+            </div>
+          )}
         </div>
 
         <div className="mt-4">
