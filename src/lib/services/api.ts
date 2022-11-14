@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 
 import { authService } from "./auth";
 
-import { API_URL } from "@/settings";
+import { API_URL } from "@/../settings";
 import { IApiResponse } from "../types/api";
 
 export async function get<T = unknown>(

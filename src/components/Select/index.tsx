@@ -35,14 +35,14 @@ const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
 
 SelectItem.displayName = "SelectItem";
 
-const Select = forwardRef<HTMLDivElement, Props>(
+const Select = forwardRef<HTMLButtonElement, Props>(
   ({ children, ...props }, ref) => {
     const { color = "accent", onSelect, placeholder, value, ...rest } = props;
     const [placeholderText, setPlaceholderText] = useState(
       placeholder || "Select"
     );
     const [isOpen, setIsOpen] = useState(false);
-    const _ref = useRef<HTMLDivElement>(ref as any);
+    const _ref = useRef<HTMLButtonElement>(ref as any);
 
     useEffect(() => {
       if (rest.clean) {
@@ -106,7 +106,7 @@ const Select = forwardRef<HTMLDivElement, Props>(
             {props.label}
           </Typography>
         )}
-        <div
+        <button
           ref={_ref}
           {...rest}
           onClick={() => setIsOpen(!isOpen)}
@@ -145,7 +145,7 @@ const Select = forwardRef<HTMLDivElement, Props>(
               </motion.div>
             )}
           </AnimatePresence>
-        </div>
+        </button>
       </div>
     );
   }

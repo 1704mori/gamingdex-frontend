@@ -11,6 +11,7 @@ interface Props {
   disableArrow?: boolean;
   width?: string;
   hoverColor?: "accent" | "accent2" | "accent3" | "primary";
+  visible?: boolean;
 }
 
 function DropdownItem(props: {
@@ -60,20 +61,21 @@ function DropdownItem(props: {
 }
 
 function Dropdown(props: Props) {
-  const { label, hoverColor = "accent", children } = props;
-  const [isOpen, setIsOpen] = useState(false);
-  const _ref = useRef<HTMLDivElement>(null);
+  const { label, hoverColor = "accent", visible = false, children } = props;
+  const [isOpen, setIsOpen] = useState(visible);
+  const _ref = useRef<HTMLButtonElement>(null);
 
   useClickOutside(_ref, () => setIsOpen(false));
 
   return (
     <div className="flex flex-col gap-1 select-none">
-      <motion.div
+      <motion.button
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
         ref={_ref}
         className={classes(
           props.className,
-          "relative flex items-center justify-center w-full"
+          "dropdown relative flex items-center justify-center w-full"
         )}
       >
         {label && (
@@ -96,7 +98,7 @@ function Dropdown(props: Props) {
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              className={`flex flex-col gap-2 mt-3 absolute top-12 py-2 z-[100] bg-accent rounded-lg shadow-san `}
+              className="dropdown-menu flex flex-col gap-2 mt-3 absolute top-12 py-2 z-[100] bg-accent rounded-lg shadow-san"
               initial={{ opacity: 0, y: -10, width: props.width || "auto" }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
@@ -108,7 +110,7 @@ function Dropdown(props: Props) {
             </motion.div>
           )}
         </AnimatePresence>
-      </motion.div>
+      </motion.button>
     </div>
   );
 }

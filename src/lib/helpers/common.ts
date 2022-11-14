@@ -1,7 +1,7 @@
-import { CDN_URL } from "../../settings";
 import { AxiosResponse } from "axios";
 import { IGame } from "../types/game";
 import { ElementType, Attributes, ReactElement, createElement } from "react";
+import { CDN_URL } from "@/settings";
 
 /**
  * Returns only truthy classes given.

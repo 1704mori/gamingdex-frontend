@@ -1,6 +1,5 @@
 import { TOKEN_KEY } from "@/lib/helpers/consts";
 import { authService } from "@/lib/services/auth";
-import { API_URL } from "@/settings";
 import jwtDecode from "jwt-decode";
 import { NextApiRequest, NextApiResponse } from "next";
 import NextAuth, { NextAuthOptions } from "next-auth";
