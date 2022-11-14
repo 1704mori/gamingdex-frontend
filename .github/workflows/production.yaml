@@ -1,0 +1,23 @@
+name: Vercel Production Deployment
+on:
+  push:
+    branches:
+      - master
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run CI
+        run: npm ci --force
+      
+      - name: Check linting
+        run: npm run lint
+      
+      - name: Run tests
+        run: npm run test
+
+      - name: Build
+        run: npm run build
