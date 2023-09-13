@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu, ArrowDown, Search } from "iconoir-react";
+import { Menu, ArrowDown, Search, Trophy, GraphUp, List } from "iconoir-react";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { useMediaQuery } from "react-responsive";
@@ -13,6 +13,8 @@ import UserDropdown from "./UserDropdown";
 import Input from "../Input";
 import { classes } from "@/lib/helpers/common";
 import useClickOutside from "@/lib/hooks/useClickOutside";
+import { useAtom } from "jotai";
+import { filterAtom } from "@/lib/stores";
 
 const variants = {
   open: {
@@ -31,16 +33,34 @@ const variants = {
 };
 
 export default function Navbar() {
+  const [, setFilters] = useAtom(filterAtom);
+
   const [open, setOpen] = useState(false);
 
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   useClickOutside(mobileMenuRef, () => setOpen(false));
 
+  const handleClickTop = () => {
+    setFilters({
+      sort: {
+        score: "desc",
+      },
+    });
+  };
+
+  const handleClickMostPopular = () => {
+    setFilters({
+      sort: {
+        members: "desc",
+      },
+    });
+  };
+
   return (
     <div className="w-full h-16 fixed left-0 top-0 select-none flex items-center justify-center z-50 bg-accent">
-      <div className="flex items-center gap-3 max-w-2xl" ref={mobileMenuRef}>
-        <Link href={ROUTES.home} className="flex items-center">
+      <div className="flex items-center gap-3 max-w-3xl" ref={mobileMenuRef}>
+        <Link href={ROUTES.home} className="flex items-center mr-3">
           <img className="w-8 h-16 mt-0.5" src="/logo_mini.svg" alt="Mini" />
           <img
             className={classes("w-20 h-16", "hidden lg:block")}
@@ -57,20 +77,52 @@ export default function Navbar() {
           {open ? <ArrowDown /> : <Menu />}
         </motion.button>
 
-        <div className="hidden items md:flex items-center gap-3 ml-5 font-medium">
-          <Link href={ROUTES.home}>Home</Link>
-          <Dropdown
-            label="Explore"
-            className="remove-dropdown-bg"
-            width="250px"
+        <div className="hidden items md:flex items-center ml-5 font-medium">
+          <Link
+            className="hover:bg-accent2 px-3 py-2 rounded-lg"
+            href={ROUTES.home}
           >
+            Home
+          </Link>
+          <Dropdown hoverColor="accent2" label="Community" width="200px">
             <Dropdown.Item>
               <Link
-                href={ROUTES.explore.games}
+                href={ROUTES.community.lists}
+                className="flex items-center justify-center gap-2"
+              >
+                <List />
+                Lists
+              </Link>
+            </Dropdown.Item>
+          </Dropdown>
+          <Dropdown hoverColor="accent2" label="Explore" width="250px">
+            <Dropdown.Item>
+              <Link
+                href={ROUTES.games.index}
                 className="flex items-center justify-center gap-2"
               >
                 <TbDeviceGamepad size="1.5em" />
                 Games
+              </Link>
+            </Dropdown.Item>
+            <Dropdown.Item>
+              <Link
+                href={ROUTES.games.index}
+                onClick={handleClickTop}
+                className="flex items-center justify-center gap-2"
+              >
+                <Trophy width="1.5em" height="1.5em" />
+                Top
+              </Link>
+            </Dropdown.Item>
+            <Dropdown.Item>
+              <Link
+                href={ROUTES.games.index}
+                onClick={handleClickMostPopular}
+                className="flex items-center justify-center gap-2"
+              >
+                <GraphUp width="1.5em" height="1.5em" />
+                Most Popular
               </Link>
             </Dropdown.Item>
           </Dropdown>
@@ -88,7 +140,7 @@ export default function Navbar() {
                 Home
               </Link>
               <Link
-                href={ROUTES.explore.games}
+                href={ROUTES.games.index}
                 className="flex items-center gap-2"
               >
                 <TbDeviceGamepad size="1.7em" />
@@ -103,7 +155,7 @@ export default function Navbar() {
           fit={false}
           icon={<Search />}
           placeholder="Search"
-          disabled
+          color="accent2"
         />
 
         <button className="lg:hidden">

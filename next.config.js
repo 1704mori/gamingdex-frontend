@@ -16,9 +16,6 @@ const nextConfig = {
       "uploads.gaminglist.net",
     ],
   },
-  experimental: {
-    appDir: false,
-  },
 };
 
 module.exports = nextConfig;

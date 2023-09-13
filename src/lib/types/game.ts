@@ -54,13 +54,13 @@ export interface IGame extends IBase {
   members: string;
 
   reviews?: IReview[];
-  genres: IGameGenre[];
-  platforms: IGamePlatform[];
-  developers: IGameDeveloper[];
-  publishers: IGamePublisher[];
-  characters: IGameCharacter[];
-  staff: IGameStaff[];
-  userGame: IUserGame[];
+  genres?: IGameGenre[];
+  platforms?: IGamePlatform[];
+  developers?: IGameDeveloper[];
+  publishers?: IGamePublisher[];
+  characters?: IGameCharacter[];
+  staff?: IGameStaff[];
+  userGame?: IUserGame[];
 }
 
 export interface IReview extends IBase {
@@ -70,7 +70,7 @@ export interface IReview extends IBase {
   rating: number;
   recommend: string;
   hasSpoilers: boolean;
-  
+
   user?: IUser;
   game?: IGame;
 }
@@ -135,9 +135,13 @@ export interface IGameCharacter extends IBase {
   character: ICharacter;
 }
 
-export interface IGameStaff extends IBase {
+export interface IGameStaff extends Omit<IBase, "role"> {
   gameId: string;
   staffId: string;
+  role: {
+    value: string;
+    label: string;
+  }[];
 
   game: IGame;
   people: IPeople;

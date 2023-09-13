@@ -2,9 +2,8 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 
 import { authService } from "./auth";
 
-import { API_URL } from "@/settings";
 import { IApiResponse } from "../types/api";
-import { parseCookies } from "nookies";
+import { API_URL } from "@/settings";
 
 export async function get<T = unknown>(
   url: AxiosRequestConfig["url"],

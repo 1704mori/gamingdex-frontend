@@ -78,7 +78,7 @@ const Modal = ({
           >
             {floatingTop && floatingTop}
             <motion.div
-              className={classes("modal", className, "modal")}
+              className={classes("modal", className)}
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}

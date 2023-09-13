@@ -17,7 +17,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async (ctx) => {
   const id = String(ctx.params?.id?.[0]);
 
-  const [game, gameErr] = await resolvePromise(
+  const [gameResult, gameErr] = await resolvePromise(
     gameService.getById(id, [
       "developers",
       "developers.developer",
@@ -30,11 +30,13 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     ])
   );
 
-  if (gameErr) {
+  if (gameErr || !gameResult) {
     return {
       props: { game: null },
     };
   }
+
+  const game = gameResult?.attributes;
 
   const [reviews, reviewsErr] = await resolvePromise(
     gameService.getReviews(id, {
@@ -42,33 +44,26 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     })
   );
 
-  if (!reviewsErr) {
-    game.data.reviews = reviews.data;
+  if (!reviewsErr || !reviews) {
+    game.reviews = reviews?.attributes;
   }
 
   const [characters, charactersErr] = await resolvePromise(
-    gameService.getCharacters(id, {
-      includes: ["character"],
-    })
+    gameService.getCharacters(id)
   );
 
-  if (!charactersErr) {
-    game.data.characters = characters.data;
+  if (!charactersErr || !characters) {
+    game.characters = characters?.attributes;
   }
 
-  const [staff, staffErr] = await resolvePromise(
-    gameService.getStaff(id, {
-      includes: ["people"],
-    })
-  );
+  const [staff, staffErr] = await resolvePromise(gameService.getStaff(id));
 
   if (!staffErr) {
-    game.data.staff = staff.data;
+    game.staff = staff?.attributes;
   }
 
-
   return {
-    props: { game: game.data },
+    props: { game },
     revalidate: 100, // 3600
   };
 };

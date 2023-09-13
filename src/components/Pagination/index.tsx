@@ -1,6 +1,6 @@
 import { classes } from "@/lib/helpers/common";
 import { ArrowLeft, ArrowRight } from "iconoir-react";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 interface Props {
   total: number;
@@ -14,6 +14,10 @@ export default function Pagination(props: Props) {
 
   const [currentPage, setCurrentPage] = useState<number>(1);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [total]);
+
   const range = (start: number, end: number) => {
     return [...Array(end - start + 1)].map((_, i) => start + i);
   };
@@ -22,19 +26,23 @@ export default function Pagination(props: Props) {
     <div className="flex items-center flex-wrap justify-center m-auto py-1">
       {buttons && (
         <button
-          className="flex items-center px-2 m-1 h-8 rounded-lg transition-colors hover:bg-gray-150 dark:hover:bg-gray-450 disabled:cursor-not-allowed disabled:hover:bg-gray-150/30 disabled:dark:hover:bg-gray-450/30"
+          className="flex items-center px-2 m-1 h-8 rounded-lg transition-colors bg-accent hover:bg-accent2 disabled:cursor-not-allowed disabled:bg-accent/30 disabled:dark:bg-accent2"
           disabled={currentPage === 1}
+          onClick={() => {
+            setCurrentPage((prev) => prev - 1);
+            onPageClick(currentPage - 1);
+          }}
         >
           <ArrowLeft />
           <span className="text-sm font-medium">Back</span>
         </button>
       )}
       {range(1, Math.ceil(total / perPage)).map((number, index) => (
-        <div
+        <button
           className={classes(
             "flex items-center justify-center w-min min-w-[2rem] h-8 p-2 m-1 font-medium cursor-pointer rounded-full transition-colors",
-            number === currentPage && "bg-primary",
-            number !== currentPage && "hover:bg-gray-150 dark:hover:bg-gray-450"
+            number === currentPage && "bg-primary text-white",
+            number !== currentPage && "hover:bg-accent"
           )}
           key={index}
           onClick={() => {
@@ -43,12 +51,16 @@ export default function Pagination(props: Props) {
           }}
         >
           {number}
-        </div>
+        </button>
       ))}
       {buttons && (
         <button
-          className="flex items-center px-2 m-1 h-8 rounded-lg transition-colors hover:bg-gray-150 dark:hover:bg-gray-450 disabled:cursor-not-allowed disabled:hover:bg-gray-150/30 disabled:dark:hover:bg-gray-450/30"
+          className="flex items-center px-2 m-1 h-8 rounded-lg transition-colors bg-accent hover:bg-accent2 disabled:cursor-not-allowed disabled:bg-accent/30 disabled:dark:bg-accent2"
           disabled={currentPage === Math.ceil(total / perPage)}
+          onClick={() => {
+            onPageClick(currentPage + 1);
+            setCurrentPage(currentPage + 1);
+          }}
         >
           <span className="text-sm font-medium">Next</span>
           <ArrowRight />

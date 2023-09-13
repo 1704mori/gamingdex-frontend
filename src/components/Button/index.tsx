@@ -1,10 +1,14 @@
 import { classes } from "@/lib/helpers/common";
+import { Slot } from "@radix-ui/react-slot";
 import React, { forwardRef } from "react";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  color?: "primary" | "pink" | "accent" | "accent-light" | "accent-light2";
+  color?: "primary" | "pink" | "accent" | "accent2" | "accent3";
   size?: "small" | "medium" | "large";
+  outlined?: boolean;
   rounded?: boolean;
+  asChild?: boolean;
+  fit?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = forwardRef<
@@ -15,37 +19,44 @@ const Button: React.FC<ButtonProps> = forwardRef<
     {
       color = "primary",
       size = "medium",
+      outlined = false,
       rounded = false,
+      asChild,
+      fit = false,
+      type = "button",
       className,
-      children,
       ...props
     },
     ref
   ) => {
+    const Component = asChild ? Slot : "button";
+
     return (
-      <button
+      <Component
         ref={ref}
         className={classes(
           `inline-flex items-center justify-center bg-${
             color !== "pink" && color
-          } transition-colors text-text border border-transparent font-medium rounded-lg shadow-sm focus:outline-none`,
+          } transition-colors text-text border border-transparent font-medium rounded-lg shadow-sm focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed`,
+          fit && "w-fit",
+          outlined && `border-${color} bg-transparent text-${color}`,
           size === "small" && "px-2.5 py-1.5 text-xs",
           size === "medium" && "px-3 py-2 text-sm",
           size === "large" && "px-4 py-2 text-base",
-          rounded && "rounded-full",
-          color === "accent" &&
-            "hover:bg-accent-dark dark:hover:bg-accent-light",
-          color === "accent-light" && "hover:bg-accent",
-          color === "accent-light2" && "hover:bg-accent-light",
+          rounded && "btn-icon",
+          color === "accent" && "hover:bg-accent2",
+          color === "accent2" && "hover:bg-accent3",
+          color === "accent3" && "hover:bg-accent4",
           color === "pink" && "text-white bg-pink-600 hover:!bg-pink-700",
           color === "primary" &&
             "!text-white hover:bg-primary-dark shadow-[inset_0_0_0.2em_0_var(--primary),_0_0_0.2em_0_var(--primary)]",
-          className
+          className,
+          (props.children as any)?.props?.href &&
+            "!p-0 !text-primary-light2 hover:underline !bg-transparent shadow-none"
         )}
+        type={type}
         {...props}
-      >
-        {children}
-      </button>
+      />
     );
   }
 );
