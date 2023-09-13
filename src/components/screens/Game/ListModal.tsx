@@ -5,15 +5,11 @@ import { IGame } from "@/lib/types/game";
 import { EListType } from "@/lib/types/list";
 import { useQuery } from "@tanstack/react-query";
 import { Cancel } from "iconoir-react";
-<<<<<<< HEAD:src/components/screens/Game/ListModal.tsx
-import Modal from "../../Modal";
-=======
 import { useState } from "react";
-import Button from "../Button";
-import Input from "../Input";
-import Modal from "../Modal";
-import Uzumaki from "../Uzumaki";
->>>>>>> 4df0a6bdff7cfcdc350cb7bf5a90a0a74e708598:src/components/Game/ListModal.tsx
+import Button from "../../Button";
+import Input from "../../Input";
+import Modal from "../../Modal";
+import Uzumaki from "../../Uzumaki";
 
 export default function ListModal({
   game,

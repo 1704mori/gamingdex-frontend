@@ -79,7 +79,7 @@ export const revalidate = 100;
 export default async function GamePage({ params }: { params: { id: string[] } }) {
   const id = String(params?.id?.[0]);
 
-  const [{ data: game }, gameErr] = await resolvePromise(
+  const [data, gameErr] = await resolvePromise(
     gameService.getById(id, [
       "developers",
       "developers.developer",
@@ -92,11 +92,14 @@ export default async function GamePage({ params }: { params: { id: string[] } })
     ])
   );
 
+
   if (gameErr) {
     return {
       props: { game: null },
     };
   }
+
+  const game = data?.attributes as IGame;
 
   const [reviews, reviewsErr] = await resolvePromise(
     gameService.getReviews(id, {
@@ -105,7 +108,7 @@ export default async function GamePage({ params }: { params: { id: string[] } })
   );
 
   if (!reviewsErr) {
-    game.reviews = reviews.data;
+    game.reviews = reviews?.attributes;
   }
 
   const [characters, charactersErr] = await resolvePromise(
@@ -115,7 +118,7 @@ export default async function GamePage({ params }: { params: { id: string[] } })
   );
 
   if (!charactersErr) {
-    game.characters = characters.data;
+    game.characters = characters?.attributes;
   }
 
   const [staff, staffErr] = await resolvePromise(
@@ -125,7 +128,7 @@ export default async function GamePage({ params }: { params: { id: string[] } })
   );
 
   if (!staffErr) {
-    game.staff = staff.data;
+    game.staff = staff?.attributes;
   }
 
   return <Game game={game} />;

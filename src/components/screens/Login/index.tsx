@@ -1,3 +1,4 @@
+"use client";
 import { signIn } from "next-auth/react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -42,11 +43,7 @@ export default function Login() {
 
   return (
     <form
-<<<<<<< HEAD:src/components/screens/Login/index.tsx
-      className="flex flex-col items-center justify-center gap-3 bg-accent py-4 px-5 rounded-lg"
-=======
-      className="flex flex-col items-center justify-center gap-3 bg-accent py-4 px-5 mb-auto mt-12 rounded-lg"
->>>>>>> 4df0a6bdff7cfcdc350cb7bf5a90a0a74e708598:src/components/Login/index.tsx
+      className="flex flex-col items-center justify-center gap-3 bg-accent py-4 px-5 rounded-lg select-none"
       onSubmit={handleLogin}
     >
       <div className="flex flex-col items-center">
@@ -56,16 +53,11 @@ export default function Login() {
         </h4>
       </div>
 
-<<<<<<< HEAD:src/components/screens/Login/index.tsx
-      <Button className="w-full !bg-transparent border border-accent-dark">
-        <Discord />
-=======
       <Button
         color="accent"
         className="!bg-transparent w-full !border !border-accent3 hover:!bg-accent2 gap-1"
       >
         <FaDiscord size="1.5em" />
->>>>>>> 4df0a6bdff7cfcdc350cb7bf5a90a0a74e708598:src/components/Login/index.tsx
         Discord
       </Button>
 
@@ -76,25 +68,15 @@ export default function Login() {
       </div>
 
       <Input
-<<<<<<< HEAD:src/components/screens/Login/index.tsx
-        color="accent-dark"
-=======
-        color="accent"
->>>>>>> 4df0a6bdff7cfcdc350cb7bf5a90a0a74e708598:src/components/Login/index.tsx
+        color="accent2"
         label="email"
-        className="border-accent3"
         {...register("email")}
         errors={errors}
       />
       <Input
         type="password"
-<<<<<<< HEAD:src/components/screens/Login/index.tsx
-        color="accent-dark"
-=======
-        color="accent"
->>>>>>> 4df0a6bdff7cfcdc350cb7bf5a90a0a74e708598:src/components/Login/index.tsx
+        color="accent2"
         label="password"
-        className="border-accent3"
         {...register("password")}
         errors={errors}
       />
@@ -106,20 +88,9 @@ export default function Login() {
       </Button>
       <span>
         Don{"'"}t have an account?{" "}
-<<<<<<< HEAD:src/components/screens/Login/index.tsx
-        {/* <Button
-          className="text-primary-200"
-          as="anchor"
-          href={ROUTES.register}
-          styles="text"
-        >
-          Sign up
-        </Button> */}
-=======
         <Button className="!text-primary" asChild>
           <Link href={ROUTES.register}>Register</Link>
         </Button>
->>>>>>> 4df0a6bdff7cfcdc350cb7bf5a90a0a74e708598:src/components/Login/index.tsx
       </span>
     </form>
   );

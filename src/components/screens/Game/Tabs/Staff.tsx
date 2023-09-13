@@ -6,7 +6,7 @@ import { gameService } from "@/lib/services/game";
 import { IGame, IReview } from "@/lib/types/game";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, Search } from "iconoir-react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import StaffComponent from "../Staff";
 

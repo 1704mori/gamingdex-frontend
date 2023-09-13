@@ -8,21 +8,11 @@ import dayjs from "dayjs";
 import { Plus, Search } from "iconoir-react";
 import { useAtom } from "jotai";
 import Link from "next/link";
-<<<<<<< HEAD:src/components/screens/Games/index.tsx
-import { useState } from "react";
-import Footer from "../../Footer";
-import Input from "../../Input";
-import Navbar from "../../Navbar";
-import Pagination from "../../Pagination";
-import Slider from "../../Slider";
-import Uzumaki from "../../Uzumaki";
-=======
 import { useEffect, useState } from "react";
-import Input from "../Input";
-import Pagination from "../Pagination";
-import Uzumaki from "../Uzumaki";
->>>>>>> 4df0a6bdff7cfcdc350cb7bf5a90a0a74e708598:src/components/Games/index.tsx
 import Filter from "./Filter";
+import Uzumaki from "@/components/Uzumaki";
+import Pagination from "@/components/Pagination";
+import Input from "@/components/Input";
 
 export default function Games() {
   const [search, setSearch] = useState("");

@@ -5,7 +5,7 @@ import {
   Heart,
   PlaylistAdd,
   ShareAndroid,
-  StarOutline,
+  Star,
   Trash,
   WhiteFlag,
 } from "iconoir-react";
@@ -14,35 +14,22 @@ import {
   classes,
   displayImage,
   pluralize,
-<<<<<<< HEAD:src/components/screens/Game/index.tsx
 } from "../../../lib/helpers/common";
-import { IGame, IReview } from "../../../lib/types/game";
+import { IGame } from "../../../lib/types/game";
 import Button from "../../Button";
-import Typography from "../../Typography";
-=======
-} from "../../lib/helpers/common";
-import { IGame } from "../../lib/types/game";
-import Button from "../Button";
->>>>>>> 4df0a6bdff7cfcdc350cb7bf5a90a0a74e708598:src/components/Game/index.tsx
 import autoAnimate from "@formkit/auto-animate";
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { getPlatformIcon, getRetailLogo } from "./utils";
 import useDelayState from "@/lib/hooks/useDelayState";
-<<<<<<< HEAD:src/components/screens/Game/index.tsx
 import Popover from "../../Popover";
-import dayjs from "dayjs";
-import Modal, { useModal } from "../../Modal";
-=======
-import Popover from "../Popover";
-import { useModal } from "../Modal";
->>>>>>> 4df0a6bdff7cfcdc350cb7bf5a90a0a74e708598:src/components/Game/index.tsx
+import { useModal } from "../../Modal";
 import StarRating from "./StarRating";
 import Tippy from "@tippyjs/react";
 import { useQuery } from "@tanstack/react-query";
 import { gameService } from "@/lib/services/game";
 import ListModal from "./ListModal";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { Select, SelectItem } from "../../Select";
 import { useSession } from "next-auth/react";
 import { ROUTES } from "@/lib/helpers/consts";
@@ -51,11 +38,13 @@ import Reviews from "./Tabs/Reviews";
 import Characters from "./Tabs/Characters";
 import Staff from "./Tabs/Staff";
 import useHasUserRole from "@/lib/hooks/useHasUserRole";
-import Spinner from "../Spinner";
+import Spinner from "../../Spinner";
 
 export default function Game({ game }: { game: IGame }) {
   const [showDescription, setShowDescription] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
+  const params = useSearchParams();
 
   const {
     open: setShowListModal,
@@ -95,17 +84,12 @@ export default function Game({ game }: { game: IGame }) {
     }
   );
 
-
   const handleAddToMyList = async () => {
     if (!session) {
       router.push(ROUTES.login);
       return;
     }
 
-<<<<<<< HEAD:src/components/screens/Game/index.tsx
-    await gameService.addToMyList(game.id);
-    router.refresh();
-=======
     await gameService.addToMyList(game.id, "PLAYING");
     await refetchStatus();
     // router.reload();
@@ -114,7 +98,6 @@ export default function Game({ game }: { game: IGame }) {
   const removeFromMyList = async () => {
     await gameService.removeFromMyList(game.id);
     await refetchStatus();
->>>>>>> 4df0a6bdff7cfcdc350cb7bf5a90a0a74e708598:src/components/Game/index.tsx
   };
 
   return (
@@ -374,7 +357,7 @@ export default function Game({ game }: { game: IGame }) {
                 </div>
               )}
               <Button color="pink">
-                <StarOutline />
+                <Star />
               </Button>
               <Button
                 color="accent"
@@ -408,26 +391,23 @@ export default function Game({ game }: { game: IGame }) {
           <div className="flex items-center gap-3">
             <Button
               type="button"
-              color={
-                router.asPath === buildGameUrl(game) ? "primary" : "accent"
-              }
+              color={pathname === buildGameUrl(game) && !params?.get('tab') ? "primary" : "accent"}
               size="medium"
               onClick={() => {
-                router.push(buildGameUrl(game), undefined, {
-                  shallow: true,
-                });
+                router.push(buildGameUrl(game));
               }}
             >
               Overview
             </Button>
             <Button
               type="button"
-              color={router.query.tab === "characters" ? "primary" : "accent"}
+              color={params?.get("tab") === "characters" ? "primary" : "accent"}
               size="medium"
               onClick={() => {
-                router.push({
-                  query: { ...router.query, tab: "characters" },
-                });
+                // router.push({
+                //   query: { ...router.query, tab: "characters" },
+                // });
+                router.push(`${buildGameUrl(game)}?tab=characters`);
               }}
             >
               Characters
@@ -435,11 +415,12 @@ export default function Game({ game }: { game: IGame }) {
             <Button
               size="medium"
               type="button"
-              color={router.query.tab === "staff" ? "primary" : "accent"}
+              color={params?.get("tab") === "staff" ? "primary" : "accent"}
               onClick={() => {
-                router.push({
-                  query: { ...router.query, tab: "staff" },
-                });
+                // router.push({
+                //   query: { ...router.query, tab: "staff" },
+                // });
+                router.push(`${buildGameUrl(game)}?tab=staff`);
               }}
             >
               Staff
@@ -447,18 +428,19 @@ export default function Game({ game }: { game: IGame }) {
             <Button
               size="medium"
               type="button"
-              color={router.query.tab === "reviews" ? "primary" : "accent"}
+              color={params?.get("tab") === "reviews" ? "primary" : "accent"}
               onClick={() => {
-                router.push({
-                  query: { ...router.query, tab: "reviews" },
-                });
+                // router.push({
+                //   query: { ...router.query, tab: "reviews" },
+                // });
+                router.push(`${buildGameUrl(game)}?tab=reviews`);
               }}
             >
               Reviews
             </Button>
           </div>
 
-          {!router.query?.tab && (
+          {!params?.get('tab') && (
             <div className="flex flex-col mt-3">
               <div className="flex flex-col gap-1">
                 <h4 className="font-bold text-xl">History</h4>
@@ -489,9 +471,9 @@ export default function Game({ game }: { game: IGame }) {
             </div>
           )}
 
-          {router.query.tab === "characters" && <Characters game={game} />}
-          {router.query.tab === "staff" && <Staff game={game} />}
-          {router.query.tab === "reviews" && <Reviews game={game} />}
+          {params?.get("tab") === "characters" && <Characters game={game} />}
+          {params?.get("tab") === "staff" && <Staff game={game} />}
+          {params?.get("tab") === "reviews" && <Reviews game={game} />}
         </div>
       </div>
     </div>

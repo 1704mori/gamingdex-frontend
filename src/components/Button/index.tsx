@@ -49,7 +49,7 @@ const Button: React.FC<ButtonProps> = forwardRef<
           color === "accent3" && "hover:bg-accent4",
           color === "pink" && "text-white bg-pink-600 hover:!bg-pink-700",
           color === "primary" &&
-            "!text-white hover:bg-primary-dark shadow-[inset_0_0_0.2em_0_var(--primary),_0_0_0.2em_0_var(--primary)]",
+            "!text-white hover:bg-primary2 shadow-[inset_0_0_0.2em_0_var(--primary),_0_0_0.2em_0_var(--primary)]",
           className,
           (props.children as any)?.props?.href &&
             "!p-0 !text-primary-light2 hover:underline !bg-transparent shadow-none"

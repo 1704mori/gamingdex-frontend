@@ -47,7 +47,7 @@ export default function Register() {
   });
 
   return (
-    <div className="flex items-center gap-12">
+    <div className="flex items-center gap-12 select-none">
       <div className="flex flex-col gap-2 mb-auto">
         <div className="flex items-center">
           <img
@@ -83,27 +83,27 @@ export default function Register() {
         </div>
 
         <Input
-          color="accent-dark"
+          color="accent2"
           label="username"
           {...register("username")}
           errors={errors}
         />
         <Input
-          color="accent-dark"
+          color="accent2"
           label="email"
           {...register("email")}
           errors={errors}
         />
         <Input
           type="password"
-          color="accent-dark"
+          color="accent2"
           label="confirm password"
           {...register("password")}
           errors={errors}
         />
         <Input
           type="password"
-          color="accent-dark"
+          color="accent2"
           label="password"
           {...register("confirmPassword")}
           errors={errors}

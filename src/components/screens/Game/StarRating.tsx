@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion, useAnimation } from "framer-motion";
-import { StarOutline } from "iconoir-react";
+import { Star as IStar } from "iconoir-react";
 
 const starVariants = {
   initial: {
@@ -66,7 +66,7 @@ const Star = ({
         animate={starControls}
         custom={i}
       >
-        <StarOutline fill={i < filled ? "#ffd700" : "transparent"} />
+        <IStar fill={i < filled ? "#ffd700" : "transparent"} />
       </motion.i>
     </AnimatePresence>
   );
