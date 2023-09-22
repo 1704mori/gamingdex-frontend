@@ -18,13 +18,12 @@ export default function Staff({ staff }: { staff: IGameStaff[] }) {
             <span className="truncate font-medium">{staff.people.name}</span>
             {/* <span>{staff.role ?? "No role"}</span> */}
             {staff.role.length > 0 ? (
-              <>
+              <div className="truncate">
                 {staff.role.map((role, i) => (
-                  <span key={i} className="text-xs">{`${role.label}${
-                    i !== staff.role.length - 1 ? " / " : ""
-                  }`}</span>
+                  <span key={i} className="text-sm">{`${role.label}${i !== staff.role.length - 1 ? " / " : ""
+                    }`}</span>
                 ))}
-              </>
+              </div>
             ) : (
               <span>No role</span>
             )}
