@@ -21,7 +21,7 @@ export default function Home() {
     <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,_1fr)_270px] w-full gap-5 mt-12">
       <div className="flex flex-col gap-5 ">
         <div className="upcoming flex flex-col gap-1 relative">
-          <h3 className="font-medium text-2xl">{t.UPCOMING_GAMES}</h3>
+          <h3 className="font-medium text-2xl">Upcoming Games</h3>
           <Swiper
             freeMode
             slidesPerView={1}
@@ -59,7 +59,7 @@ export default function Home() {
         </div>
 
         <div className="popular-lists flex flex-col gap-1 relative">
-          <h3 className="font-medium text-2xl">{t.RECENT_REVIEWS}</h3>
+          <h3 className="font-medium text-2xl">Recent Reviews</h3>
           <Swiper
             freeMode
             slidesPerView={3}
@@ -97,7 +97,7 @@ export default function Home() {
         </div>
 
         <div className="activities flex flex-col gap-1 relative">
-          <h3 className="font-medium text-xl">{t.RECENT_ACTIVITIES}</h3>
+          <h3 className="font-medium text-xl">Recent Activities</h3>
 
           <Activities />
           <div className="activities-pagination flex items-center justify-center gap-1 mt-2" />
@@ -107,7 +107,7 @@ export default function Home() {
       <div className="flex flex-col gap-5">
         <div className="flex flex-col gap-1">
           <div className="flex items-center justify-between">
-            <h4 className="font-medium text-xl">{t.MOST_POPULAR_GAMES}</h4>
+            <h4 className="font-medium text-xl">Most Popular</h4>
             <ArrowRight />
           </div>
           <div className="grid grid-cols-1 gap-3 ">
@@ -133,7 +133,7 @@ export default function Home() {
         </div>
         <div className="flex flex-col gap-1">
           <div className="flex items-center justify-between">
-            <h4 className="font-medium text-2xl">{t.POPULAR_LISTS}</h4>
+            <h4 className="font-medium text-2xl">Popular List</h4>
             <ArrowRight />
           </div>
           <div className="grid grid-cols-1 gap-3">

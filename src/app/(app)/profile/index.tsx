@@ -37,7 +37,7 @@ export default function Profile() {
             <div className="flex flex-col w-full gap-5 -mb-5">
               <div className="flex items-end justify-between">
                 <h3 className="text-xl font-medium">Username</h3>
-                <Button size="sm">
+                <Button size="small">
                   <WhiteFlag />
                 </Button>
               </div>
@@ -48,7 +48,7 @@ export default function Profile() {
                     Edit Profile
                   </Button>
                 ) : (
-                  <Button size="sm">Edit Profile</Button>
+                  <Button size="small">Edit Profile</Button>
                 )}
                 <div className="flex items-center gap-1">
                   <div className="bg-gray-200 dark:bg-gray-500 w-8 h-8 rounded-full flex items-center justify-center">

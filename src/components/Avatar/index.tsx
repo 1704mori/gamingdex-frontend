@@ -1,5 +1,4 @@
 import { classes } from "@/lib/helpers/common";
-import { UserCircleAlt } from "iconoir-react";
 import Image, { ImageProps } from "next/image";
 import React from "react";
 import { toBase64 } from "../../lib/helpers/common";

@@ -180,9 +180,7 @@ export default function Content({ game }: { game: IGame }) {
           <button
             type="button"
             onClick={() =>
-              router.push(buildGameUrl(game), `${buildGameUrl(game)}/reviews`, {
-                shallow: true,
-              })
+              router.push(`${buildGameUrl(game)}/reviews`)
             }
           >
             View more
