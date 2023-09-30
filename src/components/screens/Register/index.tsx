@@ -5,11 +5,13 @@ import { useForm } from "react-hook-form";
 import Input from "../../Input";
 import Button from "../../Button";
 import { ROUTES } from "@/lib/helpers/consts";
-import { useNotification } from "@/components/Notification";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { authService } from "@/lib/services/auth";
 import Spinner from "@/components/Spinner";
+import { toast } from "sonner";
+import { resolvePromise } from "@/lib/helpers/common";
+import { useRouter } from "next/navigation";
 
 const registerSchema = z
   .object({
@@ -32,12 +34,19 @@ export default function Register() {
     resolver: zodResolver(registerSchema),
   });
 
-  const notification = useNotification();
+  const router = useRouter();
 
   const onSubmit = handleSubmit(async (data) => {
-    await authService.register({
+    const [, err] = await resolvePromise(authService.register({
       ...data,
-    })
+    }))
+
+    if (err) {
+      toast.error(err.data.error)
+      return;
+    }
+
+    router.push('/login')
   });
 
   return (
