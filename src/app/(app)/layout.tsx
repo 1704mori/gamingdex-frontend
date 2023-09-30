@@ -4,6 +4,7 @@ import "../../styles/globals.scss";
 
 import DefaultLayout from "@/components/DefaultLayout";
 import Providers from "../providers";
+import NextTopLoader from "nextjs-toploader";
 
 export default function RootLayout({
   children,
@@ -13,6 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <NextTopLoader showSpinner={false} />
         <Providers>
           <DefaultLayout>{children}</DefaultLayout>
         </Providers>
