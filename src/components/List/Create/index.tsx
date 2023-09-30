@@ -1,3 +1,5 @@
+"use client"
+
 import { classes } from "@/lib/helpers/common";
 import { AnimatePresence, motion, Reorder } from "framer-motion";
 import { ChatBubble, EyeEmpty, Lock, Trash, ViewGrid } from "iconoir-react";
