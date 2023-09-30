@@ -74,7 +74,7 @@ a {
   --hue: 205;
   --saturation: 100%;
   --lightness: 59%;
-  ;
+
   --primary: hsl(var(--hue) var(--saturation) calc(var(--lightness) - 10%));
   --primary2: hsl(var(--hue) var(--saturation) var(--lightness));
   --primary3: hsl(var(--hue) var(--saturation) calc(var(--lightness) - 20%));

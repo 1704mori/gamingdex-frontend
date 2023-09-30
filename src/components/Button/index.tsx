@@ -35,8 +35,7 @@ const Button: React.FC<ButtonProps> = forwardRef<
       <Component
         ref={ref}
         className={classes(
-          `inline-flex items-center justify-center bg-${
-            color !== "pink" && color
+          `inline-flex items-center justify-center bg-${color !== "pink" && color
           } transition-colors text-text border border-transparent font-medium rounded-lg shadow-sm focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed`,
           fit && "w-fit",
           outlined && `border-${color} bg-transparent text-${color}`,
@@ -49,10 +48,10 @@ const Button: React.FC<ButtonProps> = forwardRef<
           color === "accent3" && "hover:bg-accent4",
           color === "pink" && "text-white bg-pink-600 hover:!bg-pink-700",
           color === "primary" &&
-            "!text-white hover:bg-primary2 shadow-[inset_0_0_0.2em_0_var(--primary),_0_0_0.2em_0_var(--primary)]",
+          "!text-white hover:bg-primary2 shadow-[inset_0_0_0.2em_0_var(--primary),_0_0_0.2em_0_var(--primary)]",
           className,
           (props.children as any)?.props?.href &&
-            "!p-0 !text-primary-light2 hover:underline !bg-transparent shadow-none"
+          "!p-0 !text-primary-light2 hover:underline !bg-transparent shadow-none"
         )}
         type={type}
         {...props}
