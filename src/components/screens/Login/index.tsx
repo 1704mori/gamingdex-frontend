@@ -73,6 +73,7 @@ export default function Login() {
       </div>
 
       <Input
+        autoFocus
         color="accent2"
         label="email"
         {...register("email")}
