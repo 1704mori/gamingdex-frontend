@@ -31,7 +31,6 @@ import { gameService } from "@/lib/services/game";
 import ListModal from "./ListModal";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { Select, SelectItem } from "../../Select";
-import { useSession } from "next-auth/react";
 import { ROUTES } from "@/lib/helpers/consts";
 import Content from "./Content";
 import Reviews from "./Tabs/Reviews";
@@ -39,6 +38,8 @@ import Characters from "./Tabs/Characters";
 import Staff from "./Tabs/Staff";
 import useHasUserRole from "@/lib/hooks/useHasUserRole";
 import Spinner from "../../Spinner";
+import { userAtom } from "@/lib/stores/user";
+import { useAtom } from "jotai";
 
 export default function Game({ game }: { game: IGame }) {
   const [showDescription, setShowDescription] = useState(false);
@@ -58,7 +59,7 @@ export default function Game({ game }: { game: IGame }) {
     exitState: false,
   });
 
-  const { data: session } = useSession();
+  const [user] = useAtom(userAtom);
 
   const canEdit = useHasUserRole("admin", "moderator", "developer");
 
@@ -74,18 +75,19 @@ export default function Game({ game }: { game: IGame }) {
     data: status,
     isRefetching: isRefetchingStatus,
     isLoading: isLoadingStatus,
+    status: statusStatus,
     refetch: refetchStatus,
   } = useQuery(
     ["list_status"],
     async () => gameService.getListStatus(game.id),
     {
-      enabled: !!session,
+      enabled: !!user,
       refetchOnWindowFocus: false,
     }
   );
 
   const handleAddToMyList = async () => {
-    if (!session) {
+    if (!user) {
       router.push(ROUTES.login);
       return;
     }
@@ -101,7 +103,7 @@ export default function Game({ game }: { game: IGame }) {
   };
 
   return (
-    <div className="flex gap-3 max-lg:flex-col w-full max-w-7xl items-start mb-auto lg:mt-12">
+    <div className="flex gap-3 max-lg:flex-col w-full max-w-7xl items-start mb-auto lg:mt-12 lg:px-2">
       <ListModal
         closeListModal={closeListModal}
         showListModal={showListModal}
@@ -253,9 +255,9 @@ export default function Game({ game }: { game: IGame }) {
           <span className="font-medium">
             {game.reviews
               ? `${game.reviews.length} ${pluralize(
-                  "review",
-                  game.reviews.length
-                )}`
+                "review",
+                game.reviews.length
+              )}`
               : "No reviews"}
           </span>
           <div className="flex items-center mt-auto">
@@ -288,7 +290,7 @@ export default function Game({ game }: { game: IGame }) {
               <StarRating filled={Math.floor(game.score / 2)} />
             </div>
           </div>
-          {isLoadingStatus ? (
+          {isLoadingStatus && user ? (
             <div className="hidden lg:grid grid-cols-1 gap-2">
               <Spinner width="32px" height="32px" />
             </div>
@@ -296,7 +298,7 @@ export default function Game({ game }: { game: IGame }) {
             <div
               className={classes(
                 "hidden lg:grid grid-cols-1 gap-2",
-                !isLoadingStatus && !status?.attributes.status
+                !isLoadingStatus || !status
                   ? "lg:grid-cols-[200px_max-content_200px_100px_100px]"
                   : "lg:grid-cols-[275px_max-content_200px_100px_100px]"
               )}
@@ -362,7 +364,7 @@ export default function Game({ game }: { game: IGame }) {
               <Button
                 color="accent"
                 onClick={() => {
-                  if (!session) {
+                  if (!user) {
                     router.push(ROUTES.login);
                     return;
                   }
@@ -373,7 +375,7 @@ export default function Game({ game }: { game: IGame }) {
                 <PlaylistAdd width="1.58em" height="1.58em" />
                 Add to list
               </Button>
-              {session && canEdit && (
+              {user && canEdit && (
                 <Button color="accent">
                   <EditPencil />
                   Edit
@@ -388,7 +390,7 @@ export default function Game({ game }: { game: IGame }) {
         </div>
 
         <div className="mt-4">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center flex-wrap gap-1 sm:gap-3">
             <Button
               type="button"
               color={pathname === buildGameUrl(game) && !params?.get('tab') ? "primary" : "accent"}

@@ -42,13 +42,13 @@ export async function request<T = any>(
   options: AxiosRequestConfig
 ): Promise<AxiosResponse<IApiResponse<T>> | undefined> {
   try {
-    return await axios({
+    return axios({
       ...options,
       ...options.params,
       baseURL: API_URL,
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${authService.getToken(true)}`,
+        Authorization: `Bearer ${authService.getToken()}`,
         ...options.headers,
       },
     });

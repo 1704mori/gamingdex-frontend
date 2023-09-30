@@ -13,8 +13,6 @@ interface Props {
 export default function Popover(props: Props) {
   const { visible = false, text, children, placement = "top", className } = props;
 
-	console.log("Popover props", props)
-
   const [hovering, setHovering] = useState(false);
   const [show, setShow] = useState(visible);
 
@@ -44,19 +42,18 @@ export default function Popover(props: Props) {
       <AnimatePresence>
         {visible && (
           <motion.div
-            initial={{ opacity: 0, y: -10 , transform: "translateY(-50%)" }}
+            initial={{ opacity: 0, y: -10, transform: "translateY(-50%)" }}
             animate={{ opacity: 1, y: 0, transform: "translateY(-50%)" }}
             exit={{ opacity: 0, y: -10, transform: "translateY(-50%)" }}
             transition={{ duration: 0.2 }}
-            className={`${
-              placement === "top"
+            className={`${placement === "top"
                 ? "bottom-full"
                 : placement === "bottom"
-                ? "top-full"
-                : placement === "left"
-                ? "right-full"
-                : "left-full top-1/2 -translate-y-1/2"
-            } absolute z-10 px-2 py-1 text-sm bg-primary text-white rounded-lg shadow-md whitespace-nowrap`}
+                  ? "top-full"
+                  : placement === "left"
+                    ? "right-full"
+                    : "left-full top-1/2 -translate-y-1/2"
+              } absolute z-10 px-2 py-1 text-sm bg-primary text-white rounded-lg shadow-md whitespace-nowrap`}
           >
             {text}
           </motion.div>

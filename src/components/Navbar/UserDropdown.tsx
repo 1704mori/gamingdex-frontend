@@ -1,14 +1,18 @@
-import { signOut, useSession } from "next-auth/react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowDown, ArrowLeft, Droplet, Settings, User } from "iconoir-react";
-import { destroyCookie } from "nookies";
 import { useTheme } from "next-themes";
 import { Check } from "react-feather";
-import { classes, styled } from "@/lib/helpers/common";
+import { classes, displayImage, styled } from "@/lib/helpers/common";
 import { ROUTES, TOKEN_KEY } from "@/lib/helpers/consts";
 import useClickOutside from "@/lib/hooks/useClickOutside";
+import { userAtom } from "@/lib/stores/user";
+import { useAtom } from "jotai";
+import { authService } from "@/lib/services/auth";
+import { UserIcon } from "lucide-react";
+import { destroyCookie } from "nookies";
+import { useRouter, usePathname } from "next/navigation";
 
 const Divider = styled("div", "border-t border-accent4");
 
@@ -16,7 +20,7 @@ export default function UserDropdown() {
   const [open, setOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<"main" | "theme">("main");
 
-  const { data: session, status } = useSession();
+  const [user, setUser] = useAtom(userAtom);
 
   const { theme, setTheme } = useTheme();
 
@@ -24,28 +28,42 @@ export default function UserDropdown() {
 
   const handleOpen = () => setOpen(!open);
 
+  const router = useRouter()
+
   useClickOutside(ref, () => {
     setOpen(false);
     setActiveMenu("main");
   });
 
   const handleLogout = () => {
-    signOut();
-    destroyCookie(undefined, TOKEN_KEY);
+    authService.logout();
+    router.refresh();
+    setUser(null)
   };
+
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname])
 
   return (
     <div className="flex items-center gap-2 relative" ref={ref}>
       <button className="flex items-center gap-1" onClick={handleOpen}>
-        <img
-          className="w-10 h-10 rounded-full dark:filter dark:invert"
-          src={session?.user?.image ?? "/default_avatar.svg"}
-          alt={session?.user?.name as string}
-        />
+        {/* <img */}
+        {/*   className="w-10 h-10 rounded-full dark:filter dark:invert" */}
+        {/*   src={session?.user?.image ?? "/default_avatar.svg"} */}
+        {/*   alt={session?.user?.name as string} */}
+        {/* /> */}
+        {user?.profileImage ? <img
+          src={`${displayImage(user.profileImage.cdnUrl)}`}
+          className="w-[2.4em] h-[2.4em] object-cover rounded-full"
+        /> : <UserIcon size="2.4em" className="rounded-full bg-accent2" />}
 
-        {session?.user && (
-          <div className="flex items-center">
-            <span className="font-medium">{session.user.name}</span>
+
+        {user && (
+          <div className="flex items-center gap-1">
+            <span className="font-medium">{user.username}</span>
             <motion.div animate={{ rotate: open ? 180 : 0 }}>
               <ArrowDown width="1em" />
             </motion.div>
@@ -76,13 +94,13 @@ export default function UserDropdown() {
               {/* Main Menu */}
               {activeMenu === "main" && (
                 <motion.div className="flex flex-col gap-2 w-full relative">
-                  {status === "authenticated" && (
+                  {user && (
                     <>
                       <Link
-                        href={`${ROUTES.profile}/${session?.user?.name}`}
+                        href={`${ROUTES.profile.index}/${user?.username}`}
                         className="flex items-center gap-2 hover:bg-accent2 transition-colors rounded-lg p-2"
                       >
-                        <User />
+                        <UserIcon size="1.2em" />
                         My Profile
                       </Link>
                       <Link
@@ -110,7 +128,7 @@ export default function UserDropdown() {
                     </>
                   )}
 
-                  {status === "unauthenticated" && (
+                  {!user && (
                     <>
                       <div className="grid grid-cols-2 gap-3">
                         <Link
@@ -142,7 +160,7 @@ export default function UserDropdown() {
               {activeMenu === "theme" && (
                 <motion.div
                   className="flex flex-col gap-2 w-full"
-                  // initial={{ x: 250 }}
+                // initial={{ x: 250 }}
                 >
                   <button
                     className="flex items-center gap-2 hover:bg-accent2 transition-colors rounded-lg p-2"

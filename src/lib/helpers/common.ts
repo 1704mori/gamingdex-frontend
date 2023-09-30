@@ -42,7 +42,7 @@ export function delay(ms: number) {
  */
 
 export function displayImage(photo: string, banner: boolean = false) {
-  if (photo === "default_photo") return "/default_avatar.svg";
+  if (!photo || photo === "default_photo") return "/default_avatar.svg";
   if (photo.includes("covers/"))
     return `${CDN_URL}/${photo}${banner ? `_cover.jpg` : ``}`;
   if (photo.includes("uploads/")) return `${CDN_URL}/files/${photo}`;

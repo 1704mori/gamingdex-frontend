@@ -1,23 +1,22 @@
 "use client";
-import { signIn } from "next-auth/react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import Input from "../../Input";
 import Button from "../../Button";
 import { ROUTES } from "@/lib/helpers/consts";
-import { Discord } from "iconoir-react";
 import { useNotification } from "@/components/Notification";
-import { getErrorMessage } from "@/lib/helpers/translateApiErrors";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
+import { authService } from "@/lib/services/auth";
+import Spinner from "@/components/Spinner";
 
-const loginSchema = z
+const registerSchema = z
   .object({
     username: z.string().min(3),
     email: z.string().email(),
-    password: z.string(),
-    confirmPassword: z.string(),
+    password: z.string().nonempty(),
+    confirmPassword: z.string().nonempty()
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
@@ -28,22 +27,17 @@ export default function Register() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<z.infer<typeof loginSchema>>({
-    resolver: zodResolver(loginSchema),
+    formState: { errors, isSubmitting }
+  } = useForm<z.infer<typeof registerSchema>>({
+    resolver: zodResolver(registerSchema),
   });
 
   const notification = useNotification();
 
-  const handleLogin = handleSubmit(async (data) => {
-    signIn("credentials", {
-      email: data.email,
-      password: data.password,
-    }).then((res) => {
-      if (res?.error) {
-        notification.add(getErrorMessage(res as any), "error");
-      }
-    });
+  const onSubmit = handleSubmit(async (data) => {
+    await authService.register({
+      ...data,
+    })
   });
 
   return (
@@ -75,7 +69,7 @@ export default function Register() {
       </div>
       <form
         className="flex flex-col items-center justify-center gap-3 bg-accent py-4 px-5 rounded-lg"
-        onSubmit={handleLogin}
+        onSubmit={onSubmit}
       >
         <div className="flex flex-col items-center">
           <h2 className="text-xl font-semibold">Register</h2>
@@ -108,11 +102,16 @@ export default function Register() {
           {...register("confirmPassword")}
           errors={errors}
         />
-        <button className="text-primary-light hover:underline text-sm self-start flex items-center">
+        <button type="button" className="text-primary-light hover:underline text-sm self-start flex items-center">
           <ChevronLeft />
           <Link href={ROUTES.login}>Back to login</Link>
         </button>
-        <Button className="w-full" type="submit">
+        <Button
+          className="w-full"
+          type="submit"
+          disabled={isSubmitting}
+        >
+          {isSubmitting && <Spinner />}
           Register
         </Button>
       </form>
@@ -122,8 +121,12 @@ export default function Register() {
 
 Register.getLayout = function getLayout(page: React.ReactNode) {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
-      {page}
-    </div>
+    <html lang="en">
+      <body>
+        <div className="flex flex-col items-center justify-center min-h-screen">
+          {page}
+        </div>
+      </body>
+    </html>
   );
 };

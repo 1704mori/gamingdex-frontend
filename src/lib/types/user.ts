@@ -1,4 +1,5 @@
 import { IBase } from "./base";
+import { IFile } from "./file";
 
 type Role = {
   name: string;
@@ -18,7 +19,10 @@ export interface IUser extends IBase {
   email: string;
   bio: string;
 
-  roles?: UserRoles[];
+  follower: IUser[];
+  following: IUser[];
+  roles: UserRoles[];
+  profileImage: IFile;
 }
 
 export interface IUserActivity extends IBase {

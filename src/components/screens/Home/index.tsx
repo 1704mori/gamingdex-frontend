@@ -1,5 +1,7 @@
-import "swiper/css";
-import "swiper/css/pagination";
+"use client"
+// import "swiper/css";
+// import "swiper/css/pagination";
+import "swiper/swiper-bundle.css"
 import {
   ArrowRight,
   ChatLines,

@@ -5,7 +5,7 @@ import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import Link from "next/link";
 import { Heart } from "iconoir-react";
-import Button from "../../Button";
+import Button from "../../../Button";
 import { userService } from "@/lib/services/user";
 import { buildGameUrl, displayImage } from "@/lib/helpers/common";
 
@@ -33,8 +33,6 @@ export default function Activities() {
       getNextPageParam: (lastPage) => lastPage?.pagination.next ?? undefined,
     }
   );
-
-  console.log("data", data);
 
   return (
     <>
@@ -140,8 +138,8 @@ export default function Activities() {
             {isFetchingNextPage
               ? "Loading more..."
               : hasNextPage
-              ? "Load More"
-              : "Nothing more to load"}
+                ? "Load More"
+                : "Nothing more to load"}
           </Button>
         </div>
       )}

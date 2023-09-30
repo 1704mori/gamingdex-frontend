@@ -17,11 +17,11 @@ export default function Filter() {
   useClickOutside(filterRef, () => setShowFilters(false));
 
   return (
-    <div className="relative z-50 select-none" ref={filterRef}>
+    <div className="relative z-10 select-none" ref={filterRef}>
       <Button
         onClick={() => setShowFilters(!showFilters)}
         color="accent"
-        className="!bg-transparent !border-none relative"
+        className="relative focus:!border focus:border-primary"
       >
         <FilterIcon />
         Filter
@@ -73,7 +73,7 @@ export default function Filter() {
                   >
                     <ViewGrid
                       className={classes(
-                        filters.display === "grid" ? "text-white" : "text-text"
+                        filters?.display === "grid" ? "text-white" : "text-text"
                       )}
                     />
                   </Button>
@@ -97,7 +97,7 @@ export default function Filter() {
                   >
                     <List
                       className={classes(
-                        filters.display === "list" ? "text-white" : "text-text"
+                        filters?.display === "list" ? "text-white" : "text-text"
                       )}
                     />
                   </Button>
@@ -120,7 +120,7 @@ export default function Filter() {
                     });
                     setShowFilters(false);
                   }}
-                  clean={!filters.sort}
+                  clean={!filters?.sort}
                 >
                   <SelectItem value="title_asc">Title A-Z</SelectItem>
                   <SelectItem value="title_desc">Title Z-A</SelectItem>

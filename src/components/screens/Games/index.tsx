@@ -26,7 +26,7 @@ export default function Games() {
     isLoading,
     error,
   } = useQuery(
-    ["games", filters.sort, offset, debouncedSearch],
+    ["games", filters?.sort, offset, debouncedSearch],
     async () =>
       gameService.get({
         ...(debouncedSearch.length >= 3 && {
@@ -35,7 +35,7 @@ export default function Games() {
         order: {
           ...filters.sort,
         },
-        limit: 24,
+        limit: 25,
         offset,
       }),
     {
@@ -49,11 +49,12 @@ export default function Games() {
   };
 
   return (
-    <div className="flex flex-col gap-3 lg:max-w-5xl w-full px-5 lg:px-0 mb-auto">
+    <div className="flex flex-col gap-3 lg:max-w-5xl w-full px-5 mb-auto mt-4 lg:mt-0">
       <h3 className="text-2xl font-medium">Advanced Search</h3>
       <div className="flex flex-col gap-3">
         <div className="flex justify-between items-center gap-3 w-full">
           <Input
+            autoFocus
             placeholder="Search"
             icon={<Search />}
             iconAlign="left"
@@ -78,14 +79,14 @@ export default function Games() {
             </span>
           </div>
         )}
-        <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
           {games &&
             games.attributes.map((game) => (
               <div className="flex flex-col gap-2 group" key={game.id}>
                 <div className="relative overflow-hidden">
                   <Link href={buildGameUrl(game)}>
                     <img
-                      className="rounded-lg w-56 h-64 object-cover shadow-san group-hover:blur-[0.5px]"
+                      className="rounded-lg w-full h-64 lg:w-56 object-cover shadow-san group-hover:blur-[0.5px]"
                       src={displayImage(game.cover)}
                       alt={game.title}
                     />
@@ -96,7 +97,7 @@ export default function Games() {
                     </div>
 
                     <div
-                      onClick={() => alert("alo")}
+                      // onClick={() => alert("alo")}
                       className="inline-flex justify-center items-center w-6 h-6 bg-accent border border-accent3 rounded-full cursor-pointer"
                     >
                       <Plus width="1.3em" />

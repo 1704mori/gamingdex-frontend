@@ -1,13 +1,12 @@
-import { useSession } from "next-auth/react";
+import { useAtom } from "jotai";
+import { userAtom } from "../stores/user";
 
 export default function useHasUserRole(...roles: string[]) {
-  const { data: session, status } = useSession();
+  const [user] = useAtom(userAtom);
 
-  if (!session || !session.user || status !== "authenticated") {
+  if (!user) {
     return false;
   }
 
-  const userRoles = session.user.roles;
-
-  return roles.some((role) => userRoles.includes(role));
+  return user.roles.some((role) => roles.includes(role.role.name));
 }

@@ -106,8 +106,6 @@ export default function Create() {
         description: "",
       })),
     });
-
-    console.log("result", result);
   };
 
   const handleAddGame = (game: IGame) => {
@@ -327,7 +325,7 @@ export default function Create() {
                         games.indexOf(game) === 0 && "rounded-t-lg",
                         // is last game add bottom left and right border radius
                         games.indexOf(game) === games.length - 1 &&
-                          "rounded-b-lg"
+                        "rounded-b-lg"
                       )}`}
                       key={game.id}
                       onClick={() => handleAddGame(game)}
@@ -356,7 +354,7 @@ export default function Create() {
                   key={game.id}
                   className="flex items-center"
                   value={game}
-                  // style={{ y, boxShadow }}
+                // style={{ y, boxShadow }}
                 >
                   <ViewGrid className="mr-2" />
                   <div className="flex items-center justify-between w-full">

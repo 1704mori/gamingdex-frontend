@@ -80,7 +80,7 @@ function Dropdown(props: Props) {
       >
         {label && (
           <div
-            className={`clickable cursor-pointer flex items-center justify-between rounded-lg py-2 px-4 h-10 w-full transition-colors hover:bg-${hoverColor}`}
+            className={`clickable cursor-pointer flex items-center justify-between gap-1 rounded-lg py-2 px-4 h-10 w-full transition-colors hover:bg-${hoverColor}`}
           >
             {React.isValidElement(label) ? (
               label
@@ -89,7 +89,7 @@ function Dropdown(props: Props) {
             )}
             {!props.disableArrow && (
               <motion.div animate={{ rotate: isOpen ? 0 : 180 }}>
-                <ArrowUp />
+                <ArrowUp width="1.2em" height="1.2em" />
               </motion.div>
             )}
           </div>

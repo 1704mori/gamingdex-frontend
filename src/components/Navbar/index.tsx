@@ -2,8 +2,7 @@
 
 import { Menu, ArrowDown, Search, Trophy, GraphUp, List } from "iconoir-react";
 import Link from "next/link";
-import { useRef, useState } from "react";
-import { useMediaQuery } from "react-responsive";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ROUTES } from "../../lib/helpers/consts";
 import Dropdown from "../Dropdown";
@@ -15,6 +14,7 @@ import { classes } from "@/lib/helpers/common";
 import useClickOutside from "@/lib/hooks/useClickOutside";
 import { useAtom } from "jotai";
 import { filterAtom } from "@/lib/stores";
+import { usePathname, useRouter } from "next/navigation";
 
 const variants = {
   open: {
@@ -37,6 +37,8 @@ export default function Navbar() {
 
   const [open, setOpen] = useState(false);
 
+  const router = useRouter();
+  const pathname = usePathname();
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   useClickOutside(mobileMenuRef, () => setOpen(false));
@@ -57,9 +59,13 @@ export default function Navbar() {
     });
   };
 
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname])
+
   return (
     <div className="w-full h-16 fixed left-0 top-0 select-none flex items-center justify-center z-50 bg-accent">
-      <div className="flex items-center gap-3 max-w-3xl" ref={mobileMenuRef}>
+      <div className="flex items-center gap-3 max-w-4xl" ref={mobileMenuRef}>
         <Link href={ROUTES.home} className="flex items-center mr-3">
           <img className="w-8 h-16 mt-0.5" src="/logo_mini.svg" alt="Mini" />
           <img
@@ -151,6 +157,7 @@ export default function Navbar() {
         </AnimatePresence>
 
         <Input
+          onClick={() => router.push(ROUTES.games.index)}
           className="!hidden lg:!flex !w-64"
           fit={false}
           icon={<Search />}

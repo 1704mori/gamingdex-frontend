@@ -1,15 +1,17 @@
 "use client";
-import { signIn } from "next-auth/react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import Input from "../../Input";
 import Button from "../../Button";
 import { ROUTES } from "@/lib/helpers/consts";
-import { useNotification } from "@/components/Notification";
-import { getErrorMessage } from "@/lib/helpers/translateApiErrors";
 import Link from "next/link";
 import { FaDiscord } from "react-icons/fa";
+import { authService } from "@/lib/services/auth";
+import { userAtom } from "@/lib/stores/user";
+import { useAtom } from "jotai";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -28,17 +30,20 @@ export default function Login() {
     resolver: zodResolver(loginSchema),
   });
 
-  const notification = useNotification();
+  const router = useRouter();
+
+  const [, setUser] = useAtom(userAtom);
 
   const handleLogin = handleSubmit(async (data) => {
-    signIn("credentials", {
-      email: data.email,
-      password: data.password,
-    }).then((res) => {
-      if (res?.error) {
-        notification.add(getErrorMessage(res as any), "error");
-      }
-    });
+    const { user, error } = await authService.login(data.email, data.password);
+
+    if (user) {
+      setUser(user);
+      toast.success("Logged in!")
+      router.push(ROUTES.home);
+    } else {
+      toast.error(error.error)
+    }
   });
 
   return (
