@@ -5,7 +5,7 @@ import useDebounceValue from "@/lib/hooks/useDebounceValue";
 import { gameService } from "@/lib/services/game";
 import { IGame, IReview } from "@/lib/types/game";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, Search } from "iconoir-react";
+import { ArrowLeft, Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import CharacterComponent from "../Character";

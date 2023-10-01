@@ -5,7 +5,7 @@ import { gameService } from "@/lib/services/game";
 import { filterAtom } from "@/lib/stores";
 import { useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
-import { Plus, Search } from "iconoir-react";
+import { Plus, Search } from "lucide-react";
 import { useAtom } from "jotai";
 import Link from "next/link";
 import { useEffect, useState } from "react";

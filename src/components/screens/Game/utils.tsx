@@ -16,13 +16,9 @@ import {
 } from "react-icons/si";
 import { FaGamepad } from "react-icons/fa";
 import { TbDeviceGamepad } from "react-icons/tb";
-import {
-  NintendoSwitch,
-  Windows,
-  Linux,
-} from "iconoir-react";
 import Typography from "../../Typography";
 import React from "react";
+import { Linux, NintendoSwitch, Windows } from "@/components/Icons";
 
 export function Amazon() {
   return (

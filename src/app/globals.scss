@@ -86,6 +86,7 @@ a {
   // --accent4: hsl(var(--hue) 15% 75%);
   // --text: hsl(var(--hue) 15% 20%);
 
+
   --background: hsl(0 0% 10%) !important;
   --accent: hsl(0 0% 16%) !important;
   --accent2: hsl(0 0% 22%) !important;
@@ -173,7 +174,7 @@ a {
     svg {
       position: relative;
       z-index: 10;
-      cursor: pointer;
+      // cursor: pointer;
     }
   }
 }

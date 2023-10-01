@@ -1,6 +1,6 @@
 import { classes } from "@/lib/helpers/common";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUp } from "iconoir-react";
+import { ArrowUp } from "lucide-react";
 import React, { useState, useRef, cloneElement, createElement } from "react";
 import useClickOutside from "../../lib/hooks/useClickOutside";
 

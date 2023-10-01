@@ -1,9 +1,9 @@
 import { classes } from "@/lib/helpers/common";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUp } from "iconoir-react";
 import React, { forwardRef, useState, useEffect, useRef } from "react";
 import useClickOutside from "../../lib/hooks/useClickOutside";
 import Typography from "../Typography";
+import { ArrowUp } from "lucide-react";
 
 interface Props {
   color?: "primary" | "pink" | "accent" | "accent2" | "accent3";
@@ -90,7 +90,7 @@ const Select = forwardRef<HTMLButtonElement, Props>(
             color === "accent3" && "hover:bg-accent4",
             color === "pink" && "text-white bg-pink-600 hover:!bg-pink-700",
             color === "primary" &&
-              "!text-white hover:bg-primary shadow-[inset_0_0_0.2em_0_var(--primary),_0_0_0.2em_0_var(--primary)]"
+            "!text-white hover:bg-primary shadow-[inset_0_0_0.2em_0_var(--primary),_0_0_0.2em_0_var(--primary)]"
           ),
         });
       }
@@ -120,13 +120,13 @@ const Select = forwardRef<HTMLButtonElement, Props>(
                 color === "accent3" && "hover:bg-accent4",
                 color === "pink" && "text-white bg-pink-600 hover:!bg-pink-700",
                 color === "primary" &&
-                  "!text-white hover:bg-primary shadow-[inset_0_0_0.2em_0_var(--primary),_0_0_0.2em_0_var(--primary)]",
+                "!text-white hover:bg-primary shadow-[inset_0_0_0.2em_0_var(--primary),_0_0_0.2em_0_var(--primary)]",
                 rest.disabled && "bg-opacity-50 cursor-not-allowed"
               )}`}
             >
               <Typography thickness={3}>{placeholderText}</Typography>
               <motion.div animate={{ rotate: isOpen ? 0 : 180 }}>
-                <ArrowUp />
+                <ArrowUp size="1.2em" className="mr-1" />
               </motion.div>
             </div>
           )}

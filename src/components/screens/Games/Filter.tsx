@@ -1,5 +1,5 @@
 import { AnimatePresence, motion, useCycle } from "framer-motion";
-import { ViewGrid, List, Filter as FilterIcon, ArrowDown } from "iconoir-react";
+import { Grid, List, Filter as FilterIcon, ArrowDown } from "lucide-react";
 import Button from "../../Button";
 import { Select, SelectItem } from "../../Select";
 import Tippy from "@tippyjs/react";
@@ -71,7 +71,7 @@ export default function Filter() {
                       setFilters({ ...filters, display: "grid" });
                     }}
                   >
-                    <ViewGrid
+                    <Grid
                       className={classes(
                         filters?.display === "grid" ? "text-white" : "text-text"
                       )}

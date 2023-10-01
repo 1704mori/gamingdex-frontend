@@ -1,7 +1,7 @@
 import { buildGameUrl, classes, displayImage } from "@/lib/helpers/common";
 import { IGame } from "@/lib/types/game";
 import { AnimatePresence, motion } from "framer-motion";
-import { EyeOff, EyeEmpty } from "iconoir-react";
+import { EyeOff, Eye } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Character from "./Character";
@@ -21,7 +21,7 @@ export default function Content({ game }: { game: IGame }) {
       <div className="flex justify-between items-center">
         <h4 className="lg:hidden font-bold text-xl">Info</h4>
         <button className="lg:hidden" onClick={toggleInfo}>
-          {!showInfo ? <EyeOff /> : <EyeEmpty />}
+          {!showInfo ? <EyeOff /> : <Eye />}
         </button>
       </div>
 

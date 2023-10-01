@@ -1,7 +1,7 @@
 import { humanize } from "@/lib/helpers/common";
 import { IReview } from "@/lib/types/game";
 import dayjs from "dayjs";
-import { Cancel, ThumbsDown, ThumbsUp, WhiteFlag } from "iconoir-react";
+import { X, ThumbsDown, ThumbsUp, Flag } from "lucide-react";
 import Button from "../../Button";
 import Modal from "../../Modal";
 import Typography from "../../Typography";
@@ -41,7 +41,7 @@ export default function ReviewModal({
               </Typography>
             </div>
             <button onClick={closeReviewModal}>
-              <Cancel width="1.8em" height="1.8em" />
+              <X width="1.8em" height="1.8em" />
             </button>
           </div>
         </div>
@@ -65,7 +65,7 @@ export default function ReviewModal({
                 {dayjs(review?.createdAt).format("DD MMM YYYY")}
               </Typography>
               <button>
-                <WhiteFlag />
+                <Flag />
               </button>
             </div>
           </div>

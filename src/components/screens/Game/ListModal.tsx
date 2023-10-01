@@ -4,7 +4,7 @@ import { listService } from "@/lib/services/list";
 import { IGame } from "@/lib/types/game";
 import { EListType } from "@/lib/types/list";
 import { useQuery } from "@tanstack/react-query";
-import { Cancel } from "iconoir-react";
+import { X } from "lucide-react";
 import { useState } from "react";
 import Button from "../../Button";
 import Input from "../../Input";
@@ -41,7 +41,7 @@ export default function ListModal({
           <h3 className="text-lg font-medium">Add {game.title} to your list</h3>
 
           <button onClick={closeListModal}>
-            <Cancel />
+            <X />
           </button>
         </div>
 
@@ -97,7 +97,7 @@ export default function ListModal({
 
         <div className="flex items-center self-end gap-3">
           <Button color="accent" onClick={closeListModal}>
-            Cancel
+            X
           </Button>
           <Button>Save</Button>
         </div>

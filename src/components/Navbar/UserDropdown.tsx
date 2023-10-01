@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowDown, ArrowLeft, Droplet, Settings, User } from "iconoir-react";
+import { ArrowDown, ArrowLeft, Droplet, Settings, User } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Check } from "react-feather";
 import { classes, displayImage, styled } from "@/lib/helpers/common";

@@ -4,7 +4,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import Link from "next/link";
-import { Heart } from "iconoir-react";
+import { Heart } from "lucide-react";
 import Button from "../../../Button";
 import { userService } from "@/lib/services/user";
 import { buildGameUrl, displayImage } from "@/lib/helpers/common";

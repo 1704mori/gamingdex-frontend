@@ -1,6 +1,6 @@
-import "react-mde/lib/styles/css/react-mde-all.css";
+// import "react-mde/lib/styles/css/react-mde-all.css";
 import "tippy.js/dist/tippy.css"; // optional
-import "../../styles/globals.scss";
+import "../globals.scss";
 
 import DefaultLayout from "@/components/DefaultLayout";
 import Providers from "../providers";

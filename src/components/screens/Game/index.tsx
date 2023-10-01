@@ -1,14 +1,14 @@
 "use client";
 
 import {
-  EditPencil,
+  Edit2,
   Heart,
-  PlaylistAdd,
-  ShareAndroid,
+  ListPlus,
+  Share2,
   Star,
   Trash,
-  WhiteFlag,
-} from "iconoir-react";
+  Flag,
+} from "lucide-react";
 import {
   buildGameUrl,
   classes,
@@ -22,10 +22,8 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { getPlatformIcon, getRetailLogo } from "./utils";
 import useDelayState from "@/lib/hooks/useDelayState";
-import Popover from "../../Popover";
 import { useModal } from "../../Modal";
 import StarRating from "./StarRating";
-import Tippy from "@tippyjs/react";
 import { useQuery } from "@tanstack/react-query";
 import { gameService } from "@/lib/services/game";
 import ListModal from "./ListModal";
@@ -40,6 +38,12 @@ import useHasUserRole from "@/lib/hooks/useHasUserRole";
 import Spinner from "../../Spinner";
 import { userAtom } from "@/lib/stores/user";
 import { useAtom } from "jotai";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export default function Game({ game }: { game: IGame }) {
   const [showDescription, setShowDescription] = useState(false);
@@ -133,15 +137,20 @@ export default function Game({ game }: { game: IGame }) {
               {game.platforms && game.platforms.length > 0 ? (
                 <>
                   {game.platforms.map((platform) => (
-                    <Tippy
-                      key={platform.id}
-                      placement="auto"
-                      content={platform.platform.label}
-                    >
-                      <div className="flex items-center gap-1 bg-accent2 rounded-lg px-3 py-2 select-none">
-                        {getPlatformIcon(platform.platform.value)}
-                      </div>
-                    </Tippy>
+                    <TooltipProvider>
+                      <Tooltip delayDuration={50}>
+                        <TooltipTrigger>
+                          <div className="flex items-center gap-1 bg-accent2 rounded-lg px-3 py-2 select-none">
+                            {getPlatformIcon(platform.platform.value)}
+                          </div>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p className="text-xs font-medium truncate">
+                            {platform.platform.label}
+                          </p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
                   ))}
                 </>
               ) : (
@@ -196,54 +205,54 @@ export default function Game({ game }: { game: IGame }) {
             {/* <span className="font-medium">Admin</span> */}
 
             <div className="flex items-center flex-wrap gap-2">
-              <Popover
-                text="Copied to clipboard"
-                visible={animateFingerprint}
-                placement="right"
-                className="flex"
-              >
-                <Tippy placement="auto" content="Copy ID">
-                  <motion.button
-                    data-tip="Copy ID"
-                    onTap={() => {
-                      startFingerprintAnimation();
-                      window.navigator.clipboard.writeText(game.id);
-                    }}
-                  >
-                    <svg
-                      width="2em"
-                      height="2em"
-                      strokeWidth="1.5"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      color="currentColor"
+              <TooltipProvider>
+                <Tooltip delayDuration={50}>
+                  <TooltipTrigger asChild>
+                    <motion.button
+                      data-tip="Copy ID"
+                      onTap={() => {
+                        startFingerprintAnimation();
+                        window.navigator.clipboard.writeText(game.id);
+                      }}
                     >
-                      <motion.path
-                        d="M7 16v-4.639c0-.51.1-.999.285-1.453M17 16v-3.185m-7.778-5.08A5.506 5.506 0 0112 7c2.28 0 4.203 1.33 4.805 3.15M10 17v-2.177M14 17v-5.147C14 10.83 13.105 10 12 10s-2 .83-2 1.853v.794"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        initial={"none"}
-                        animate={animateFingerprint ? "active" : "none"}
-                        variants={{
-                          active: {
-                            pathLength: [0, 1],
-                          },
-                          none: { pathLength: 1 },
-                        }}
-                        transition={{ duration: 3 }}
-                      ></motion.path>
-                      <motion.path
-                        d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      ></motion.path>
-                    </svg>
-                  </motion.button>
-                </Tippy>
-              </Popover>
+                      <svg
+                        width="2em"
+                        height="2em"
+                        strokeWidth="1.5"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        color="currentColor"
+                      >
+                        <motion.path
+                          d="M7 16v-4.639c0-.51.1-.999.285-1.453M17 16v-3.185m-7.778-5.08A5.506 5.506 0 0112 7c2.28 0 4.203 1.33 4.805 3.15M10 17v-2.177M14 17v-5.147C14 10.83 13.105 10 12 10s-2 .83-2 1.853v.794"
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          initial={"none"}
+                          animate={animateFingerprint ? "active" : "none"}
+                          variants={{
+                            active: {
+                              pathLength: [0, 1],
+                            },
+                            none: { pathLength: 1 },
+                          }}
+                          transition={{ duration: 3 }}
+                        ></motion.path>
+                        <motion.path
+                          d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        ></motion.path>
+                      </svg>
+                    </motion.button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p className="text-xs font-medium">Copy ID</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </div>
           </div>
         </div>
@@ -255,9 +264,9 @@ export default function Game({ game }: { game: IGame }) {
           <span className="font-medium">
             {game.reviews
               ? `${game.reviews.length} ${pluralize(
-                "review",
-                game.reviews.length
-              )}`
+                  "review",
+                  game.reviews.length
+                )}`
               : "No reviews"}
           </span>
           <div className="flex items-center mt-auto">
@@ -268,7 +277,7 @@ export default function Game({ game }: { game: IGame }) {
                 <Heart />
               </button>
               <button className="btn-icon">
-                <ShareAndroid />
+                <Share2 />
               </button>
             </div>
           </div>
@@ -299,7 +308,7 @@ export default function Game({ game }: { game: IGame }) {
               className={classes(
                 "hidden lg:grid grid-cols-1 gap-2",
                 !isLoadingStatus || !status
-                  ? "lg:grid-cols-[200px_max-content_200px_100px_100px]"
+                  ? "lg:grid-cols-[max-content_max-content_max-content_200px_100px_100px]"
                   : "lg:grid-cols-[275px_max-content_200px_100px_100px]"
               )}
             >
@@ -311,7 +320,7 @@ export default function Game({ game }: { game: IGame }) {
                   Add to library
                 </Button>
               ) : (
-                <div className="flex items-center gap-2 w-full">
+                <div className="grid grid-cols-[minmax(0,10rem)_minmax(0,12rem)] gap-2 w-full">
                   <Select
                     disabled={isRefetchingStatus}
                     color="accent"
@@ -333,8 +342,8 @@ export default function Game({ game }: { game: IGame }) {
                   <Select
                     disabled={isRefetchingStatus}
                     color="accent"
-                    placeholder="⭐"
                     key="score"
+                    placeholder="Score"
                     onSelect={(value) =>
                       gameService.updateMyList(game.id, {
                         score: parseInt(value) as any,
@@ -344,23 +353,68 @@ export default function Game({ game }: { game: IGame }) {
                       value: status?.attributes.score as any,
                     })}
                   >
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((ii, i) => (
-                      <SelectItem key={i} value={i}>
-                        {ii}
+                    {[
+                      {
+                        value: 1,
+                        label: "Appalling",
+                      },
+                      {
+                        value: 2,
+                        label: "Horrible",
+                      },
+                      {
+                        value: 3,
+                        label: "Very bad",
+                      },
+                      {
+                        value: 4,
+                        label: "Bad",
+                      },
+                      {
+                        value: 5,
+                        label: "Mid",
+                      },
+                      {
+                        value: 6,
+                        label: "Fine",
+                      },
+                      {
+                        value: 7,
+                        label: "Good",
+                      },
+                      {
+                        value: 8,
+                        label: "Very good",
+                      },
+                      {
+                        value: 9,
+                        label: "Great",
+                      },
+                      {
+                        value: 10,
+                        label: "Masterpiece",
+                      },
+                    ].map((ii, i) => (
+                      <SelectItem key={ii.value} value={ii.value}>
+                        {ii.label} ({ii.value})
                       </SelectItem>
                     ))}
                   </Select>
-                  <Button
-                    onClick={removeFromMyList}
-                    disabled={isRefetchingStatus}
-                  >
-                    <Trash />
-                  </Button>
                 </div>
               )}
               <Button color="pink">
                 <Star />
               </Button>
+              {status?.attributes.status && (
+                <Button
+                  onClick={removeFromMyList}
+                  disabled={isRefetchingStatus}
+                  color="accent"
+                  className="text-red-500"
+                >
+                  <Trash />
+                </Button>
+              )}
               <Button
                 color="accent"
                 onClick={() => {
@@ -372,17 +426,17 @@ export default function Game({ game }: { game: IGame }) {
                   setShowListModal();
                 }}
               >
-                <PlaylistAdd width="1.58em" height="1.58em" />
+                <ListPlus width="1.58em" height="1.58em" />
                 Add to list
               </Button>
               {user && canEdit && (
                 <Button color="accent">
-                  <EditPencil />
+                  <Edit2 />
                   Edit
                 </Button>
               )}
               <Button color="accent">
-                <WhiteFlag />
+                <Flag />
                 Report
               </Button>
             </div>
@@ -393,7 +447,11 @@ export default function Game({ game }: { game: IGame }) {
           <div className="flex items-center flex-wrap gap-1 sm:gap-3">
             <Button
               type="button"
-              color={pathname === buildGameUrl(game) && !params?.get('tab') ? "primary" : "accent"}
+              color={
+                pathname === buildGameUrl(game) && !params?.get("tab")
+                  ? "primary"
+                  : "accent"
+              }
               size="medium"
               onClick={() => {
                 router.push(buildGameUrl(game));
@@ -442,7 +500,7 @@ export default function Game({ game }: { game: IGame }) {
             </Button>
           </div>
 
-          {!params?.get('tab') && (
+          {!params?.get("tab") && (
             <div className="flex flex-col mt-3">
               <div className="flex flex-col gap-1">
                 <h4 className="font-bold text-xl">History</h4>

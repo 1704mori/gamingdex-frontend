@@ -45,10 +45,24 @@ module.exports = {
         0 41.8px 33.4px rgba(0, 0, 0, 0.086),
         0 10px 5px rgba(0, 0, 0, 0.12)`,
       },
+      keyframes: {
+        "accordion-down": {
+          from: { height: 0 },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: 0 },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+      },
       screens: {
         xsm: "320px",
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-animate")],
 };

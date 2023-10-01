@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu, ArrowDown, Search, Trophy, GraphUp, List } from "iconoir-react";
+import { Menu, ArrowDown, Search, Trophy, TrendingUp, List } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -127,7 +127,7 @@ export default function Navbar() {
                 onClick={handleClickMostPopular}
                 className="flex items-center justify-center gap-2"
               >
-                <GraphUp width="1.5em" height="1.5em" />
+                <TrendingUp width="1.5em" height="1.5em" />
                 Most Popular
               </Link>
             </Dropdown.Item>

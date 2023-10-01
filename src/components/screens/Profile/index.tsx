@@ -80,7 +80,7 @@ export default function Profile() {
               Activity
             </span>
             <History data={[{
-              day: '2023-09-30',
+              day: '2023-10-01',
               value: 15,
             }]} />
           </div>

@@ -4,11 +4,11 @@
 import "swiper/swiper-bundle.css"
 import {
   ArrowRight,
-  ChatLines,
+  BarChart,
   Heart,
-  NintendoSwitch,
+  Joystick,
   User,
-} from "iconoir-react";
+} from "lucide-react";
 import Activities from "./Activities";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useLocale } from "@/lib/hooks/useLocale";
@@ -157,7 +157,7 @@ export default function Home() {
                     <h5 className="font-medium">Best JRPGs</h5>
                     <div className="flex items-center gap-3 text-sm">
                       <div className="flex items-center">
-                        <NintendoSwitch width="1.3em" />
+                        <Joystick size="1.3em" />
                         <span className="text-sm">15 Games</span>
                       </div>
                       <div className="flex items-center">
@@ -165,7 +165,7 @@ export default function Home() {
                         <span className="text-sm">15 likes</span>
                       </div>
                       <div className="flex items-center">
-                        <ChatLines width="1.3em" />
+                        <BarChart size="1.3em" />
                         <span className="text-sm">15</span>
                       </div>
                     </div>

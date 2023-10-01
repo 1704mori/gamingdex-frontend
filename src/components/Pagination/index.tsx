@@ -1,5 +1,5 @@
 import { classes } from "@/lib/helpers/common";
-import { ArrowLeft, ArrowRight } from "iconoir-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 
 interface Props {

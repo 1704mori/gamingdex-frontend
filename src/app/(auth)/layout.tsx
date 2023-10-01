@@ -1,4 +1,4 @@
-import "../../styles/globals.scss";
+import "../globals.scss";
 
 import RegisterLayout from "@/components/screens/Register/RegisterLayout";
 

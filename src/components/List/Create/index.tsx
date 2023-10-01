@@ -2,9 +2,9 @@
 
 import { classes } from "@/lib/helpers/common";
 import { AnimatePresence, motion, Reorder } from "framer-motion";
-import { ChatBubble, EyeEmpty, Lock, Trash, ViewGrid } from "iconoir-react";
+import { MessageSquare, EyeOff, Lock, Trash, Grid } from "lucide-react";
 import { useRef, useState } from "react";
-import ReactMde from "react-mde";
+// import ReactMde from "react-mde";
 import styled from "styled-components";
 import { displayImage } from "../../../lib/helpers/common";
 import { getErrorMessage } from "../../../lib/helpers/translateApiErrors";
@@ -200,7 +200,7 @@ export default function Create() {
             className={classes("type", privacy === "public" && "type-active")}
             onClick={() => setPrivacy("public")}
           >
-            <EyeEmpty width="1.9em" height="1.9em" />
+            <EyeOff />
             <Typography>Public</Typography>
           </button>
           <button
@@ -228,14 +228,14 @@ export default function Create() {
           <Typography.Title className="mb-5" level="4" thickness={3}>
             Write a comment
           </Typography.Title>
-          <ReactMde
-            toolbarCommands={[
-              ["header", "bold", "italic", "strikethrough", "unordered-list"],
-            ]}
-            disablePreview
-            value={description}
-            onChange={setDescription}
-          />
+          {/* <ReactMde */}
+          {/*   toolbarCommands={[ */}
+          {/*     ["header", "bold", "italic", "strikethrough", "unordered-list"], */}
+          {/*   ]} */}
+          {/*   disablePreview */}
+          {/*   value={description} */}
+          {/*   onChange={setDescription} */}
+          {/* /> */}
           <div className="flex items-center justify-end gap-2">
             <Button color="accent">Cancel</Button>
             <Button onClick={handleSubmitDescription}>Save</Button>
@@ -264,12 +264,12 @@ export default function Create() {
           <Typography className="!text-xs uppercase" thickness={3}>
             Description
           </Typography>
-          <ReactMde
-            toolbarCommands={[
-              ["header", "bold", "italic", "strikethrough", "unordered-list"],
-            ]}
-            disablePreview
-          />
+          {/* <ReactMde */}
+          {/*   toolbarCommands={[ */}
+          {/*     ["header", "bold", "italic", "strikethrough", "unordered-list"], */}
+          {/*   ]} */}
+          {/*   disablePreview */}
+          {/* /> */}
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <Select label="Privacy" onSelect={console.log} value={privacy}>
@@ -358,7 +358,7 @@ export default function Create() {
                   value={game}
                 // style={{ y, boxShadow }}
                 >
-                  <ViewGrid className="mr-2" />
+                  <Grid className="mr-2" />
                   <div className="flex items-center justify-between w-full">
                     <div className="flex items-center gap-2">
                       <img
@@ -375,7 +375,7 @@ export default function Create() {
                         type="button"
                         onClick={() => handleOpenModal(game)}
                       >
-                        <ChatBubble />
+                        <MessageSquare />
                       </button>
                       <button onClick={() => handleRemoveGame(game)}>
                         <Trash

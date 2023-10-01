@@ -2,7 +2,7 @@
 
 import { classes } from "@/lib/helpers/common";
 import { AnimatePresence, motion } from "framer-motion";
-import { Cancel } from "iconoir-react";
+import { X } from "lucide-react";
 import { createContext, useContext, useEffect, useState } from "react";
 import Typography from "../Typography";
 
@@ -160,7 +160,7 @@ const NotificationProvider = (props: NotificationProps) => {
                 key={notification.id}
               >
                 <Typography thickness={3}>{notification.text}</Typography>
-                <Cancel
+                <X
                   className="cursor-pointer"
                   onClick={() => remove(notification.id)}
                 />

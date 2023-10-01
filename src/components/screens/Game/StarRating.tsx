@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion, useAnimation } from "framer-motion";
-import { Star as IStar } from "iconoir-react";
+import { Star as IStar } from "lucide-react";
 
 const starVariants = {
   initial: {
@@ -59,8 +59,8 @@ const Star = ({
   return (
     <AnimatePresence>
       <motion.i
-        onMouseOver={() => setIsHovering(true)}
-        onMouseOut={() => setIsHovering(false)}
+        // onMouseOver={() => setIsHovering(true)}
+        // onMouseOut={() => setIsHovering(false)}
         variants={starVariants}
         initial="initial"
         animate={starControls}
@@ -81,11 +81,11 @@ const StarRating = ({ filled: _filled }: { filled: number }) => {
       {[0, 1, 2, 3, 4].map((i) => (
         <motion.div
           className="star-wrapper"
-          onMouseOver={() => setIsHovering(i)}
-          onClick={() => {
-            setIsClicked(i + 1);
-            setFilled(i + 1);
-          }}
+          // onMouseOver={() => setIsHovering(i)}
+          // onClick={() => {
+          //   setIsClicked(i + 1);
+          //   setFilled(i + 1);
+          // }}
           key={i}
         >
           <Star

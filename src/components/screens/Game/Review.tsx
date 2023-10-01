@@ -2,7 +2,7 @@ import { humanize } from "@/lib/helpers/common";
 import { gameReviewAtom, showReviewModalAtom } from "@/lib/stores";
 import { IReview } from "@/lib/types/game";
 import dayjs from "dayjs";
-import { WhiteFlag } from "iconoir-react";
+import { Flag } from "lucide-react";
 import { useAtom } from "jotai";
 import { useRef } from "react";
 import ReviewModal from "./ReviewModal";
@@ -48,7 +48,7 @@ export default function Review({ reviews }: { reviews: IReview[] }) {
                 {dayjs(review.createdAt).format("MMM DD, YYYY")}
               </span>
               <button>
-                <WhiteFlag />
+                <Flag />
               </button>
             </div>
           </div>

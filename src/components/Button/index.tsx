@@ -1,4 +1,5 @@
 import { classes } from "@/lib/helpers/common";
+import { cn } from "@/lib/utils";
 import { Slot } from "@radix-ui/react-slot";
 import React, { forwardRef } from "react";
 
@@ -34,7 +35,7 @@ const Button: React.FC<ButtonProps> = forwardRef<
     return (
       <Component
         ref={ref}
-        className={classes(
+        className={cn(
           `inline-flex items-center justify-center bg-${color !== "pink" && color
           } transition-colors text-text border border-transparent font-medium rounded-lg shadow-sm focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed`,
           fit && "w-fit",
