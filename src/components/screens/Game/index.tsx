@@ -137,7 +137,7 @@ export default function Game({ game }: { game: IGame }) {
               {game.platforms && game.platforms.length > 0 ? (
                 <>
                   {game.platforms.map((platform) => (
-                    <TooltipProvider>
+                    <TooltipProvider key={platform.id}>
                       <Tooltip delayDuration={50}>
                         <TooltipTrigger>
                           <div className="flex items-center gap-1 bg-accent2 rounded-lg px-3 py-2 select-none">
@@ -264,7 +264,7 @@ export default function Game({ game }: { game: IGame }) {
           <span className="font-medium">
             {game.reviews
               ? `${game.reviews.length} ${pluralize(
-                  "review",
+                "review", 
                   game.reviews.length
                 )}`
               : "No reviews"}
