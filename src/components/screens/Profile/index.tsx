@@ -161,7 +161,7 @@ export default function Profile() {
             </span>
             <div className="grid grid-cols-10 gap-3 bg-accent rounded-lg">
               {Array.from({ length: 10 }).map((_, index) => (
-                <div className="group">
+                <div className="group" key={index}>
                   <div className="relative overflow-hidden">
                     <Link href={"#"}>
                       <img
@@ -185,7 +185,7 @@ export default function Profile() {
             </span>
             <div className="grid grid-cols-10 gap-3 bg-accent rounded-lg">
               {Array.from({ length: 10 }).map((_, index) => (
-                <div className="group">
+                <div className="group" key={index}>
                   <div className="relative overflow-hidden">
                     <Link href={"#"}>
                       <img
