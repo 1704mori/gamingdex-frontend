@@ -31,7 +31,15 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <Toaster richColors expand position="top-right" />
+      <Toaster richColors expand position="top-right" toastOptions={{
+        style: {
+          background: "var(--accent)",
+          color: "var(--text)",
+          borderColor: "var(--accent3)",
+          fontFamily: "Poppins",
+          fontWeight: 600,
+        }
+      }} />
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </>
   );
