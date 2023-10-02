@@ -3,13 +3,13 @@ import { classes } from '@/lib/helpers/common';
 import { useMemo } from 'react'
 
 type Props = {
-  data: {
+  data?: {
     day: string;
     value: number
   }[]
 }
 
-export default function History({ data }: Props) {
+export default function History({ data = [] }: Props) {
   const buildDayColor = (value: number) => {
     if (value == 0) return 'bg-accent2'
 
@@ -27,7 +27,6 @@ export default function History({ data }: Props) {
 
   const startMonth = currentMonth - 5;
   const adjustedStartMonth = startMonth <= 0 ? 12 + startMonth : startMonth;
-
 
   const buildDays = useMemo(() => {
     const squares = [];
@@ -51,6 +50,7 @@ export default function History({ data }: Props) {
                   key={day}
                   className={classes(
                     "w-3 h-3 rounded-sm",
+                    !data.length && "animate-pulse",
                     backgroundColor
                   )}
                 />

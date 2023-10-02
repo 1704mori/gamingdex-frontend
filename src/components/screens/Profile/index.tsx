@@ -1,14 +1,27 @@
 "use client"
 import Button from "@/components/Button";
-import { UserIcon } from "lucide-react";
-import { useMediaQuery } from "react-responsive";
-import History from "./History";
+import { UserIcon, UserPlus } from "lucide-react";
+import ActivityHistory from "./ActivityHistory";
+import History from "./components/History";
 import Link from "next/link";
+import { IUser } from "@/lib/types/user";
+import { userAtom } from "@/lib/stores/user";
+import { useAtom } from "jotai";
+import { useQuery } from "@tanstack/react-query";
+import { userService } from "@/lib/services/user";
+import { Suspense } from "react";
+import { LoadingRecentGames, RecentGames } from "./RecentGames";
 
-export default function Profile() {
-  const isSmallestScreen = useMediaQuery({
-    query: "(max-width: 375px)",
-  });
+type Props = {
+  user: IUser;
+}
+
+function isLoggedUser(user: IUser, loggedUser?: IUser) {
+  return loggedUser?.id === user.id;
+}
+
+export default function Profile({ user }: Props) {
+  const [loggedUser] = useAtom(userAtom);
 
   return (
     <div className="flex flex-col mb-auto lg:mt-12 lg:flex-row gap-3 lg:max-w-5xl w-full h-full">
@@ -30,21 +43,31 @@ export default function Profile() {
           <div className="flex flex-col mt-12 w-full">
             <div className="flex items-center justify-between">
               <strong className="text-xl font-semibold">
-                Username
+                {user.username}
               </strong>
-              <button
-                type="button"
-                className="underline hover:text-slate-200"
-              >
-                Edit profile
-              </button>
+              {
+                // @ts-ignore
+                loggedUser && isLoggedUser(user, loggedUser) && (
+                  <button
+                    type="button"
+                    className="underline hover:text-slate-200"
+                  >
+                    Edit profile
+                  </button>
+                )
+              }
             </div>
             <div className="flex flex-col gap-6">
               <div className="flex items-center justify-between mt-8">
                 <div className="flex items-center gap-6">
-                  <Button className="self-end">
-                    Follow
-                  </Button>
+                  {
+                    // @ts-ignore
+                    loggedUser && !isLoggedUser(user, loggedUser) && (
+                      <Button size="small" className="self-end font-semibold">
+                        Follow
+                      </Button>
+                    )
+                  }
                   <div className="flex flex-col text-center">
                     <div className="text-base">
                       Followers
@@ -62,93 +85,42 @@ export default function Profile() {
                     </div>
                   </div>
                 </div>
-                <Button color="accent">
-                  Report
-                </Button>
+                {
+                  // @ts-ignore
+                  !isLoggedUser(user, loggedUser) && (
+                    <Button color="accent">
+                      Report
+                    </Button>
+                  )
+                }
               </div>
             </div>
           </div>
         </div>
-        <div>
-          <span className="text-slate-300 text-sm font-medium">
-            Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.
-          </span>
-        </div>
-        <div className="flex gap-4 w-full">
+        {user.bio && (
+          <div>
+            <span className="text-slate-300 text-sm font-medium">
+              {user.bio}
+            </span>
+          </div>
+        )}
+        <div className="grid grid-cols-[1fr,27rem] gap-4 w-full">
           <div className="flex flex-col gap-1">
             <span className="font-medium">
               Activity
             </span>
-            <History data={[{
-              day: '2023-10-01',
-              value: 15,
-            }]} />
+            <Suspense fallback={<History data={[]} />}>
+              <ActivityHistory user={user} />
+            </Suspense>
           </div>
           <div className="flex flex-col gap-1 w-full">
             <span className="font-medium">
               Recent games
             </span>
             <div className="flex flex-col gap-4 bg-accent rounded-lg px-2 py-4">
-              <div className="flex items-center gap-3 overflow-hidden relative rounded-lg bg-accent2 px-2 py-1">
-                <div className="w-1 h-16 bg-green-600 rounded-l-lg absolute left-0"></div>
-                <img src="https://i.imgur.com/22LGnau.png" className="w-20 h-16 rounded-lg" />
-                <div className="flex flex-col gap-1 w-full">
-                  <strong className="text-sm font-medium">
-                    Zelda: Tears of the kingdom
-                  </strong>
-                  <div className="flex gap-1">
-                    <span className="self-end text-xs font-medium text-slate-300">
-                      Completed
-                    </span>
-                    <span className="self-end text-xs font-medium text-slate-300">
-                      3 hours ago
-                    </span>
-                    <span className="text-sm font-medium ml-auto bg-primary w-7 h-7 flex justify-center items-center rounded-lg">
-                      10
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="flex items-center gap-3 overflow-hidden relative rounded-lg bg-accent2 px-2 py-1">
-                <div className="w-1 h-16 bg-green-600 rounded-l-lg absolute left-0"></div>
-                <img src="https://i.imgur.com/22LGnau.png" className="w-20 h-16 rounded-lg" />
-                <div className="flex flex-col gap-1 w-full">
-                  <strong className="text-sm font-medium">
-                    Zelda: Tears of the kingdom
-                  </strong>
-                  <div className="flex gap-1">
-                    <span className="self-end text-xs font-medium text-slate-300">
-                      Completed
-                    </span>
-                    <span className="self-end text-xs font-medium text-slate-300">
-                      3 hours ago
-                    </span>
-                    <span className="text-sm font-medium ml-auto bg-primary w-7 h-7 flex justify-center items-center rounded-lg">
-                      10
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="flex items-center gap-3 overflow-hidden relative rounded-lg bg-accent2 px-2 py-1">
-                <div className="w-1 h-16 bg-green-600 rounded-l-lg absolute left-0"></div>
-                <img src="https://i.imgur.com/22LGnau.png" className="w-20 h-16 rounded-lg" />
-                <div className="flex flex-col gap-1 w-full">
-                  <strong className="text-sm font-medium">
-                    Zelda: Tears of the kingdom
-                  </strong>
-                  <div className="flex gap-1">
-                    <span className="self-end text-xs font-medium text-slate-300">
-                      Completed
-                    </span>
-                    <span className="self-end text-xs font-medium text-slate-300">
-                      3 hours ago
-                    </span>
-                    <span className="text-sm font-medium ml-auto bg-primary w-7 h-7 flex justify-center items-center rounded-lg">
-                      10
-                    </span>
-                  </div>
-                </div>
-              </div>
+              <Suspense fallback={<LoadingRecentGames />}>
+                <RecentGames user={user} />
+              </Suspense>
             </div>
           </div>
         </div>
