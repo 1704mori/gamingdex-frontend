@@ -1,7 +1,5 @@
-import { delay } from "../helpers/common";
 import { IBaseFilter } from "../types/api";
-import { IUserGame } from "../types/game";
-import { IUser, IUserActivity } from "../types/user";
+import { IUser, IUserActivity, IUserGame } from "../types/user";
 import { get } from "./api";
 
 export async function activities(query?: IBaseFilter & { includes?: string[] }) {

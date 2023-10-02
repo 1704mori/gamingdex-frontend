@@ -62,7 +62,7 @@ export default function ListModal({
         )}
 
         <div className="flex flex-col gap-3">
-          {lists &&
+          {lists && lists.attributes.length > 0 &&
             lists.attributes.map((list) => (
               <div key={list.id} className="flex items-center gap-2">
                 <input type="checkbox" className="hover:cursor-pointer" />

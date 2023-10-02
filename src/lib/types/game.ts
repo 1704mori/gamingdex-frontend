@@ -1,7 +1,7 @@
 import { IBase } from "./base";
 import { ICharacter } from "./character";
 import { IPeople } from "./people";
-import { IUser } from "./user";
+import { IUser, IUserGame } from "./user";
 
 export enum ERating {
   "UNKNOWN" = "unknown",
@@ -23,15 +23,6 @@ export enum EGameStatus {
   NOT_PUBLISHED = "not_published",
   PUBLISHED = "published",
   CANCELED = "canceled",
-}
-
-export enum EGamingStatus {
-  NOT_IN_LIST = "not_in_list",
-  PLAYING = "playing",
-  COMPLETED = "completed",
-  DROPPED = "dropped",
-  PAUSED = "paused",
-  PLAN_TO_PLAY = "plan_to_play",
 }
 
 export interface IGame extends IBase {
@@ -145,12 +136,4 @@ export interface IGameStaff extends Omit<IBase, "role"> {
 
   game: IGame;
   people: IPeople;
-}
-
-export interface IUserGame extends IBase {
-  userId: string;
-  gameId: string;
-
-  user: IUser;
-  game: IGame;
 }

@@ -1,5 +1,6 @@
 import { IBase } from "./base";
 import { IFile } from "./file";
+import { IGame } from "./game";
 
 type Role = {
   name: string;
@@ -41,4 +42,16 @@ export interface IUserActivityLike extends IBase {
 
   user: IUser;
   activity: IUserActivity;
+}
+
+export type TGamingStatus = "not_in_list" | "playing" | "completed" | "dropped" | "on_hold" | "plan_to_play";
+
+export interface IUserGame extends IBase {
+  userId: string;
+  gameId: string;
+  status: TGamingStatus;
+  score: number;
+
+  user: IUser;
+  game: IGame;
 }

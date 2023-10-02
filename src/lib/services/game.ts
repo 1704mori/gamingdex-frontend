@@ -1,12 +1,12 @@
 import { IBaseFilter } from "../types/api";
 import {
-  EGamingStatus,
   IGame,
   IGameCharacter,
   IGameStaff,
   IReview,
 } from "../types/game";
 import { IList } from "../types/list";
+import { TGamingStatus } from "../types/user";
 import { del, get as apiGet, post, put } from "./api";
 
 type Filter = IBaseFilter & {
@@ -86,10 +86,10 @@ export async function getListStatus(id: string) {
 
 export async function addToMyList(
   id: string,
-  status: keyof typeof EGamingStatus
+  status: TGamingStatus
 ) {
   const result = await post(`/game/${id}/status`, {
-    status: EGamingStatus[status],
+    status,
   });
 
   return result?.data;
@@ -98,7 +98,7 @@ export async function addToMyList(
 export async function updateMyList(
   id: string,
   data: {
-    status?: keyof typeof EGamingStatus;
+    status?: TGamingStatus;
     score?: number;
   }
 ) {

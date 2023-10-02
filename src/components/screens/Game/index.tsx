@@ -96,7 +96,7 @@ export default function Game({ game }: { game: IGame }) {
       return;
     }
 
-    await gameService.addToMyList(game.id, "PLAYING");
+    await gameService.addToMyList(game.id, "playing");
     await refetchStatus();
     // router.reload();
   };
@@ -264,9 +264,9 @@ export default function Game({ game }: { game: IGame }) {
           <span className="font-medium">
             {game.reviews
               ? `${game.reviews.length} ${pluralize(
-                "review", 
-                  game.reviews.length
-                )}`
+                "review",
+                game.reviews.length
+              )}`
               : "No reviews"}
           </span>
           <div className="flex items-center mt-auto">
@@ -394,7 +394,7 @@ export default function Game({ game }: { game: IGame }) {
                         value: 10,
                         label: "Masterpiece",
                       },
-                    ].map((ii, i) => (
+                    ].reverse().map((ii) => (
                       <SelectItem key={ii.value} value={ii.value}>
                         {ii.label} ({ii.value})
                       </SelectItem>

@@ -12,5 +12,5 @@ export default async function ProfilePage({ params }: { params: { username: stri
   }
 
   // @ts-ignore
-  return <Profile user={user?.data.attributes} />
+  return <Profile user={user?.attributes} />
 };

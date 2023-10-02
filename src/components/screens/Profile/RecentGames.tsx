@@ -1,9 +1,9 @@
 import { Skeleton } from "@/components/ui/skeleton"
 import { userService } from "@/lib/services/user"
-import { userAtom } from "@/lib/stores/user"
-import { IUser } from "@/lib/types/user"
+import { IUser, TGamingStatus } from "@/lib/types/user"
 import { useQuery } from "@tanstack/react-query"
-import { useAtom } from "jotai"
+import { buildGameUrl, cn, getRelativeTimeString, humanize } from "@/lib/helpers/common"
+import Link from "next/link";
 
 export function LoadingRecentGames() {
   return (
@@ -49,6 +49,14 @@ type Props = {
   user: IUser;
 }
 
+function buildStatusColor(status: TGamingStatus) {
+  if (status === "playing") return "bg-green-600"
+  if (status === "completed") return "bg-primary"
+  if (status === "dropped") return "bg-red-600"
+  if (status === "on_hold") return "bg-yellow-600"
+  if (status === "plan_to_play") return "bg-accent4"
+}
+
 export function RecentGames({ user }: Props) {
   const { data: games, isLoading } = useQuery(
     ["activities", user?.id],
@@ -72,21 +80,27 @@ export function RecentGames({ user }: Props) {
         <div
           key={game.game.id}
           className="flex items-center gap-3 overflow-hidden relative rounded-lg bg-accent2 px-2 py-1">
-          <div className="w-1 h-16 bg-green-600 rounded-l-lg absolute left-0"></div>
-          <img src="https://i.imgur.com/22LGnau.png" className="w-20 h-16 rounded-lg" />
+          <div className={cn("w-1 h-16 rounded-l-lg absolute left-0", buildStatusColor(game.status))}></div>
+          <Link href={buildGameUrl(game.game)}>
+            <img src="https://i.imgur.com/22LGnau.png" className="w-20 h-16 rounded-lg" />
+          </Link>
           <div className="flex flex-col gap-1 w-full">
             <strong className="text-sm font-medium">
-              {game.game.title}
+              <Link href={buildGameUrl(game.game)}>
+                {game.game.title}
+              </Link>
             </strong>
             <div className="flex gap-1">
               <span className="self-end text-xs font-medium text-slate-300">
-                Completed
+                {
+                  humanize(game.status)
+                }
               </span>
               <span className="self-end text-xs font-medium text-slate-300">
-                3 hours ago
+                {getRelativeTimeString(new Date(game.createdAt))}
               </span>
               <span className="text-sm font-medium ml-auto bg-primary w-7 h-7 flex justify-center items-center rounded-lg">
-                10
+                {game.score}
               </span>
             </div>
           </div>
