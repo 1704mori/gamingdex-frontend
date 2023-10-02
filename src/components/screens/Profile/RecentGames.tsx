@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { userService } from "@/lib/services/user"
 import { IUser, TGamingStatus } from "@/lib/types/user"
 import { useQuery } from "@tanstack/react-query"
-import { buildGameUrl, cn, getRelativeTimeString, humanize } from "@/lib/helpers/common"
+import { buildGameUrl, cn, displayImage, getRelativeTimeString, humanize } from "@/lib/helpers/common"
 import Link from "next/link";
 
 export function LoadingRecentGames() {
@@ -76,13 +76,14 @@ export function RecentGames({ user }: Props) {
           No recent games
         </span>
       )}
-      {games?.attributes.map((game) => (
+      {/* reverse cuz ordering is not implemented yet */}
+      {games?.attributes.reverse().map((game) => (
         <div
           key={game.game.id}
           className="flex items-center gap-3 overflow-hidden relative rounded-lg bg-accent2 px-2 py-1">
           <div className={cn("w-1 h-16 rounded-l-lg absolute left-0", buildStatusColor(game.status))}></div>
           <Link href={buildGameUrl(game.game)}>
-            <img src="https://i.imgur.com/22LGnau.png" className="w-20 h-16 rounded-lg" />
+            <img src={displayImage(game.game.cover)} className="w-20 h-16 rounded-lg" />
           </Link>
           <div className="flex flex-col gap-1 w-full">
             <strong className="text-sm font-medium">
