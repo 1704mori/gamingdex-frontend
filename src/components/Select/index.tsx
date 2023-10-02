@@ -66,12 +66,8 @@ const Select = forwardRef<HTMLButtonElement, Props>(
         if (childrenValue) {
           setPlaceholderText(childrenValue as unknown as string);
         }
-
-        if (onSelect) {
-          onSelect(value);
-        }
       }
-    }, [value, onSelect, children, setPlaceholderText]);
+    }, [value, children, setPlaceholderText]);
 
     useClickOutside(_ref, () => setIsOpen(false));
 
