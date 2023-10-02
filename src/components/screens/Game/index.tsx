@@ -44,6 +44,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { toast } from "sonner";
 
 export default function Game({ game }: { game: IGame }) {
   const [showDescription, setShowDescription] = useState(false);
@@ -98,12 +99,18 @@ export default function Game({ game }: { game: IGame }) {
 
     await gameService.addToMyList(game.id, "playing");
     await refetchStatus();
+    toast("Added to library", {
+      position: "bottom-left"
+    })
     // router.reload();
   };
 
   const removeFromMyList = async () => {
     await gameService.removeFromMyList(game.id);
     await refetchStatus();
+    toast("Removed from library", {
+      position: "bottom-left"
+    });
   };
 
   return (
@@ -326,11 +333,14 @@ export default function Game({ game }: { game: IGame }) {
                     color="accent"
                     className="w-full"
                     key="status"
-                    onSelect={(value) =>
+                    onSelect={(value) => {
                       gameService.updateMyList(game.id, {
                         status: value as any,
                       })
-                    }
+                      toast("Status updated", {
+                        position: "bottom-left"
+                      });
+                    }}
                     value={status?.attributes.status}
                   >
                     <SelectItem value="playing">Playing</SelectItem>
@@ -344,11 +354,14 @@ export default function Game({ game }: { game: IGame }) {
                     color="accent"
                     key="score"
                     placeholder="Score"
-                    onSelect={(value) =>
+                    onSelect={(value) => {
                       gameService.updateMyList(game.id, {
                         score: parseInt(value) as any,
-                      })
-                    }
+                      });
+                      toast("Score updated", {
+                        position: "bottom-left"
+                      });
+                    }}
                     {...(status?.attributes.score && {
                       value: status?.attributes.score as any,
                     })}
