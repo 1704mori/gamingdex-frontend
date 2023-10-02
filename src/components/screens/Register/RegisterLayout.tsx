@@ -10,7 +10,7 @@ export default function RegisterLayout({
   return (
     <html>
       <body>
-        <Toaster richColors expand position="top-right" />
+        <Toaster theme="dark" richColors expand position="top-right" />
         <div className="flex flex-col items-center justify-center min-h-screen">
           {children}
         </div>
