@@ -23,7 +23,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
           return
         }
 
-        setUser(me.data.attributes)
+        setUser(me.attributes)
       };
     }
     logic()

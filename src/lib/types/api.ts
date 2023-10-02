@@ -5,12 +5,10 @@ export interface IPagination {
   prev: number;
 }
 
-export interface IApiResponse<T = unknown> {
+export interface IApiResponse<T = any> {
   result: "ok" | "error";
-  data: {
-    attributes: T;
-    pagination: IPagination;
-  };
+  attributes: T;
+  pagination: IPagination;
 }
 
 export interface IBaseFilter {

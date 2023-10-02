@@ -36,7 +36,7 @@ const Button: React.FC<ButtonProps> = forwardRef<
       <Component
         ref={ref}
         className={cn(
-          `inline-flex items-center justify-center bg-${color !== "pink" && color
+          `inline-flex gap-1 items-center justify-center bg-${color !== "pink" && color
           } transition-colors text-text border border-transparent font-medium rounded-lg shadow-sm focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed`,
           fit && "w-fit",
           outlined && `border-${color} bg-transparent text-${color}`,

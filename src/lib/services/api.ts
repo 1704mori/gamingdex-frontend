@@ -60,7 +60,7 @@ export async function request<T = any>(
 function handleError(err: AxiosError) {
   if (!err.response) {
     console.error(err);
-    throw new Error("Erro desconhecido, tente novamente...");
+    throw new Error("Unknown error, try again...")
   }
 
   const { status, config, data } = err.response as any;
@@ -95,6 +95,6 @@ function handleError(err: AxiosError) {
       throw new Error(errorsData[0].message);
     }
 
-    throw new Error("Erro desconhecido, tente novamente...");
+    throw new Error("Unknown error, try again...")
   }
 }

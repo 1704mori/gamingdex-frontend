@@ -58,7 +58,7 @@ export default function Create() {
           title,
           type: privacy as EListType,
         })
-        .then(({ data: { attributes } }) => {
+        .then(({ attributes }) => {
           setList(attributes);
           setStep(step);
         })

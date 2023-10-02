@@ -51,7 +51,7 @@ export async function login(email: string, password: string): Promise<{
     }
   }
 
-  authService.setToken(result?.data.attributes.accessToken as string);
+  authService.setToken(result?.attributes.accessToken as string);
 
   const [user, userErr] = await resolvePromise(authService.me());
   if (userErr) {
@@ -62,7 +62,7 @@ export async function login(email: string, password: string): Promise<{
   }
 
   return {
-    user: user.data.attributes,
+    user: user.attributes,
     error: null
   }
 }

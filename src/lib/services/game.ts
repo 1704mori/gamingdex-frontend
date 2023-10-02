@@ -1,4 +1,4 @@
-import { IApiResponse, IBaseFilter } from "../types/api";
+import { IBaseFilter } from "../types/api";
 import {
   EGamingStatus,
   IGame,
@@ -32,13 +32,13 @@ type ListFilter = IBaseFilter & {
 export async function get(query?: Filter) {
   const result = await apiGet<IGame[]>("/game", query);
 
-  return result?.data.data;
+  return result?.data;
 }
 
 export async function getById(id: string, includes?: string[]) {
   const result = await apiGet<IGame>(`/game/${id}`, { includes });
 
-  return result?.data.data;
+  return result?.data;
 }
 
 export async function getReviews(
@@ -47,7 +47,7 @@ export async function getReviews(
 ) {
   const result = await apiGet<IReview[]>(`/game/${id}/reviews`, query);
 
-  return result?.data.data;
+  return result?.data;
 }
 
 export async function getCharacters(
@@ -61,7 +61,7 @@ export async function getCharacters(
     query
   );
 
-  return result?.data.data;
+  return result?.data;
 }
 
 export async function getStaff(
@@ -72,7 +72,7 @@ export async function getStaff(
 ) {
   const result = await apiGet<IGameStaff[]>(`/game/${id}/staff`, query);
 
-  return result?.data.data;
+  return result?.data;
 }
 
 export async function getListStatus(id: string) {
@@ -81,7 +81,7 @@ export async function getListStatus(id: string) {
     score: number;
   }>(`/game/${id}/status`);
 
-  return result?.data.data;
+  return result?.data;
 }
 
 export async function addToMyList(
@@ -122,7 +122,7 @@ export async function addToList(id: string, listId: string) {
 export async function lists() {
   const result = await apiGet<IList[]>("/game/lists");
 
-  return result?.data.data;
+  return result?.data;
 }
 
 export const gameService = {

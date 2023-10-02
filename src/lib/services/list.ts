@@ -14,7 +14,7 @@ type Filter = IBaseFilter & {
 export async function list(query?: Filter) {
   const result = await get<IList[]>("/list", query);
 
-  return result?.data.data;
+  return result?.data;
 }
 
 export async function create(
