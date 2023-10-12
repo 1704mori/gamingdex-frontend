@@ -12,6 +12,7 @@ import { userAtom } from "@/lib/stores/user";
 import { useAtom } from "jotai";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import Spinner from "@/components/Spinner";
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -22,7 +23,7 @@ export default function Login() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<{
     email: string;
     password: string;
@@ -39,10 +40,10 @@ export default function Login() {
 
     if (user) {
       setUser(user);
-      toast.success("Logged in!")
+      toast.success("Logged in!");
       router.push(ROUTES.home);
     } else {
-      toast.error(error.error)
+      toast.error(error.error);
     }
   });
 
@@ -89,7 +90,8 @@ export default function Login() {
       <Button className="!text-primary mx-auto" asChild>
         <Link href={ROUTES.register}>Forgot my password</Link>
       </Button>
-      <Button className="w-full" type="submit">
+      <Button className="w-full" disabled={isSubmitting} type="submit">
+        {isSubmitting && <Spinner width="16px" height="16px" />}
         Login
       </Button>
       <span>
