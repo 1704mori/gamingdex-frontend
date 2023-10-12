@@ -83,7 +83,7 @@ export function RecentGames({ user }: Props) {
           className="flex items-center gap-3 overflow-hidden relative rounded-lg bg-accent2 px-2 py-1">
           <div className={cn("w-1 h-16 rounded-l-lg absolute left-0", buildStatusColor(game.status))}></div>
           <Link href={buildGameUrl(game.game)}>
-            <img src={displayImage(game.game.cover)} className="w-20 h-16 rounded-lg" />
+            <img src={displayImage(game.game.cover)} className="w-16 h-16 rounded-lg object-cover" />
           </Link>
           <div className="flex flex-col gap-1 w-full">
             <strong className="text-sm font-medium">
