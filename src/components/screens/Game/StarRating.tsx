@@ -59,8 +59,9 @@ const Star = ({
   return (
     <AnimatePresence>
       <motion.i
-        // onMouseOver={() => setIsHovering(true)}
-        // onMouseOut={() => setIsHovering(false)}
+        className="cursor-pointer"
+        onMouseOver={() => setIsHovering(true)}
+        onMouseOut={() => setIsHovering(false)}
         variants={starVariants}
         initial="initial"
         animate={starControls}
@@ -71,7 +72,7 @@ const Star = ({
     </AnimatePresence>
   );
 };
-const StarRating = ({ filled: _filled }: { filled: number }) => {
+const StarRating = ({ filled: _filled, clickable = true }: { filled: number, clickable?: boolean }) => {
   const [isClicked, setIsClicked] = useState(_filled);
   const [filled, setFilled] = useState(_filled);
   const [isHovering, setIsHovering] = useState(0);
@@ -81,11 +82,12 @@ const StarRating = ({ filled: _filled }: { filled: number }) => {
       {[0, 1, 2, 3, 4].map((i) => (
         <motion.div
           className="star-wrapper"
-          // onMouseOver={() => setIsHovering(i)}
-          // onClick={() => {
-          //   setIsClicked(i + 1);
-          //   setFilled(i + 1);
-          // }}
+          onMouseOver={() => setIsHovering(i)}
+          onClick={() => {
+            if (!clickable) return;
+            setIsClicked(i + 1);
+            setFilled(i + 1);
+          }}
           key={i}
         >
           <Star
