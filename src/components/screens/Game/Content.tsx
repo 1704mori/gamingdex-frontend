@@ -1,30 +1,39 @@
 import { buildGameUrl, classes, displayImage } from "@/lib/helpers/common";
 import { IGame } from "@/lib/types/game";
 import { AnimatePresence, motion } from "framer-motion";
-import { EyeOff, Eye } from "lucide-react";
+import { EyeOff, Eye, Plus, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Character from "./Character";
 import Review from "./Review";
 import Staff from "./Staff";
 import { getRetailLogo } from "./utils";
+import Button from "@/components/Button";
+import CreateReviewModal from "./Modals/CreateReview";
 
 export default function Content({ game }: { game: IGame }) {
   const [showInfo, setShowInfo] = useState(true);
+  const [createReviewModal, setCreateReviewModal] = useState(false);
 
   const toggleInfo = () => setShowInfo(!showInfo);
 
   const router = useRouter();
 
   return (
-    <div className="flex flex-col gap-5">
-      <div className="flex justify-between items-center">
-        <h4 className="lg:hidden font-bold text-xl">Info</h4>
-        <button className="lg:hidden" onClick={toggleInfo}>
-          {!showInfo ? <EyeOff /> : <Eye />}
-        </button>
-      </div>
+    <>
+      <CreateReviewModal
+        open={createReviewModal}
+        close={() => setCreateReviewModal(false)}
+      />
+      <div className="flex flex-col gap-5">
+        <div className="flex justify-between items-center">
+          <h4 className="lg:hidden font-bold text-xl">Info</h4>
+          <button className="lg:hidden" onClick={toggleInfo}>
+            {!showInfo ? <EyeOff /> : <Eye />}
+          </button>
+        </div>
 
+        {/*
       <AnimatePresence>
         {showInfo ? (
           <motion.div
@@ -61,11 +70,6 @@ export default function Content({ game }: { game: IGame }) {
                             {developer.developer.name}
                           </span>
                         </div>
-                        {/* {i === 2 && (
-                          <button onClick={togglePublishers}>
-                            {showPublishers ? <Minus /> : <Plus />}
-                          </button>
-                        )} */}
                       </div>
                     ))}
                   </div>
@@ -100,11 +104,6 @@ export default function Content({ game }: { game: IGame }) {
                             {publisher.publisher.name}
                           </span>
                         </div>
-                        {/* {i === 2 && (
-                          <button onClick={togglePublishers}>
-                            {showPublishers ? <Minus /> : <Plus />}
-                          </button>
-                        )} */}
                       </div>
                     ))}
                   </div>
@@ -117,7 +116,6 @@ export default function Content({ game }: { game: IGame }) {
             <div className="flex flex-col lg:hidden gap-1">
               <span className="font-medium">Where to buy</span>
 
-              {/* horizontal scrollable flex div */}
               {game.retailLinks && game.retailLinks.length > 0 ? (
                 <div className="flex gap-2 overflow-x-auto">
                   {game.retailLinks.map((link) => (
@@ -151,7 +149,6 @@ export default function Content({ game }: { game: IGame }) {
       <div className="flex flex-col">
         <span className="font-medium">Characters</span>
 
-        {/* horizontal scrollable flex div */}
         {game.characters && game.characters.length > 0 ? (
           <div className="flex flex-col lg:grid lg:grid-cols-5 flex-wrap gap-3">
             <Character characters={game.characters} key={game.id} />
@@ -164,7 +161,6 @@ export default function Content({ game }: { game: IGame }) {
       <div className="flex flex-col">
         <span className="font-medium">Staff</span>
 
-        {/* horizontal scrollable flex div */}
         {game.staff && game.staff.length > 0 ? (
           <div className="flex flex-col lg:grid lg:grid-cols-5 flex-wrap gap-3">
             <Staff staff={game.staff} key={game.id} />
@@ -172,29 +168,34 @@ export default function Content({ game }: { game: IGame }) {
         ) : (
           <span>No staff ಥ_ಥ</span>
         )}
-      </div>
+      </div>*/}
 
-      <div className="flex flex-col">
-        <div className="flex items-center justify-between">
-          <span className="lg:text-lg font-medium">Reviews</span>
-          <button
+        <div className="flex flex-col">
+          <div className="flex items-center justify-between">
+            <span className="lg:text-lg font-medium">Reviews</span>
+            {/*<button
             type="button"
-            onClick={() =>
-              router.push(`${buildGameUrl(game)}/reviews`)
-            }
+            onClick={() => router.push(`${buildGameUrl(game)}/reviews`)}
           >
             View more
-          </button>
-        </div>
-
-        {game.reviews && game.reviews.length > 0 ? (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-            <Review reviews={game.reviews} key={game.id} />
+          </button>*/}
+            <Button
+              className="p-1"
+              onClick={() => setCreateReviewModal(!createReviewModal)}
+            >
+              <Plus size="16" />
+            </Button>
           </div>
-        ) : (
-          <span>No reviews ಥ_ಥ</span>
-        )}
+
+          {game.reviews && game.reviews.length > 0 ? (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+              <Review reviews={game.reviews} key={game.id} />
+            </div>
+          ) : (
+            <span>No reviews ಥ_ಥ</span>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
