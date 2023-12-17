@@ -1,10 +1,5 @@
 import { IBaseFilter } from "../types/api";
-import {
-  IGame,
-  IGameCharacter,
-  IGameStaff,
-  IReview,
-} from "../types/game";
+import { IGame, IGameCharacter, IGameStaff, IReview } from "../types/game";
 import { IList } from "../types/list";
 import { TGamingStatus } from "../types/user";
 import { del, get as apiGet, post, put } from "./api";
@@ -43,7 +38,7 @@ export async function getById(id: string, includes?: string[]) {
 
 export async function getReviews(
   id: string,
-  query?: Omit<Filter, "title" | "order" | "title">
+  query?: Omit<Filter, "title" | "order" | "title">,
 ) {
   const result = await apiGet<IReview[]>(`/game/${id}/reviews`, query);
 
@@ -54,11 +49,11 @@ export async function getCharacters(
   id: string,
   query?: Omit<Filter, "title" | "order"> & {
     search?: string;
-  }
+  },
 ) {
   const result = await apiGet<IGameCharacter[]>(
     `/game/${id}/characters`,
-    query
+    query,
   );
 
   return result?.data;
@@ -68,7 +63,7 @@ export async function getStaff(
   id: string,
   query?: Omit<Filter, "title" | "order"> & {
     search?: string;
-  }
+  },
 ) {
   const result = await apiGet<IGameStaff[]>(`/game/${id}/staff`, query);
 
@@ -84,13 +79,22 @@ export async function getListStatus(id: string) {
   return result?.data;
 }
 
-export async function addToMyList(
-  id: string,
-  status: TGamingStatus
-) {
+export async function addToMyList(id: string, status: TGamingStatus) {
   const result = await post(`/game/${id}/status`, {
     status,
   });
+
+  return result?.data;
+}
+
+export async function addToFavorites(id: string) {
+  const result = await post(`/game/${id}/favorite`);
+
+  return result?.data;
+}
+
+export async function removeFromFavorites(id: string) {
+  const result = await del(`/game/${id}/favorite`);
 
   return result?.data;
 }
@@ -100,7 +104,7 @@ export async function updateMyList(
   data: {
     status?: TGamingStatus;
     score?: number;
-  }
+  },
 ) {
   const result = await put(`/game/${id}/status`, data);
 
@@ -137,4 +141,6 @@ export const gameService = {
   updateMyList,
   removeFromMyList,
   lists,
+  addToFavorites,
+  removeFromFavorites,
 };
