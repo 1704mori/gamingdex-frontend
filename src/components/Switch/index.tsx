@@ -1,68 +1,28 @@
-import { classes } from "@/lib/helpers/common";
-import React from "react";
-import styled from "styled-components";
+"use client";
 
-interface Props extends React.HTMLAttributes<HTMLInputElement> {
-  checked: boolean;
-}
+import * as React from "react";
+import * as SwitchPrimitives from "@radix-ui/react-switch";
+import { cn } from "@/lib/helpers/common";
 
-const Container = styled.div`
-  .switch {
-    height: 0;
-    width: 0;
-    visibility: hidden;
-  }
+const Switch = React.forwardRef<
+  React.ElementRef<typeof SwitchPrimitives.Root>,
+  React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root>
+>(({ className, ...props }, ref) => (
+  <SwitchPrimitives.Root
+    className={cn(
+      "peer inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 bg-accent2",
+      className,
+    )}
+    {...props}
+    ref={ref}
+  >
+    <SwitchPrimitives.Thumb
+      className={cn(
+        "pointer-events-none block h-5 w-5 rounded-full bg-primary shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0 data-[state=checked]:bg-primary data-[state=unchecked]:bg-accent3",
+      )}
+    />
+  </SwitchPrimitives.Root>
+));
+Switch.displayName = SwitchPrimitives.Root.displayName;
 
-  .switch-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    width: 100px;
-    height: 50px;
-    background: grey;
-    border-radius: 100px;
-    position: relative;
-    transition: background-color 0.2s;
-  }
-
-  .switch-container .switch-btn {
-    content: "";
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 45px;
-    height: 45px;
-    border-radius: 45px;
-    transition: 0.2s;
-    background: #fff;
-    box-shadow: 0 0 2px 0 rgba(10, 10, 10, 0.29);
-  }
-
-  .switch:checked + .switch-container .switch-btn {
-    left: calc(100% - 2px);
-    transform: translateX(-100%);
-  }
-
-  .switch-container:active .switch-btn {
-    width: 60px;
-  }
-`;
-
-export default function Switch(props: Props) {
-  const { checked, onChange, className, ...rest } = props;
-
-  return (
-    <Container className="flex items-center">
-      <input
-        type="checkbox"
-        className={classes("switch h-5 w-9 rounded-full bg-gray-300", className)}
-        checked={checked}
-        onChange={onChange}
-      />
-      <div className="switch-container">
-        <div className="switch-btn"></div>
-      </div>
-    </Container>
-  );
-}
+export default Switch;
