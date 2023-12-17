@@ -59,20 +59,21 @@ const Modal = ({
 
   if (typeof window !== "object") return null;
 
-  const modalElement = document.getElementById("__next");
-
+  const modalElement = document.body;
   if (!modalElement) return null;
 
   return createPortal(
     <AnimatePresence>
       {modalOpen && (
         <Backdrop
-          className={classes(floatingTop || floatingBottom ? "flex flex-col" : "")}
+          className={classes(
+            floatingTop || floatingBottom ? "flex flex-col" : "",
+          )}
         >
           <div
             className={classes(
               "flex flex-col items-center justify-center px-3",
-              width
+              width,
             )}
             ref={backdropRef}
           >
@@ -93,7 +94,7 @@ const Modal = ({
         </Backdrop>
       )}
     </AnimatePresence>,
-    document.getElementById("__next")!
+    document.body,
   );
 };
 
