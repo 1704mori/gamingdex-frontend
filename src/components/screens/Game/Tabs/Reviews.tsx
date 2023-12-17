@@ -1,3 +1,4 @@
+"use client";
 import Pagination from "@/components/Pagination";
 import Uzumaki from "@/components/Uzumaki";
 import { gameService } from "@/lib/services/game";
@@ -21,11 +22,11 @@ export default function Reviews({ game }: { game: IGame }) {
       gameService.getReviews(game.id, {
         limit: 6,
         offset,
-				includes: ["user", "game"],
+        includes: ["user", "game"],
       }),
     {
       keepPreviousData: true,
-    }
+    },
   );
 
   const router = useRouter();
@@ -47,7 +48,7 @@ export default function Reviews({ game }: { game: IGame }) {
           </span>
         )}
       </>
-      {!isLoading && !reviews?.attributes.length && (
+      {!isLoading && (!reviews || !reviews?.attributes.length) && (
         <div className="flex flex-col items-center justify-center gap-2">
           <Search />
           <span className="font-medium text-base mx-auto">
