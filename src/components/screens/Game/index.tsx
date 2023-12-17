@@ -88,7 +88,7 @@ export default function Game({ game }: { game: IGame }) {
     {
       enabled: !!user,
       refetchOnWindowFocus: false,
-    }
+    },
   );
 
   const handleAddToMyList = async () => {
@@ -100,8 +100,8 @@ export default function Game({ game }: { game: IGame }) {
     await gameService.addToMyList(game.id, "playing");
     await refetchStatus();
     toast("Added to library", {
-      position: "bottom-left"
-    })
+      position: "bottom-left",
+    });
     // router.reload();
   };
 
@@ -109,7 +109,31 @@ export default function Game({ game }: { game: IGame }) {
     await gameService.removeFromMyList(game.id);
     await refetchStatus();
     toast("Removed from library", {
-      position: "bottom-left"
+      position: "bottom-left",
+    });
+  };
+
+  const handleAddToFavorites = async () => {
+    if (!user) {
+      router.push(ROUTES.login);
+      return;
+    }
+
+    await gameService.addToFavorites(game.id);
+    toast("Added to favorites", {
+      position: "bottom-left",
+    });
+  };
+
+  const handleRemoveFromFavorites = async () => {
+    if (!user) {
+      router.push(ROUTES.login);
+      return;
+    }
+
+    await gameService.removeFromFavorites(game.id);
+    toast("Removed from favorites", {
+      position: "bottom-left",
     });
   };
 
@@ -271,9 +295,9 @@ export default function Game({ game }: { game: IGame }) {
           <span className="font-medium">
             {game.reviews
               ? `${game.reviews.length} ${pluralize(
-                "review",
-                game.reviews.length
-              )}`
+                  "review",
+                  game.reviews.length,
+                )}`
               : "No reviews"}
           </span>
           <div className="flex items-center mt-auto">
@@ -316,7 +340,7 @@ export default function Game({ game }: { game: IGame }) {
                 "hidden lg:grid grid-cols-1 gap-2",
                 !isLoadingStatus || !status
                   ? "lg:grid-cols-[max-content_max-content_max-content_200px_100px_100px]"
-                  : "lg:grid-cols-[275px_max-content_200px_100px_100px]"
+                  : "lg:grid-cols-[275px_max-content_200px_100px_100px]",
               )}
             >
               {!status?.attributes.status ? (
@@ -336,9 +360,9 @@ export default function Game({ game }: { game: IGame }) {
                     onSelect={(value) => {
                       gameService.updateMyList(game.id, {
                         status: value as any,
-                      })
+                      });
                       toast("Status updated", {
-                        position: "bottom-left"
+                        position: "bottom-left",
                       });
                     }}
                     value={status?.attributes.status}
@@ -359,7 +383,7 @@ export default function Game({ game }: { game: IGame }) {
                         score: parseInt(value) as any,
                       });
                       toast("Score updated", {
-                        position: "bottom-left"
+                        position: "bottom-left",
                       });
                     }}
                     {...(status?.attributes.score && {
@@ -407,15 +431,17 @@ export default function Game({ game }: { game: IGame }) {
                         value: 10,
                         label: "Masterpiece",
                       },
-                    ].reverse().map((ii) => (
-                      <SelectItem key={ii.value} value={ii.value}>
-                        {ii.label} ({ii.value})
-                      </SelectItem>
-                    ))}
+                    ]
+                      .reverse()
+                      .map((ii) => (
+                        <SelectItem key={ii.value} value={ii.value}>
+                          {ii.label} ({ii.value})
+                        </SelectItem>
+                      ))}
                   </Select>
                 </div>
               )}
-              <Button color="pink">
+              <Button onClick={handleAddToFavorites} color="pink">
                 <Star />
               </Button>
               {status?.attributes.status && (
@@ -473,6 +499,7 @@ export default function Game({ game }: { game: IGame }) {
               Overview
             </Button>
             <Button
+              disabled
               type="button"
               color={params?.get("tab") === "characters" ? "primary" : "accent"}
               size="medium"
@@ -486,6 +513,7 @@ export default function Game({ game }: { game: IGame }) {
               Characters
             </Button>
             <Button
+              disabled
               size="medium"
               type="button"
               color={params?.get("tab") === "staff" ? "primary" : "accent"}
@@ -499,6 +527,7 @@ export default function Game({ game }: { game: IGame }) {
               Staff
             </Button>
             <Button
+              disabled
               size="medium"
               type="button"
               color={params?.get("tab") === "reviews" ? "primary" : "accent"}
@@ -544,9 +573,9 @@ export default function Game({ game }: { game: IGame }) {
             </div>
           )}
 
-          {params?.get("tab") === "characters" && <Characters game={game} />}
-          {params?.get("tab") === "staff" && <Staff game={game} />}
-          {params?.get("tab") === "reviews" && <Reviews game={game} />}
+          {/*}{params?.get("tab") === "characters" && <Characters game={game} />}*/}
+          {/*{params?.get("tab") === "staff" && <Staff game={game} />}*/}
+          {/*{params?.get("tab") === "reviews" && <Reviews game={game} />}*/}
         </div>
       </div>
     </div>
