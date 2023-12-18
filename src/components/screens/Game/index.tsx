@@ -138,7 +138,7 @@ export default function Game({ game }: { game: IGame }) {
   };
 
   return (
-    <div className="flex gap-3 max-lg:flex-col w-full max-w-7xl items-start mb-auto lg:mt-12 lg:px-2">
+    <div className="flex gap-3 max-lg:flex-col w-full max-w-7xl items-start mb-auto lg:mt-24 lg:px-2">
       <ListModal
         closeListModal={closeListModal}
         showListModal={showListModal}
@@ -147,7 +147,7 @@ export default function Game({ game }: { game: IGame }) {
       />
       <div className="hidden lg:block absolute left-0 top-0 w-full">
         <div
-            className="w-full h-[22rem] bg-cover bg-center bg-no-repeat after:absolute after:left-0 after:top-0 after:h-full after:w-full after:pointer-events-none after:bg-gradient-to-b after:from-transparent after:via-transparent after:to-background after:backdrop-blur-sm"
+            className="w-full h-96 bg-cover bg-center bg-no-repeat after:absolute after:left-0 after:top-0 after:h-full after:w-full after:pointer-events-none before:absolute before:inset-0 before:bg-gradient-to-b before:from-black/30 before:to-transparent after:bg-gradient-to-b after:from-transparent after:via-transparent after:to-background after:from-75% after:backdrop-blur-sm"
           style={{
             backgroundImage: `url(${displayImage(game.cover)})`,
           }}
