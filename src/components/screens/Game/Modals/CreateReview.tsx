@@ -72,8 +72,8 @@ export default function CreateReviewModal({ open, close }: Props) {
         ) : (
           <>
             <span>
-              You're closing this review without saving. Do you want to save it
-              as a draft?
+              You{"'"}re closing this review without saving. Do you want to save
+              it as a draft?
             </span>
             <span className="text-sm opacity-70">
               If you opt to save it as a draft, when you come back write a
