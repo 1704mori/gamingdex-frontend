@@ -145,9 +145,9 @@ export default function Game({ game }: { game: IGame }) {
         game={game}
         key={game.id}
       />
-      <div className="hidden lg:block absolute h-[21rem] left-0 top-0 w-full">
+      <div className="hidden lg:block absolute left-0 top-0 w-full">
         <div
-          className=" w-full h-72 bg-cover bg-center bg-no-repeat after:absolute after:left-0 after:top-0 after:h-full after:w-full after:pointer-events-none after:bg-gradient-to-b after:from-black/50 after:to-transparent after:backdrop-blur-sm"
+            className="w-full h-[22rem] bg-cover bg-center bg-no-repeat after:absolute after:left-0 after:top-0 after:h-full after:w-full after:pointer-events-none after:bg-gradient-to-b after:from-transparent after:via-transparent after:to-background after:backdrop-blur-sm"
           style={{
             backgroundImage: `url(${displayImage(game.cover)})`,
           }}
