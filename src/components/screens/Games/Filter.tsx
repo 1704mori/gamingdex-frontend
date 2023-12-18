@@ -126,7 +126,7 @@ export default function Filter() {
                   <SelectItem value="title_desc">Title Z-A</SelectItem>
                   <SelectItem value="score_asc">Score Ascending</SelectItem>
                   <SelectItem value="score_desc">Score Descending</SelectItem>
-                  <SelectItem value="createdAt_at">Recently Added</SelectItem>
+                  <SelectItem value="createdAt_desc">Recently Added</SelectItem>
                 </Select>
               </div>
             </div>
