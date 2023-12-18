@@ -91,7 +91,7 @@ export default function Games() {
                       alt={game.title}
                     />
                   </Link>
-                  <div className="flex items-start justify-between absolute opacity-100 top-0 lg:opacity-0 lg:-top-8 group-hover:opacity-100 group-hover:top-0 group-hover:h-32 transition-all ease-in-out w-full p-2 bg-gradient-to-b from-black to-transparent rounded-t-md">
+                  <div className="flex items-start justify-between absolute opacity-100 top-0 lg:opacity-0 lg:-top-8 group-hover:opacity-100 group-hover:top-0 transition-all ease-in-out w-full p-2 bg-transparent bg-gradient-to-t from-transparent to-black to-80% rounded-t-md">
                     <div className="inline-flex justify-center items-center text-xs w-6 h-6 bg-primary rounded-full cursor-pointer">
                       {game?.score ?? "?"}
                     </div>
@@ -100,7 +100,7 @@ export default function Games() {
                       // onClick={() => alert("alo")}
                       className="inline-flex justify-center items-center w-6 h-6 bg-accent border border-accent3 rounded-full cursor-pointer"
                     >
-                      <Plus width="1.3em" />
+                      <Plus width="1em" />
                     </div>
                   </div>
                 </div>
