@@ -86,13 +86,14 @@ a {
   // --accent4: hsl(var(--hue) 15% 75%);
   // --text: hsl(var(--hue) 15% 20%);
 
-
   --background: hsl(0 0% 10%) !important;
   --accent: hsl(0 0% 16%) !important;
   --accent2: hsl(0 0% 22%) !important;
   --accent3: hsl(0 0% 28%) !important;
   --accent4: hsl(0 0% 34%) !important;
   --text: hsl(0 15% 100%) !important;
+
+  --disabled: hsl(0 0% 15%);
 
   --status-red: #ff4040;
   --status-green: #04d000;

@@ -19,6 +19,7 @@ module.exports = {
         primary: "var(--primary)",
         primary2: "var(--primary2)",
         primary3: "var(--primary3)",
+        disabled: "var(--disabled)",
         text: "var(--text)",
         "status-red": "var(--status-red)",
         "status-green": "var(--status-green)",
